@@ -36,7 +36,15 @@
       <section class="container">
         <div class="left">
           <section class="up">
-            <div class="id">${loginMember.memberNickname}</div>
+            <a href="/feed/${loginMember.memberNickname}" class="profile-area">
+              <c:if test="${not empty loginMember.memberProfileImg}">
+                <img src="${loginMember.memberProfileImg}" class="profile-image">
+              </c:if>
+              <c:if test="${empty loginMember.memberProfileImg}">
+                <img src="/resources/images/profile/profile.jpg" class="profile-image">
+              </c:if>
+              <div class="id">${loginMember.memberNickname}</div>
+            </a>
             <!-- 로그인 연결 -->
             <button id="dmOpen">  
               <img
@@ -44,8 +52,6 @@
                 name="dm-message"
                 style="width: 24px"
                 /></button>
-
-            
           </section>
           <section class="down">
             <ul class="dm-list">
@@ -56,21 +62,22 @@
                       <img class="target-profile" src="${room.targetProfile}">
                     </c:if>
                     <c:if test="${empty room.targetProfile}">
-                      <img class="target-profile" src="/resources/images/user.jpg">
+                      <img class="target-profile" src="/resources/images/profile/profile.jpg">
                     </c:if>
                   </div>
                   <div class="item-body">
-                    <p>
-                      <span class="target-name">${room.targetNickName}</span>
-                      <span class="recent-send-time">${room.sendTime}</span>
-                    </p>
-                  </div>  
-                  <div>
+                    <div class="item-body-left">
+                      <div class="item-body-up">
+                        <span class="target-name">${room.targetNickName}</span>
+                        <span class="recent-send-time">${room.sendTime}</span>
+                      </div>
                       <p class="recent-message">${room.lastMessage}</p>
-      
+                    </div>
+                    <span class="item-body-right">
                       <c:if test="${room.notReadCount > 0}">
                         <p class="not-read-count">${room.notReadCount}</p>
                       </c:if>
+                    </span>
                   </div>
                 </li>
               </c:forEach>
@@ -89,7 +96,7 @@
             </button>
           </div>  
           
-           <%-- 클릭되었을때  --%>
+          <%-- 클릭되었을때  --%>
           <div id="click">
             <div id="clickUp">
               <button id="proImg">
@@ -123,6 +130,8 @@
     </main>
     <!-- 푸터 -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+    
+    <!-- dm 모달창 -->
     <jsp:include page="/WEB-INF/views/dm/dm-message.jsp"/>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -145,5 +154,6 @@
     <script src="/resources/js/dm/dm.js"></script>
     <script src="/resources/js/newpost.js"></script>
     <script src="/resources/js/boardWriteUpdate.js"></script>
+    <script src="/resources/js/common/common.js"></script>
   </body>
 </html>

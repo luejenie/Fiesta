@@ -6,6 +6,8 @@ const click = document.getElementById("click");
 const message = document.getElementById("dm-message");
 const dmMenu = document.getElementsByClassName("feed-menu-container")[0];
 const sendMessageBtn = document.getElementById("sendMessageBtn");
+const chatModal = document.getElementById("chatModal");
+
 
 document.addEventListener("DOMContentLoaded", ()=>{
 
@@ -24,7 +26,7 @@ sendMessageBtn.addEventListener("click", ()=>{
 
 
 const proImg = document.getElementById("proImg")
-const nextBtn = document.getElementById("nextBtn");
+const nextButton = document.getElementById("nextButton");
 const messageName = document.getElementById("messageName");
 
 
@@ -38,6 +40,9 @@ const recipient = document.getElementById("Recipient");
 // 받는 사람에 입력 있을시
 const sendPeople = document.getElementById("sendPeople");
 sendPeople.addEventListener("input", ()=>{
+
+  recipient.innerHTML = "";
+  memberListArea.innerHTML = "";
   
   $.ajax({  
     url: "/dm/selectMember",
@@ -114,13 +119,17 @@ sendPeople.addEventListener("input", ()=>{
 
 
 // 다음 클릭
-nextBtn.addEventListener("click", () => {
-  
+nextButton.addEventListener("click", () => {
+  chatModal.style.display = "none";
+
+  console.log(targetNo);
+
   $.ajax({
     url: "/dm/enter",
     data: { "targetNo": targetNo },
     dataType: "json",
     success: (map) => {
+      console.log("되는건가?");
       console.log(map);
 
       const messageList = map.messageList;
@@ -129,18 +138,23 @@ nextBtn.addEventListener("click", () => {
       targetNo = map.targetNo;
       chattingNo = map.chattingNo;
 
-      if (messageList.length > 0) {
+      // roomListAddEvent();
+      selectChattingFn();
 
 
-        // 메세지가 존재하면 화면에 출력
-        for (let message of messageList) {
 
-          // 메세지 출력구문
+//       if (messageList.length > 0) {
+// // 
+
+//         // 메세지가 존재하면 화면에 출력
+//         // for (let message of messageList) {
+
+//         //   // 메세지 출력구문
 
 
           
-        }
-      }
+//         // }
+//       // }
 
     },
     error: () => {
@@ -185,6 +199,8 @@ let selectTargetProfile;
 
 let chattingSock;
 
+// 로그인이 되어 있을 경우에만
+// /chattingSock 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
 if(loginMemberNo != ""){
 	chattingSock = new SockJS("/chattingSock");
 }
@@ -214,6 +230,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 const dmArea = document.getElementsByClassName("dm-area")[0];
 
+//optimize: 채팅방 목록에 이벤트를 추가하는 함수
 const roomListAddEvent = () =>{
   const chattingItemList = document.getElementsByClassName("dm-item");
 
@@ -243,7 +260,10 @@ const roomListAddEvent = () =>{
 }
 
 const chatProfile = document.getElementById("chatProfile");
+
+// 비동기로 메세지 목록을 조회하는 함수
 const selectChattingFn = () =>{
+  console.log(selectChattingNo);
 
   $.ajax({
     url : "/dm/selectMessage",
@@ -303,6 +323,7 @@ const selectChattingFn = () =>{
  
 }
 
+// 비동기로 채팅방 목록 조회
 const selectRoomList = () =>{
   $.ajax({
     url : "/dm/roomList",
@@ -398,7 +419,7 @@ const selectRoomList = () =>{
 
 }
 
-
+// 채팅 입력
 const sendMessage = () =>{
   const chattingInput = document.getElementById("chattingInput");
   console.log(selectTargetNo);
@@ -431,8 +452,7 @@ chattingInput.addEventListener("keyup", e=>{
 
 const chattingRoom = document.getElementById("chattingRoom");
 
-
-
+// WebSocket 객체 chattingSock이 서버로 부터 메세지를 통지 받으면 자동으로 실행될 콜백 함수
 chattingSock.onmessage = function(e){
   const msg = JSON.parse(e.data);
 
