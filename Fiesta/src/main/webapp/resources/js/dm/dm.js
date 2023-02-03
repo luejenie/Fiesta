@@ -41,9 +41,6 @@ const recipient = document.getElementById("Recipient");
 const sendPeople = document.getElementById("sendPeople");
 sendPeople.addEventListener("input", ()=>{
 
-  recipient.innerHTML = "";
-  memberListArea.innerHTML = "";
-  
   $.ajax({  
     url: "/dm/selectMember",
     data: {"memberNickname": sendPeople.value},
@@ -116,9 +113,17 @@ sendPeople.addEventListener("input", ()=>{
 
 
 
+// 선택한 채팅방 번호를 저장하기 위한 전역변수
+let selectChattingNo;
+let selectTargetNo;
+let selectTargetName;
+let selectTargetProfile;
+
+let chattingSock;
 
 
-// 다음 클릭
+
+//fixme 다음 클릭
 nextButton.addEventListener("click", () => {
   chatModal.style.display = "none";
 
@@ -135,26 +140,26 @@ nextButton.addEventListener("click", () => {
       const messageList = map.messageList;
 
       // 전역변수 targetNo에 타겟넘버 저장
-      targetNo = map.targetNo;
-      chattingNo = map.chattingNo;
+      selectTargetNo = map.targetNo;
+      selectChattingNo = map.chattingNo;
 
-      // roomListAddEvent();
-      selectChattingFn();
+      selectRoomList(); 
 
-
-
-//       if (messageList.length > 0) {
-// // 
-
-//         // 메세지가 존재하면 화면에 출력
-//         // for (let message of messageList) {
-
-//         //   // 메세지 출력구문
-
-
-          
-//         // }
-//       // }
+      if(tempNo != ""){
+        const chattingItemList = document.getElementsByClassName("dm-item");
+    
+        for(let item of chattingItemList){
+    
+          const id= item.getAttribute("id");  
+          const arr = id.split("-");
+    
+          if(arr[0] == tempNo){
+            item.click();
+            break;
+          }
+        }
+    
+      }
 
     },
     error: () => {
@@ -190,14 +195,6 @@ x.addEventListener("click", ()=>{
 })
 
 
-let selectChattingNo;
-let selectTargetNo;
-
-let selectTargetName;
-let selectTargetProfile;
-
-
-let chattingSock;
 
 // 로그인이 되어 있을 경우에만
 // /chattingSock 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
@@ -259,6 +256,7 @@ const roomListAddEvent = () =>{
   }
 }
 
+
 const chatProfile = document.getElementById("chatProfile");
 
 // 비동기로 메세지 목록을 조회하는 함수
@@ -302,7 +300,7 @@ const selectChattingFn = () =>{
           img.setAttribute("src", selectTargetProfile);
 
           const div = document.createElement("div");
-          
+
           const b = document.createElement("b");
           b.innerText = selectTargetName;
 
@@ -348,10 +346,10 @@ const selectRoomList = () =>{
         itemHeader.classList.add("item-header");
 
         const listProfile = document.createElement("img");
-        listProfile.classList.add("list-profile");
+        listProfile.classList.add("target-profile");
 
         if(room.targetProfile == undefined){
-          listProfile.setAttribute("src", "/resources/images/user.jpg");
+          listProfile.setAttribute("src", "/resources/images/profile/profile.jpg");
         } else{
           listProfile.setAttribute("src", room.targetProfile);
         }
@@ -361,7 +359,11 @@ const selectRoomList = () =>{
         const itemBody = document.createElement("div");
         itemBody.classList.add("item-body");
 
-        const p = document.createElement("p");
+        const itemBodyLeft = document.createElement("div");
+        itemBodyLeft.classList.add("item-body-left");
+
+        const itemBodyUp = document.createElement("div");
+        itemBodyUp.classList.add("item-body-up");
 
         const targetName = document.createElement("span");
         targetName.classList.add("target-name");
@@ -371,8 +373,7 @@ const selectRoomList = () =>{
         recentSendTime.classList.add("recent-send-time");
         recentSendTime.innerText = room.sendTime;
 
-        
-        const div = document.createElement("div");
+        itemBodyUp.append(targetName, recentSendTime);
         
         const recentMessage = document.createElement("p");
         recentMessage.classList.add("recent-message");
@@ -381,20 +382,20 @@ const selectRoomList = () =>{
           recentMessage.innerHTML = room.lastMessage;
         }
         
-        p.append(targetName, recentSendTime, recentMessage);
-        // div.append(recentMessage);
-        
-        itemBody.append(p);
+        itemBodyLeft.append(itemBodyUp, recentMessage);
 
+
+        const itemBodyRight = document.createElement("span");
+        itemBodyRight.classList.add("item-body-right");
 
         if(room.notReadCount > 0 && room.chattingNo != selectChattingNo){
 
           const notReadCount = document.createElement("p");
           notReadCount.classList.add("not-read-count");
           notReadCount.innerText = room.notReadCount;
-          div.append(notReadCount);
-          } else{
+          itemBodyRight.append(notReadCount);
 
+        } else{
             $.ajax({
               url : "/dm/updateReadFlag",
               data : {"chattingNo" : selectChattingNo, "memberNo" : loginMemberNo},
@@ -408,12 +409,13 @@ const selectRoomList = () =>{
             })
           }
 
+        itemBody.append(itemBodyLeft, itemBodyRight);
         li.append(itemHeader, itemBody);
         chattingList.append(li);
 
       }
       roomListAddEvent();
-      selectRoomList();
+      // selectRoomList();
     }
   })
 
