@@ -60,4 +60,11 @@ public class DmServiceImple implements DmService{
 	}
 
 	
+	// 채팅방 생성 시 프로필 정보 조회
+	@Override
+	public Member selectTargetProfile(int targetNo) {
+		return dao.selectTargetProfile(targetNo);
+	}
+	
+	
 }

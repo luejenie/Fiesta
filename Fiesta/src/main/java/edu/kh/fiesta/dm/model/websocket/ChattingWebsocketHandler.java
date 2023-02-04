@@ -66,7 +66,10 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
 	if(result > 0) {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy,MM.dd hh:mm");
-		msg.setSendDate(sdf.format(new Date()));
+		msg.setChatSendDate(sdf.format(new Date()));
+		
+		SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");
+		msg.setChatSendTime(sdf2.format(new Date()));
 		// msg 객체(채팅방번호, 대상번호, 내용, 보낸사람 번호, 보낸 시간)
 		// -> JSON으로 변환
 		// -> 로그인한 회원 중 

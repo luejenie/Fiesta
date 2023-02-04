@@ -68,17 +68,16 @@ public class DmController {
         	
         	// 새로운 채팅방 생성 후 채팅방 번호 반환
             chattingNo = service.createChattingRoom(map);
-
+            
         // 채팅방이 존재할 때
         } else {
         	
         	// 메세지 내용 가져와서 반환
         	List<Message> messageList = service.selectMessageList(chattingNo);
         	map.put("messageList", messageList);
+        	
         }
         
-        
-
         map.put("chattingNo", chattingNo);
                 
         ra.addFlashAttribute("chattingNo", chattingNo);
@@ -111,15 +110,14 @@ public class DmController {
 	// 메세지 화면 비동기 조회
 	@GetMapping("/selectMessage")
 	@ResponseBody
-	public String selectMessageList(@RequestParam(value="chattingNo", required=false, defaultValue="0") int chattingNo) {
+	public String selectMessageList(@RequestParam(value="chattingNo", required=false, defaultValue="0") int chattingNo,
+									int targetNo) {
 		
 		List<Message> messageList = service.selectMessageList(chattingNo);
 		
 		return new Gson().toJson(messageList);
-		
 	}
-	
-	
+
 	
 	// 읽음 여부 비동기 조회
 	@GetMapping("/updateReadFlag")
@@ -139,5 +137,16 @@ public class DmController {
 		return result;
 	}
 
+	
+	
+	// 채팅창 프로필 조회
+	@GetMapping("/selectChattingProfile")
+	@ResponseBody
+	public String selectChattingProfile(int targetNo) {
+		 Member targetProfile = service.selectTargetProfile(targetNo);
+		 
+		 return new Gson().toJson(targetProfile);
+	}
+	
 	
 }

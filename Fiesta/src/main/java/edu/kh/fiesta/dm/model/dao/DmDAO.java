@@ -64,6 +64,15 @@ public class DmDAO {
 		return sqlSession.selectOne("dmMapper.selectNumber", memberNickname);
 	}
 
+ 
+	/** 채팅방 생성 시 프로필 정보 조회
+	 * @param chattingNo
+	 * @return profileList
+	 */
+	public Member selectTargetProfile(int targetNo) {
+		return sqlSession.selectOne("dmMapper.selectTargetProfile", targetNo);
+	}
+
 	
 
 }

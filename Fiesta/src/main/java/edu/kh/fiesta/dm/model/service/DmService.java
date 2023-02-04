@@ -29,6 +29,15 @@ public interface DmService {
 
 	int selectNumber(String memberNickname);
 
+	
+	
+	/** 채팅방 생성 시 프로필 정보 조회
+	 * @param targetNo
+	 * @param loginMemberNo
+	 * @return profileList
+	 */
+	Member selectTargetProfile(int targetNo);
+
 
 	
 }

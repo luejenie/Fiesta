@@ -27,7 +27,7 @@
         </div>
         <div class="feedMenu2">
           <div>  
-            <h4 id="rece">받는 사람 :</h4>
+            <h4 id="rece">받는 사람 : </h4>
             <span id="Recipient"></span>
           </div>  
           <div>

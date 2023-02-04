@@ -15,6 +15,7 @@ public class Message {
     private int senderNo;
     private int targetNo;
     private int chattingNo;
-    private String sendDate;	
+    private String chatSendDate;	
+    private String chatSendTime;
 	
 }
