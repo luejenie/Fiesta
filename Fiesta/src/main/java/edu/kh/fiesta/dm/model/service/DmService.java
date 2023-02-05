@@ -13,7 +13,7 @@ public interface DmService {
 	 * @param memberNickname
 	 * @return memberList
 	 */
-	List<Member> selectMember(String memberNickname);
+	List<Member> selectMember(Map<String, Object> paramMap);
 
 	int checkChattingNo(Map<String, Object> map);
 
@@ -37,6 +37,12 @@ public interface DmService {
 	 * @return profileList
 	 */
 	Member selectTargetProfile(int targetNo);
+
+	/** 채팅방 나가기(채팅방 지우기)
+	 * @param chattingNo
+	 * @return 
+	 */
+	int deleteRoom(int chattingNo);
 
 
 	

@@ -17,5 +17,6 @@ public class Message {
     private int chattingNo;
     private String chatSendDate;	
     private String chatSendTime;
+    private int dateRank;
 	
 }

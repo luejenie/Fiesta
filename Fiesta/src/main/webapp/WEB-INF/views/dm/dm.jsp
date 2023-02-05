@@ -99,6 +99,7 @@
           <%-- 클릭되었을때  --%>
           <div id="click">
             <div id="clickUp">
+              <!-- <div> -->
               <!-- <a href="/feed/${room.memberNickname}" id="proImg">
                 <c:if test="${not empty room.targetProfile}">
                   <img id="chatProfile" src="${room.targetProfile}" style="width: 50px;">
@@ -109,6 +110,7 @@
               </a>
               <div class="messageName" id="messageName"> test</div>
               <button id="info"><img src="/resources/images/info.png" style="width:24px;"></button> -->
+              <!-- </div> -->
             </div>
 
             <div id="chattingRoom">

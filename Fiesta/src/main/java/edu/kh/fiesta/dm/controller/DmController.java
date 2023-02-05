@@ -41,9 +41,15 @@ public class DmController {
 	// 모달 받는 사람 회원 목록 비동기 조회
 	@GetMapping("/selectMember")
 	@ResponseBody
-	public String selectMember(String memberNickname) {
+	public String selectMember(String memberNickname, @SessionAttribute(value="loginMember") Member loginMember) {
 		
-		List<Member> memberList = service.selectMember(memberNickname);
+		int loginMemberNo = loginMember.getMemberNo();
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("loginMemberNo", loginMemberNo);
+		paramMap.put("memberNickname", memberNickname);
+		
+		List<Member> memberList = service.selectMember(paramMap);
 		return new Gson().toJson(memberList);
 	}
 	
@@ -148,5 +154,12 @@ public class DmController {
 		 return new Gson().toJson(targetProfile);
 	}
 	
+	
+	// 채팅방 나가기(채팅방 지우기)
+	@GetMapping("/deleteRoom")
+	@ResponseBody
+	public int deleteRoom(@RequestParam(value="chattingNo", required=false, defaultValue="0") int chattingNo) {
+		return service.deleteRoom(chattingNo);
+	}
 	
 }

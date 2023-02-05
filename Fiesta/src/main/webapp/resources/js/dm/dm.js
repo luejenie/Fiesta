@@ -58,12 +58,15 @@ x.addEventListener("click", ()=>{
   dmMenu.style.display = "none";
 })
 
+const dmContainer = document.getElementById("chatModal");
+window.addEventListener('click', (e) => {
+   // DM 모달창 밖 클릭 시 닫힘
+   e.target === dmContainer ? dmContainer.style.display = 'none' : false
+});
 
 
 
-
-// 받는 사람에 입력 있을시
-
+// 모달) 받는 사람에 입력 있을시
 sendPeople.addEventListener("input", ()=>{
 
   $.ajax({  
@@ -106,8 +109,6 @@ sendPeople.addEventListener("input", ()=>{
 
 
         li.addEventListener("click", e => {
-
-
           targetNo = member.memberNo;
 
           recipient.innerText = "";  
@@ -116,22 +117,7 @@ sendPeople.addEventListener("input", ()=>{
           recipient.style.backgroundColor = "rgba(221, 64, 50, 0.3)";
           
           sendPeople.value = "";
-          
-          
-          
-          // $.ajax({
-          //   url : "/dm/enter",
-          //   data : {"targetNo" : item.children[0].value},
-          //   dataType:"JSON",
-          //   success : ()=>{
-          //     console.log("성공");
-          //   }
-  
-          // });
-
         })
-
-          
       }
     },
     error: ()=>{
@@ -155,8 +141,6 @@ let chattingSock;
 //fixme 다음 클릭
 nextButton.addEventListener("click", () => {
   chatModal.style.display = "none";
-
-  console.log(targetNo);
 
   $.ajax({
     url: "/dm/enter",
@@ -188,16 +172,13 @@ nextButton.addEventListener("click", () => {
             break;
           }
         }
-    
       }
-
     },
     error: () => {
       console.log("채팅방 입장에러");
     }
     
   })
-
 
   dmMenu.style.display = "none";
   noClick.style.display = "none";
@@ -217,11 +198,11 @@ if(loginMemberNo != ""){
 	chattingSock = new SockJS("/chattingSock");
 }
 
+
 document.addEventListener("DOMContentLoaded", ()=>{
 
-  roomListAddEvent();
-
-  //  send.addEventListener("click", sendMessage);
+  // roomListAddEvent();
+  selectRoomList();
 
   if(tempNo != ""){
     const chattingItemList = document.getElementsByClassName("dm-item");
@@ -240,6 +221,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
   }
 })
 
+
+
 const dmArea = document.getElementsByClassName("dm-area")[0];
 
 //optimize: 채팅방 목록에 이벤트를 추가하는 함수
@@ -252,7 +235,7 @@ const roomListAddEvent = () =>{
       const id = item.getAttribute("id");
       const arr = id.split("-");
 
-      selectChattingNo = arr[0]
+      selectChattingNo = arr[0];
       selectTargetNo = arr[1];
       selectTargetProfile = item.children[0].children[0].getAttribute("src");
       selectTargetName = item.children[1].children[0].children[0].children[0].innerText;
@@ -266,6 +249,7 @@ const roomListAddEvent = () =>{
       item.classList.add("select")
 
       selectChattingFn();
+      updateReadFlag();
 
     });
   }
@@ -273,7 +257,7 @@ const roomListAddEvent = () =>{
 
 
 const chatProfile = document.getElementById("chatProfile");
-// 비동기로 채팅창 프로필 조회하는함수
+//optimize 비동기로 채팅창 프로필 조회하는함수
 const selectChattingProfile = () => {
   $.ajax({
     url : "/dm/selectChattingProfile",
@@ -287,7 +271,8 @@ const selectChattingProfile = () => {
       const clickUp = document.getElementById("clickUp");
       clickUp.innerHTML = "";
 
-      console.log("selectTargetName : " + targetProfile.memberNickname);
+      const divProfile = document.createElement("div");
+      divProfile.className = "profile-div"
 
       const aProImg = document.createElement("a");
       aProImg.setAttribute("href", "/feed/" + targetProfile.memberNickname);
@@ -319,7 +304,8 @@ const selectChattingProfile = () => {
 
       buttonInfo.append(imgInfo);
 
-      clickUp.append(aProImg, messageName, buttonInfo);
+      divProfile.append(aProImg, messageName, buttonInfo);
+      clickUp.append(divProfile);
     }, 
     error: () => {
       console.log("채팅창 프로필 조회 실패");
@@ -333,13 +319,13 @@ const selectChattingProfile = () => {
 
 
 
-// 비동기로 메세지 목록을 조회하는 함수
+//optimize 비동기로 메세지 목록을 조회하는 함수
 const selectChattingFn = () =>{
-  console.log("메세지 목록 조회");
-
+  
   noClick.style.display = "none";
   click.style.display = "flex";
 
+    
   selectChattingProfile();
 
   $.ajax({
@@ -347,15 +333,21 @@ const selectChattingFn = () =>{
     data:{"chattingNo" : selectChattingNo, "targetNo": selectTargetNo},
     dataType : "JSON",
     success : (messageList) =>{
-
       const ul = document.querySelector(".dm-area");
       ul.innerHTML = "";
 
       // 메세지 내역 조회
       for(let msg of messageList){
-        // messageName.innerText = selectTargetName;
-        // chatProfile.setAttribute("src", selectTargetProfile);
-  
+        const sendDate = document.createElement("div");
+
+        // 하루 날짜
+        if(msg.dateRank == 1){
+          sendDate.classList.add("chat-date");
+          sendDate.innerText = msg.chatSendDate;
+        } else {
+          sendDate.innerText = "";
+        }
+
         const li = document.createElement("li");
 
         const span = document.createElement("span");
@@ -367,11 +359,13 @@ const selectChattingFn = () =>{
         p.innerHTML = msg.messageContent;
 
         if(loginMemberNo == msg.senderNo){
+          p.classList.add("my-message");
           li.classList.add("my-chat");
 
           li.append(span, p);
 
         } else{
+          p.classList.add("your-message");
           li.classList.add("target-chat");
 
           const img = document.createElement("img");
@@ -391,8 +385,9 @@ const selectChattingFn = () =>{
           div.append(br,p,span);
           li.append(img,div);
         }
-        ul.append(li);
-        dmArea.scrollTop = dmArea.scrollHeight;
+        
+        ul.append(sendDate, li);
+        chattingRoom.scrollTop = chattingRoom.scrollHeight;
       }
 
     },
@@ -400,10 +395,13 @@ const selectChattingFn = () =>{
         console.log("메시지 목록 조회 실패");}      
       
   })
+
+  selectRoomList();
  
 }
 
-// 비동기로 채팅방 목록 조회
+
+//optimize 비동기로 채팅방 목록 조회
 const selectRoomList = () =>{
   $.ajax({
     url : "/dm/roomList",
@@ -462,34 +460,29 @@ const selectRoomList = () =>{
         
         if(room.lastMessage != undefined){
           recentMessage.innerHTML = room.lastMessage;
+        } else {
+           //fixme 메시지 없으면 채팅목록에서 지우기
+          // 채팅창 없애기_ 채팅창 del_flag 없으니 그냥 delete하는 걸로..
+          deleteRoom();
         }
-        
+
         itemBodyLeft.append(itemBodyUp, recentMessage);
 
 
         const itemBodyRight = document.createElement("span");
         itemBodyRight.classList.add("item-body-right");
+ 
 
+   
         if(room.notReadCount > 0 && room.chattingNo != selectChattingNo){
-
           const notReadCount = document.createElement("p");
           notReadCount.classList.add("not-read-count");
           notReadCount.innerText = room.notReadCount;
           itemBodyRight.append(notReadCount);
 
         } else{
-            $.ajax({
-              url : "/dm/updateReadFlag",
-              data : {"chattingNo" : selectChattingNo, "memberNo" : loginMemberNo},
-              type:"GET",
-              success : result => {
-                console.log(result);
-              },
-              error : () => {
-                console.log("실패");
-              }
-            })
-          }
+          updateReadFlag();
+        }
 
         itemBody.append(itemBodyLeft, itemBodyRight);
         li.append(itemHeader, itemBody);
@@ -500,8 +493,40 @@ const selectRoomList = () =>{
       // selectRoomList();
     }
   })
-
 }
+
+
+// 채팅 목록에서 readCount 없애기
+const updateReadFlag = () =>{
+  $.ajax({
+    url : "/dm/updateReadFlag",
+    data : {"chattingNo" : selectChattingNo, "memberNo" : loginMemberNo},
+    type:"GET",
+    success : result => {
+      console.log(result);
+    },
+    error : () => {
+      console.log("실패");
+    }
+  })
+}
+
+
+// 채팅방 나가기 (채팅 내용 없는 채팅창 없애기)
+const deleteRoom = () => {
+  $.ajax({
+    url: "/dm/deleteRoom",
+    data: {"chattingNo" : selectChattingNo},
+    type: "GET",
+    sucess: () => {
+      console.log("채팅방 나가기");
+    }, error : () => { console.log("채팅방 삭제 실패"); }
+  })
+}
+
+
+
+
 
 // 채팅 입력
 const sendMessage = () =>{

@@ -24,6 +24,7 @@
       <result property="chattingNo" column="CHATTING_NO" />
       <result property="chatSendDate" column="CHAT_SEND_DATE" />
       <result property="chatSendTime" column="CHAT_SEND_TIME" />
+      <result property="dateRank" column="DATE_RANK" />
    </resultMap>
    
    <resultMap type="Member" id="member_rm">
@@ -49,8 +50,10 @@
 	<select id="selectMember" parameterType="string" resultMap="member_rm">
 		SELECT MEMBER_NICKNAME, MEMBER_PROFILE_IMG, MEMBER_NO
 		FROM "MEMBER"
-		WHERE MEMBER_NICKNAME LIKE '%${memberNickname}%'
+		WHERE MEMBER_NICKNAME LIKE UPPER('%${memberNickname}%') OR MEMBER_NICKNAME LIKE LOWER('%${memberNickname}%')
 		AND MEMBER_NICKNAME != #{memberNickname}
+		AND MEMBER_NO != #{loginMemberNo}
+		AND SECESSION_FL = 'N'
 	</select>
 	
 	
@@ -116,10 +119,11 @@
 	
 	<select id="selectMessageList" resultMap="chat_rm">
 		SELECT CHAT_NO, CHAT_CONTENT, CHAT_READ_FL, C_FROM_MEMBER_NO, CHATTING_NO,
-		TO_CHAR(CHAT_SEND_DATE, 'YYYY.MM.DD') CHAT_SEND_DATE, 
-		TO_CHAR(CHAT_SEND_DATE, 'HH24:MI') CHAT_SEND_TIME 
+		TO_CHAR(CHAT_SEND_DATE, 'FMYYYY"년" MM"월" DD"일"') CHAT_SEND_DATE, 
+		TO_CHAR(CHAT_SEND_DATE, 'HH24:MI') CHAT_SEND_TIME,
+		RANK() OVER(PARTITION BY TO_CHAR(CHAT_SEND_DATE, 'YYYY.MM.DD') ORDER BY CHAT_NO) AS DATE_RANK 
 		FROM CHAT
-		WHERE CHATTING_NO = 67
+		WHERE CHATTING_NO = #{chattingNo}
 		ORDER BY CHAT_NO
 	</select>
 	
@@ -144,6 +148,12 @@
 		WHERE MEMBER_NO = #{targetNo}
 		AND SECESSION_FL = 'N'
 	</select>
+	
+	
+	<delete id="deleteRoom">
+		DELETE FROM CHATTING_ROOM
+		WHERE CHATTING_NO = #{chattingNo}
+	</delete>
 	
 	
 

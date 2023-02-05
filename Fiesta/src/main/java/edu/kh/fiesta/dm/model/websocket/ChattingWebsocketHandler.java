@@ -65,7 +65,7 @@ public class ChattingWebsocketHandler extends TextWebSocketHandler{
 	
 	if(result > 0) {
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy,MM.dd hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy,MM.dd");
 		msg.setChatSendDate(sdf.format(new Date()));
 		
 		SimpleDateFormat sdf2 = new SimpleDateFormat("hh:mm");

@@ -133,11 +133,7 @@ body {
     color :white
 }
 
-.chat{
-    display: flex;
-    padding : 8px 20px;
 
-}
 
 .down .chat .pro-img{
 width: 56px;
@@ -175,9 +171,17 @@ margin: 10px;
     border-bottom: 1px solid #ccc;
     display:flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;    
 }
+
+.profile-div{
+    width: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 #right > #click{
     display: flex;
@@ -199,16 +203,21 @@ margin: 10px;
 }
 
 #chattingRoom{
-
     flex-basis: 80%;
     overflow: auto;
-
 }
+
+/* 크롬 */
+#chattingRoom::-webkit-scrollbar{
+    display: none;
+}
+
 
 #input{
     flex-basis: 10%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 3px;
 }
 
@@ -216,9 +225,13 @@ margin: 10px;
     height: 50%;
     width: 70%;
     border-radius: 15px;
-    padding: 5px;
-
+    padding: 5px 13px;
+    font-size: 1em;
+    resize: none;
 }
+
+
+
 #memberListArea{
     display: flex;
     flex-direction: column;
@@ -261,8 +274,6 @@ margin: 10px;
     height: 55px;
     border-radius: 50%;
     margin : 10px;
-
-    border: 1px solid gray;
 }
 
 .dm-area > li{
@@ -272,7 +283,9 @@ margin: 10px;
 .target-chat{
 	display: flex;
 	align-items: center;
+    padding: 0 10px;
 }
+
 .target-chat > img{
 	width: 50px;
 	margin-right: 10px;
@@ -281,14 +294,24 @@ margin: 10px;
 
 .chat {
 	display: inline-block;
-	border-radius: 20px;
+    border-radius: 50px;
 	padding: 7px 15px;
     margin-top: 5px;
-    background-color: rgba(221, 65, 50, 0.2);
-	text-align: left;
-	max-width: 500px;
+	max-width: 400px;
 	word-break: break-all;
 	white-space: pre-wrap;
+    line-height: 25px;
+    font-size: 1rem;
+}
+
+
+.my-message{
+    background-color: rgba(221, 65, 50, 0.2);
+}
+
+.your-message{
+    background-color: white;
+    border: 1px solid rgba(221, 65, 50, 0.5);
 }
 
 
@@ -298,12 +321,6 @@ margin: 10px;
 	display: flex;
 }
 
-#chattingInput {
-	padding: 3px;
-	font-size: 1.3em;
-	width: 80%;
-	resize: none;
-}
 
 /* .dm-item > div{ height: 100%; } */
 .dm-item{
@@ -370,6 +387,7 @@ margin: 10px;
     margin-left: 10px;
 }
 
+
 .item-body-right{
     display: flex;
     align-items: center;
@@ -380,16 +398,21 @@ margin: 10px;
 
 .my-chat {
 	text-align: right;
+    padding: 0 10px;
 }
 
 
-.chatDate {
-	font-size: 9px;
+.chat-date {
+	font-size: 0.9rem;
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
 
 .chat-sendtime{
-    font-size: 12px;
+    font-size: 0.7rem;
     color: #8e8e8e;
     margin: 10px 8px 0 8px;
 }
@@ -419,7 +442,14 @@ margin: 10px;
 
 
 .container > .right {
- display: none;
+    display: none;
+}
+
+#click{
+    width: 100vw;
+    background-color: white;
+    position: relative;
+    z-index: 500;
 }
 
 .container{
@@ -429,8 +459,8 @@ margin: 10px;
 }
 
 .left{
-    width: 100%;
-    
+    width: 100vw;
+    position: absolute;
 }
 
 }
