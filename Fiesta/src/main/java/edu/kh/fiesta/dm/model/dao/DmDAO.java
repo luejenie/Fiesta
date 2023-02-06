@@ -22,8 +22,8 @@ public class DmDAO {
 	 * @param memberNickname
 	 * @return memberList
 	 */
-	public List<Member> selectMember(String memberNickname) {
-		return sqlSession.selectList("dmMapper.selectMember", memberNickname);
+	public List<Member> selectMember(Map<String, Object> paramMap) {
+		return sqlSession.selectList("dmMapper.selectMember", paramMap);
 	}
 
 
@@ -62,6 +62,24 @@ public class DmDAO {
 
 	public int selectNumber(String memberNickname) {
 		return sqlSession.selectOne("dmMapper.selectNumber", memberNickname);
+	}
+
+ 
+	/** 채팅방 생성 시 프로필 정보 조회
+	 * @param chattingNo
+	 * @return profileList
+	 */
+	public Member selectTargetProfile(int targetNo) {
+		return sqlSession.selectOne("dmMapper.selectTargetProfile", targetNo);
+	}
+
+
+	/** 채팅방 나가기(지우기)
+	 * @param chattingNo
+	 * @return
+	 */
+	public int deleteRoom(int chattingNo) {
+		return sqlSession.delete("dmMapper.deleteRoom", chattingNo);
 	}
 
 	

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/resources/css/dm/dm-message2.css" />
   </head>
   <body>
-    <div class="feed-menu-container">
+    <div class="feed-menu-container" id="chatModal">
       <div class="feed-menu">
         <div class="feedMenu1">  
           <div class="x">
@@ -22,12 +22,12 @@
             새로운 메시지
           </div>
           <div class="next">
-          <button id="nextBtn">다음</button>
+          <button id="nextButton">다음</button>
           </div>
         </div>
         <div class="feedMenu2">
           <div>  
-            <h4 id="rece">받는 사람 :</h4>
+            <h4 id="rece">받는 사람 : </h4>
             <span id="Recipient"></span>
           </div>  
           <div>

@@ -81,7 +81,7 @@ searchBtn.addEventListener('click', () => {
 const topButton = document.getElementById('topButton');
 
 const checkScroll=()=>{
-    console.log("scroll");
+    // console.log("scroll");
     // 페이지가 수직으로 얼마나 스크롤되었는지를 확인하는 값(픽셀 단위로 변환) pageOffset
     let pageOffset = window.pageYOffset;
 

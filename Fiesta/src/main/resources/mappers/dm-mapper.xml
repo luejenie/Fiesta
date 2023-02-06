@@ -22,7 +22,9 @@
       <result property="readFlag" column="CHAT_READ_FL" />
       <result property="senderNo" column="C_FROM_MEMBER_NO" />
       <result property="chattingNo" column="CHATTING_NO" />
-      <result property="sendTime" column="CHAT_SEND_TIME" />
+      <result property="chatSendDate" column="CHAT_SEND_DATE" />
+      <result property="chatSendTime" column="CHAT_SEND_TIME" />
+      <result property="dateRank" column="DATE_RANK" />
    </resultMap>
    
    <resultMap type="Member" id="member_rm">
@@ -43,98 +45,116 @@
       
   	</resultMap>
 
-
-<!-- 모달 받는 사람 회원 목록 비동기 조회 -->
-<select id="selectMember" parameterType="string" resultMap="member_rm">
-	SELECT MEMBER_NICKNAME, MEMBER_PROFILE_IMG, MEMBER_NO
-	FROM "MEMBER"
-	WHERE MEMBER_NICKNAME LIKE '%${memberNickname}%'
-AND MEMBER_NICKNAME != #{memberNickname}
-</select>
-
-
-<select id="checkChattingNo" resultType="_int">
-      SELECT NVL(SUM(CHATTING_NO),0) CHATTING_NO FROM CHATTING_ROOM
-      WHERE (MEMBER_NO_1 = #{loginMemberNo} AND MEMBER_NO_2 = #{targetNo})
-      OR (MEMBER_NO_1 = #{targetNo} AND MEMBER_NO_2 = #{loginMemberNo})
-</select>
-
-
-
-<insert id="createChattingRoom" parameterType="map" useGeneratedKeys="true">
-
-   <selectKey keyProperty="chattingNo" order="BEFORE" resultType="_int">
-      SELECT SEQ_ROOM_NO.NEXTVAL FROM DUAL
-   </selectKey>
-
-   INSERT INTO CHATTING_ROOM
-   VALUES(#{chattingNo}, DEFAULT, #{loginMemberNo}, #{targetNo})
-</insert>
-
-<select id="selectRoomList" resultMap="chattingRoom_rm">
-   SELECT CHATTING_NO
-      ,(SELECT CHAT_CONTENT FROM (
-         SELECT * FROM CHAT C2
-         WHERE C2.CHATTING_NO = R.CHATTING_NO
-         ORDER BY CHAT_NO DESC) 
-         WHERE ROWNUM = 1) LAST_MESSAGE 
-      ,TO_CHAR(NVL((SELECT MAX(CHAT_SEND_DATE) SEND_TIME 
-            FROM CHAT C
-            WHERE R.CHATTING_NO  = C.CHATTING_NO), CHATTING_CREATE_DATE), 
-            'YYYY.MM.DD') SEND_TIME
-      ,NVL2((SELECT MEMBER_NO_1 FROM CHATTING_ROOM R2
-         WHERE R2.CHATTING_NO = R.CHATTING_NO
-         AND R2.MEMBER_NO_1  = #{memberNo}),
-         R.MEMBER_NO_2 ,
-         R.MEMBER_NO_1 
-         ) TARGET_NO 
-      ,NVL2((SELECT MEMBER_NO_1 FROM CHATTING_ROOM R2
-         WHERE R2.CHATTING_NO = R.CHATTING_NO
-         AND R2.MEMBER_NO_1 = #{memberNo}),
-         (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_NO = R.MEMBER_NO_2),
-         (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_NO = R.MEMBER_NO_1)
-         ) TARGET_NICKNAME  
-      ,NVL2((SELECT MEMBER_NO_1 FROM CHATTING_ROOM R2
-         WHERE R2.CHATTING_NO = R.CHATTING_NO
-         AND R2.MEMBER_NO_1  = #{memberNo}),
-         (SELECT MEMBER_PROFILE_IMG FROM MEMBER WHERE MEMBER_NO = R.MEMBER_NO_2),
-         (SELECT MEMBER_PROFILE_IMG FROM MEMBER WHERE MEMBER_NO = R.MEMBER_NO_1)
-         ) TARGET_PROFILE
-      ,(SELECT COUNT(*) FROM CHAT C WHERE C.CHATTING_NO = R.CHATTING_NO AND CHAT_READ_FL = 'N' AND C_FROM_MEMBER_NO != #{memberNo}) NOT_READ_COUNT
-      ,(SELECT MAX(CHAT_NO) CHAT_SEND_DATE FROM CHAT C WHERE R.CHATTING_NO  = C.CHATTING_NO) MAX_MESSAGE_NO
-   FROM CHATTING_ROOM R
-   WHERE MEMBER_NO_1 = #{memberNo}
-   OR MEMBER_NO_2 = #{memberNo}
-   ORDER BY MAX_MESSAGE_NO DESC NULLS LAST    
-</select>
-
-<insert id="insertMessage">
-INSERT INTO "CHAT"
-VALUES(SEQ_CHAT_NO.NEXTVAL, #{messageContent}, DEFAULT, DEFAULT, #{chattingNo}, #{senderNo}, #{targetNo})
-</insert>
-
-<select id="selectMessageList" resultMap="chat_rm">
-SELECT CHAT_NO, CHAT_CONTENT, CHAT_READ_FL, C_FROM_MEMBER_NO, CHATTING_NO,
-TO_CHAR(CHAT_SEND_DATE, 'YYYY.MM.DD HH24:MI') SEND_TIME 
-FROM CHAT
-WHERE CHATTING_NO = #{chattingNo}
-ORDER BY CHAT_NO
-</select>
-
-<update id="updateReadFlag">
-UPDATE "CHAT" SET
-CHAT_READ_FL = 'Y'
-WHERE CHATTING_NO = #{chattingNo}
-AND C_FROM_MEMBER_NO != #{memberNo}
-</update>
-
-<select id="selectNumber" parameterType="string" resultType="_int">
-SELECT MEMBER_NO
-FROM "MEMBER"
-WHERE MEMBER_NICKNAME = #{memberNickname}
-</select>
-
-
-
+	
+	<!-- 모달 받는 사람 회원 목록 비동기 조회 -->
+	<select id="selectMember" parameterType="string" resultMap="member_rm">
+		SELECT MEMBER_NICKNAME, MEMBER_PROFILE_IMG, MEMBER_NO
+		FROM "MEMBER"
+		WHERE MEMBER_NICKNAME LIKE UPPER('%${memberNickname}%') OR MEMBER_NICKNAME LIKE LOWER('%${memberNickname}%')
+		AND MEMBER_NICKNAME != #{memberNickname}
+		AND MEMBER_NO != #{loginMemberNo}
+		AND SECESSION_FL = 'N'
+	</select>
+	
+	
+	<select id="checkChattingNo" resultType="_int">
+	      SELECT NVL(SUM(CHATTING_NO),0) CHATTING_NO FROM CHATTING_ROOM
+	      WHERE (MEMBER_NO_1 = #{loginMemberNo} AND MEMBER_NO_2 = #{targetNo})
+	      OR (MEMBER_NO_1 = #{targetNo} AND MEMBER_NO_2 = #{loginMemberNo})
+	</select>
+	
+	
+	
+	<insert id="createChattingRoom" parameterType="map" useGeneratedKeys="true">
+	   <selectKey keyProperty="chattingNo" order="BEFORE" resultType="_int">
+	      SELECT SEQ_CHAT_ROOM_NO.NEXTVAL FROM DUAL
+	   </selectKey>
+	
+	   INSERT INTO CHATTING_ROOM
+	   VALUES(#{chattingNo}, DEFAULT, #{loginMemberNo}, #{targetNo})
+	</insert>
+	
+	
+	<select id="selectRoomList" resultMap="chattingRoom_rm">
+	   SELECT CHATTING_NO
+	      ,(SELECT CHAT_CONTENT FROM (
+	         SELECT * FROM CHAT C2
+	         WHERE C2.CHATTING_NO = R.CHATTING_NO
+	         ORDER BY CHAT_NO DESC) 
+	         WHERE ROWNUM = 1) LAST_MESSAGE 
+	      ,TO_CHAR(NVL((SELECT MAX(CHAT_SEND_DATE) SEND_TIME 
+	            FROM CHAT C
+	            WHERE R.CHATTING_NO  = C.CHATTING_NO), CHATTING_CREATE_DATE), 
+	            'YYYY.MM.DD') SEND_TIME
+	      ,NVL2((SELECT MEMBER_NO_1 FROM CHATTING_ROOM R2
+	         WHERE R2.CHATTING_NO = R.CHATTING_NO
+	         AND R2.MEMBER_NO_1  = #{memberNo}),
+	         R.MEMBER_NO_2 ,
+	         R.MEMBER_NO_1 
+	         ) TARGET_NO 
+	      ,NVL2((SELECT MEMBER_NO_1 FROM CHATTING_ROOM R2
+	         WHERE R2.CHATTING_NO = R.CHATTING_NO
+	         AND R2.MEMBER_NO_1 = #{memberNo}),
+	         (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_NO = R.MEMBER_NO_2),
+	         (SELECT MEMBER_NICKNAME FROM MEMBER WHERE MEMBER_NO = R.MEMBER_NO_1)
+	         ) TARGET_NICKNAME  
+	      ,NVL2((SELECT MEMBER_NO_1 FROM CHATTING_ROOM R2
+	         WHERE R2.CHATTING_NO = R.CHATTING_NO
+	         AND R2.MEMBER_NO_1  = #{memberNo}),
+	         (SELECT MEMBER_PROFILE_IMG FROM MEMBER WHERE MEMBER_NO = R.MEMBER_NO_2),
+	         (SELECT MEMBER_PROFILE_IMG FROM MEMBER WHERE MEMBER_NO = R.MEMBER_NO_1)
+	         ) TARGET_PROFILE
+	      ,(SELECT COUNT(*) FROM CHAT C WHERE C.CHATTING_NO = R.CHATTING_NO AND CHAT_READ_FL = 'N' AND C_FROM_MEMBER_NO != #{memberNo}) NOT_READ_COUNT
+	      ,(SELECT MAX(CHAT_NO) CHAT_SEND_DATE FROM CHAT C WHERE R.CHATTING_NO  = C.CHATTING_NO) MAX_MESSAGE_NO
+	   FROM CHATTING_ROOM R
+	   WHERE MEMBER_NO_1 = #{memberNo}
+	   OR MEMBER_NO_2 = #{memberNo}
+	   ORDER BY MAX_MESSAGE_NO DESC NULLS LAST    
+	</select>
+	
+	<insert id="insertMessage">
+		INSERT INTO "CHAT"
+		VALUES(SEQ_CHAT_NO.NEXTVAL, #{messageContent}, DEFAULT, DEFAULT, #{chattingNo}, #{senderNo}, #{targetNo})
+	</insert>
+	
+	<select id="selectMessageList" resultMap="chat_rm">
+		SELECT CHAT_NO, CHAT_CONTENT, CHAT_READ_FL, C_FROM_MEMBER_NO, CHATTING_NO,
+		TO_CHAR(CHAT_SEND_DATE, 'FMYYYY"년" MM"월" DD"일"') CHAT_SEND_DATE, 
+		TO_CHAR(CHAT_SEND_DATE, 'HH24:MI') CHAT_SEND_TIME,
+		RANK() OVER(PARTITION BY TO_CHAR(CHAT_SEND_DATE, 'YYYY.MM.DD') ORDER BY CHAT_NO) AS DATE_RANK 
+		FROM CHAT
+		WHERE CHATTING_NO = #{chattingNo}
+		ORDER BY CHAT_NO
+	</select>
+	
+	<update id="updateReadFlag">
+		UPDATE "CHAT" SET
+		CHAT_READ_FL = 'Y'
+		WHERE CHATTING_NO = #{chattingNo}
+		AND C_FROM_MEMBER_NO != #{memberNo}
+	</update>
+	
+	<select id="selectNumber" parameterType="string" resultType="_int">
+		SELECT MEMBER_NO
+		FROM "MEMBER"
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+	</select>
+	
+	
+	
+	<select id="selectTargetProfile" resultMap="member_rm">
+		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE_IMG
+		FROM MEMBER
+		WHERE MEMBER_NO = #{targetNo}
+		AND SECESSION_FL = 'N'
+	</select>
+	
+	
+	<delete id="deleteRoom">
+		DELETE FROM CHATTING_ROOM
+		WHERE CHATTING_NO = #{chattingNo}
+	</delete>
+	
+	
 
 </mapper>

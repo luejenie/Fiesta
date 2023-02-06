@@ -41,12 +41,15 @@ public class DmController {
 	// 모달 받는 사람 회원 목록 비동기 조회
 	@GetMapping("/selectMember")
 	@ResponseBody
-	public String selectMember(String memberNickname) {
+	public String selectMember(String memberNickname, @SessionAttribute(value="loginMember") Member loginMember) {
 		
-		List<Member> memberList = service.selectMember(memberNickname);
+		int loginMemberNo = loginMember.getMemberNo();
 		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("loginMemberNo", loginMemberNo);
+		paramMap.put("memberNickname", memberNickname);
 		
-		
+		List<Member> memberList = service.selectMember(paramMap);
 		return new Gson().toJson(memberList);
 	}
 	
@@ -62,34 +65,30 @@ public class DmController {
 		map.put("targetNo", targetNo);
 		map.put("loginMemberNo", loginMember.getMemberNo());
 		
-//		채팅방 존재여부 확인
+		//채팅방 존재여부 확인
 		int chattingNo = service.checkChattingNo(map);
 		
 		
-//		채팅방 존재 x 일 때
+		//채팅방 존재 x 일 때
         if(chattingNo == 0) { 
         	
         	// 새로운 채팅방 생성 후 채팅방 번호 반환
             chattingNo = service.createChattingRoom(map);
-
-//      채팅방이 존재할 때
+            
+        // 채팅방이 존재할 때
         } else {
         	
-//        	메세지 내용 가져와서 반환
+        	// 메세지 내용 가져와서 반환
         	List<Message> messageList = service.selectMessageList(chattingNo);
         	map.put("messageList", messageList);
+        	
         }
         
-        
-
         map.put("chattingNo", chattingNo);
-        
-        
+                
         ra.addFlashAttribute("chattingNo", chattingNo);
         
         return new Gson().toJson(map);	
-
-		
 	}
 	
 	
@@ -117,15 +116,14 @@ public class DmController {
 	// 메세지 화면 비동기 조회
 	@GetMapping("/selectMessage")
 	@ResponseBody
-	public String selectMessageList(int chattingNo) {
+	public String selectMessageList(@RequestParam(value="chattingNo", required=false, defaultValue="0") int chattingNo,
+									int targetNo) {
 		
 		List<Message> messageList = service.selectMessageList(chattingNo);
 		
 		return new Gson().toJson(messageList);
-		
 	}
-	
-	
+
 	
 	// 읽음 여부 비동기 조회
 	@GetMapping("/updateReadFlag")
@@ -145,5 +143,23 @@ public class DmController {
 		return result;
 	}
 
+	
+	
+	// 채팅창 프로필 조회
+	@GetMapping("/selectChattingProfile")
+	@ResponseBody
+	public String selectChattingProfile(int targetNo) {
+		 Member targetProfile = service.selectTargetProfile(targetNo);
+		 
+		 return new Gson().toJson(targetProfile);
+	}
+	
+	
+	// 채팅방 나가기(채팅방 지우기)
+	@GetMapping("/deleteRoom")
+	@ResponseBody
+	public int deleteRoom(@RequestParam(value="chattingNo", required=false, defaultValue="0") int chattingNo) {
+		return service.deleteRoom(chattingNo);
+	}
 	
 }

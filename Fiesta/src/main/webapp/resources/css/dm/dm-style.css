@@ -37,6 +37,10 @@ body {
     margin-left: 30px;
 }
 
+#dmOpen img{
+    cursor: pointer;
+}
+
 .right > #no-click{
     display: flex;
     flex-direction: column;
@@ -46,23 +50,46 @@ body {
 
 .left > .up{
     flex-basis: 10%;
+    width: 100%;
     background-color: white;
-    border-bottom: 1px solid #ccc;
-   
+    border-bottom : 1px solid #ccc;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.profile-area{
+    display: flex;
+    align-items: center;
+    height: 60px;
+    cursor: pointer;
 }
 
 .left .down{
-    
     flex-basis: 90%;
     overflow: auto;
-
 }
-.left .up .id {
+
+/* .left .up {
     margin: 30px 10px 30px 100px;
     text-align: center;
     font-weight: bold;
     font-size: 16px;
     display: inline-block;
+} */
+
+.id {
+    font-size: 18px;
+    margin-left: 11px;
+    font-weight: bold;
+}
+
+.profile-image{
+    width: auto;
+    height: 100%;
+    border-radius: 50%;
 }
 
 #login{
@@ -106,11 +133,7 @@ body {
     color :white
 }
 
-.chat{
-    display: flex;
-    padding : 8px 20px;
 
-}
 
 .down .chat .pro-img{
 width: 56px;
@@ -148,9 +171,17 @@ margin: 10px;
     border-bottom: 1px solid #ccc;
     display:flex;
     width: 100%;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;    
 }
+
+.profile-div{
+    width: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 
 #right > #click{
     display: flex;
@@ -168,20 +199,25 @@ margin: 10px;
     background-color: var(--fiesta-color);
     color: white;
     font-size: 12px;
-    margin: 10px 10px 0 0;
+    /* margin: 10px 10px 0 0; */
 }
 
 #chattingRoom{
-
     flex-basis: 80%;
     overflow: auto;
-
 }
+
+/* 크롬 */
+#chattingRoom::-webkit-scrollbar{
+    display: none;
+}
+
 
 #input{
     flex-basis: 10%;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 3px;
 }
 
@@ -189,9 +225,13 @@ margin: 10px;
     height: 50%;
     width: 70%;
     border-radius: 15px;
-    padding: 5px;
-
+    padding: 5px 13px;
+    font-size: 1em;
+    resize: none;
 }
+
+
+
 #memberListArea{
     display: flex;
     flex-direction: column;
@@ -229,7 +269,9 @@ margin: 10px;
 .chatting-content{
 	width: 70%;
 }
-.target-profile{ width: 65px;
+.target-profile{
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     margin : 10px;
 }
@@ -240,22 +282,36 @@ margin: 10px;
 
 .target-chat{
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
+    padding: 0 10px;
 }
+
 .target-chat > img{
 	width: 50px;
-	margin-right: 5px;
+	margin-right: 10px;
+    border-radius: 50%;
 }
 
 .chat {
 	display: inline-block;
-	border-radius: 5px;
-	padding: 5px;
-	background-color: #eee;
-	text-align: left;
-	max-width: 500px;
+    border-radius: 50px;
+	padding: 7px 15px;
+    margin-top: 5px;
+	max-width: 400px;
 	word-break: break-all;
 	white-space: pre-wrap;
+    line-height: 25px;
+    font-size: 1rem;
+}
+
+
+.my-message{
+    background-color: rgba(221, 65, 50, 0.2);
+}
+
+.your-message{
+    background-color: white;
+    border: 1px solid rgba(221, 65, 50, 0.5);
 }
 
 
@@ -265,60 +321,135 @@ margin: 10px;
 	display: flex;
 }
 
-#chattingInput {
-	padding: 3px;
-	font-size: 1.3em;
-	width: 80%;
-	resize: none;
+
+/* .dm-item > div{ height: 100%; } */
+.dm-item{
+	height: 12%;
+	display: flex;
+	padding: 5px 10px;
+	cursor: pointer;
+    width: auto;
 }
 
-.dm-item > div{ height: 100%; }
-.item-header{ width : 25%; }
+.dm-item:hover{
+    background-color: rgba(221, 65, 50, 0.1);
+}
+
+.dm-list{
+	width: 100%;
+	/* border: 1px solid #ccc; */
+	list-style: none;
+	overflow: auto;
+}
+
+
+.item-header{ 
+    /* width : 25%;  */
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .item-body{ 
-	width : 75%; 
-	padding : 2px 0;
+	width : 100%; 
+    height: 80px;
+	padding : 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-body-left{
+    padding: 0 10px;
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.item-body-up{
+    display: flex;
+    align-items: baseline;
+}
+
+.recent-message{
+    /* margin-top: 10px; */
+    padding-right: 20px;
+    font-size: 0.9rem;
+    color: #444;
+    /* display: flex;
+    justify-content: space-between; */
+}
+
+.recent-send-time{
+    font-size: 0.8rem;
+    color: #8e8e8e;
+    margin-left: 10px;
+}
+
+
+.item-body-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
 }
 
 
 .my-chat {
 	text-align: right;
+    padding: 0 10px;
 }
 
-.my-chat>p {
-	background-color: yellow;
+
+.chat-date {
+	font-size: 0.9rem;
+    color: black;
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
-.chatDate {
-	font-size: 9px;
+
+.chat-sendtime{
+    font-size: 0.7rem;
+    color: #8e8e8e;
+    margin: 10px 8px 0 8px;
 }
 
-.dm-item{
-	height: 12%;
-	display: flex;
-	padding: 5px 0;
-	border-bottom: 1px solid #ccc;
-	cursor: pointer;
-    width: auto;
+.chat-name{
+    font-size: 15px;
+    color: lightgray;
 }
 
-.dm-list{
-	width: 100%;
-	border: 1px solid #ccc;
-	list-style: none;
-	overflow: auto;
-}
+
 
 /* 채팅창 위 사진 */
 #chatProfile{
     border-radius: 50%;
 }
 
+#messageName {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
+
+
 
 @media screen and (max-width: 470px) {
 
 
 .container > .right {
- display: none;
+    display: none;
+}
+
+#click{
+    width: 100vw;
+    background-color: white;
+    position: relative;
+    z-index: 500;
 }
 
 .container{
@@ -328,8 +459,8 @@ margin: 10px;
 }
 
 .left{
-    width: 100%;
-    
+    width: 100vw;
+    position: absolute;
 }
 
 }

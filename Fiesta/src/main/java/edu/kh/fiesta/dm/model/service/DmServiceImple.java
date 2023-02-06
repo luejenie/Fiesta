@@ -19,8 +19,8 @@ public class DmServiceImple implements DmService{
 
 	// 모달 받는 사람 회원 목록 비동기 조회
 	@Override
-	public List<Member> selectMember(String memberNickname) {
-		return dao.selectMember(memberNickname);
+	public List<Member> selectMember(Map<String, Object> paramMap) {
+		return dao.selectMember(paramMap);
 	}
 
 	@Override
@@ -59,5 +59,18 @@ public class DmServiceImple implements DmService{
 		return dao.selectNumber(memberNickname);
 	}
 
+	
+	// 채팅방 생성 시 프로필 정보 조회
+	@Override
+	public Member selectTargetProfile(int targetNo) {
+		return dao.selectTargetProfile(targetNo);
+	}
+	
+	
+	// 채팅방 나가기(지우기)
+	@Override
+	public int deleteRoom(int chattingNo) {
+		return dao.deleteRoom(chattingNo);
+	}
 	
 }
