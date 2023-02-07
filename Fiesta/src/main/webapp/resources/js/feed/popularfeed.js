@@ -36,6 +36,7 @@ const selectPopularFeedList = (entries, observer) => {
 
             const pagination = map.pagination;
             const boardList = map.boardList;
+            console.log(pagination.maxPage);
 
             if (cp <= pagination.maxPage) {
 
@@ -65,7 +66,7 @@ const printPopularFeed = (boardList) => {
 
   for (let board of boardList) { 
     const a = document.createElement('a');
-    a.href = "/feed/" + board.memberNickname;
+    a.href = "/feedDetail/" + board.boardNo;
 
     const img = document.createElement('img');
     img.className = "feed-img";

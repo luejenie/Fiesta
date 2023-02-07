@@ -13,6 +13,7 @@
     <title>Fiesta</title>
     <link rel="stylesheet" href="/resources/css/common-style.css" />
     <link rel="stylesheet" href="/resources/css/popularfeed.css" />
+    <link rel="stylesheet" href="/resources/css/search/search-complete-style.css" />
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -27,7 +28,7 @@
         <div class="img-container" id="imgContainer">
         <c:if test="${!empty boardList}">
         <c:forEach var="board" items="${boardList}">
-          <a href="/feed/${board.memberNickname}">
+          <a href="/feedDetail/${board.boardNo}">
             <c:if test="${!empty board.imgPath}">
             <img class="feed-img" src="${board.imgPath}" />
             </c:if>
@@ -55,6 +56,6 @@
   <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
   <script src="/resources/js/common/common.js"></script>
-  <script src="/resources/js/feed/popularFeed.js"></script>
+  <script src="/resources/js/feed/popularfeed.js"></script>
     
 </html>

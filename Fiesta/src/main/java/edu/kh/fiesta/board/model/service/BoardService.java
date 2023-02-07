@@ -10,7 +10,7 @@ import edu.kh.fiesta.main.model.vo.BoardImg;
 
 public interface BoardService {
 
-	/** 게시글 삽입
+	/** 寃뚯떆湲� �궫�엯
 	 * @param board
 	 * @param fileList
 	 * @param webPath
@@ -25,6 +25,11 @@ public interface BoardService {
 	Board selectOneBoard(int boardNo);
 
 	int boardUpdate(Board board);
+
+	/** 게시글 이미지 목록 조회
+	 * @return
+	 */
+	List<String> selectImageList();
 
 
 
