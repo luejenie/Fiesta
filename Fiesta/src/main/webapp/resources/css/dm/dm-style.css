@@ -2,7 +2,13 @@
 body {
     width: 100vw;
     height: 100vh;
-  }
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+
 
 /* web */
 @media screen and (min-width: 471px){
@@ -13,6 +19,17 @@ body {
         flex-direction: column;
     }
     
+    ::-webkit-scrollbar{
+        width: 7px;
+        border-radius: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb{
+        background-color: rgba(221, 65, 50, 0.3);
+        border-radius: 10px;
+    }
+    
+
     
     .right{
         width: 800px;
