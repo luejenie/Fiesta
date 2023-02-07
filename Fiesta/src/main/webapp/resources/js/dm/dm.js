@@ -1,5 +1,6 @@
 const down = document.getElementsByClassName("down")[0];
-const right = document.getElementById("right")
+const right = document.getElementById("right");
+const left = document.getElementById("left");
 const up = document.getElementById("up");
 const noClick = document.getElementById("no-click");
 const click = document.getElementById("click");
@@ -17,6 +18,8 @@ const memberListArea = document.getElementById("memberListArea");
 const modalNick = document.getElementsByClassName("modalNick");
 const recipient = document.getElementById("Recipient");
 const sendPeople = document.getElementById("sendPeople");
+
+
 
 document.addEventListener("DOMContentLoaded", ()=>{
 
@@ -64,6 +67,8 @@ window.addEventListener('click', (e) => {
    // DM 모달창 밖 클릭 시 닫힘
    e.target === dmContainer ? dmContainer.style.display = 'none' : false
 });
+
+
 
 
 
@@ -284,8 +289,8 @@ const selectChattingProfile = () => {
 
       // 미디어쿼리
       var mediaQuery = window.matchMedia("screen and (max-width: 470px)");
-       
-      // 모바일 사이즈
+      
+      // 미디어 쿼리 모바일 사이즈
       if(mediaQuery.matches){
 
         // 프로필 사진 대신 뒤로가기로. (목록으로 이동)
@@ -527,7 +532,7 @@ const updateReadFlag = () =>{
     data : {"chattingNo" : selectChattingNo, "memberNo" : loginMemberNo},
     type:"GET",
     success : result => {
-      console.log(result);
+      // console.log(result);
     },
     error : () => {
       console.log("실패");

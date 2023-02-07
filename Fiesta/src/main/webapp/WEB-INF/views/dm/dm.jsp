@@ -34,7 +34,7 @@
     <!-- main 태그 안쪽에 구현할 태그 작성해주시면 됩니다. -->
     <main>
       <section class="container">
-        <div class="left">
+        <div class="left" id="left">
           <section class="up">
             <a href="/feed/${loginMember.memberNickname}" class="profile-area">
               <c:if test="${not empty loginMember.memberProfileImg}">
