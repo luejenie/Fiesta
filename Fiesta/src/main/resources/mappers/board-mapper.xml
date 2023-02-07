@@ -120,6 +120,13 @@
   	BOARD_CONTENT= #{boardContent}
   	WHERE BOARD_NO= #{boardNo}
   </update>
+  
+  <select id="selectBoardImageList" resultType="string">
+  	SELECT 
+		IMG_CHANGE_NAME 
+	FROM BOARD_IMG
+	WHERE IMG_CHANGE_NAME IS NOT NULL
+  </select>
 
 
 

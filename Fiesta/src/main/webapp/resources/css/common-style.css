@@ -307,7 +307,7 @@ nav i {
     justify-content: center;
     align-items: center;
     z-index: 40;
-    /* display: none; */
+    display: none;
   }
 
   /* #toggleSearchForm{
@@ -459,8 +459,8 @@ label[for='header-menu-toggle'] {
 
 
 #topButton {
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
 
   position: fixed;
   bottom: 30px;

@@ -15,7 +15,7 @@ public class BoardDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	/** 게시글 삽입
+	/** 寃뚯떆湲� �궫�엯
 	 * @param board
 	 * @return boardNo
 	 */
@@ -26,9 +26,9 @@ public class BoardDAO {
 		return result;
 	}
 
-	/** 게시글 첨부 이미지 삽입(리스트 형식)
+	/** 寃뚯떆湲� 泥⑤� �씠誘몄� �궫�엯(由ъ뒪�듃 �삎�떇)
 	 * @param boardImgList
-	 * @return result (insert된 행의 개수)
+	 * @return result (insert�맂 �뻾�쓽 媛쒖닔)
 	 */
 	public int insertBoardImageList(List<BoardImg> boardImgList) {
 		return sqlSession.insert("boardMapper.insertBoardImageList", boardImgList);
@@ -40,5 +40,9 @@ public class BoardDAO {
 
 	public int boardUpdate(Board board) {
 		return sqlSession.update("boardMapper.boardUpdate", board);
+	}
+
+	public List<String> selectImageList() {
+		return sqlSession.selectList("boardMapper.selectBoardImageList");
 	}
 }

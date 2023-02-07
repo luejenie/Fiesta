@@ -1,5 +1,7 @@
 package edu.kh.fiesta.member.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,7 +14,7 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	/** 로그인 DAO
+	/** 濡쒓렇�씤 DAO
 	 * @param memberEmail
 	 * @return loginMember
 	 */
@@ -21,18 +23,18 @@ public class MemberDAO {
 	}
 
 	
-	/** 회원가입 DAO
+	/** �쉶�썝媛��엯 DAO
 	 * @param inputMember
 	 * @return result
 	 */
 	public int signUp(Member inputMember) {
-		// 회원가입
+		// �쉶�썝媛��엯
 		int result = sqlSession.insert("memberMapper.signUp", inputMember);
 		
 		System.out.println(inputMember);
 		
 		if(result > 0) {
-			// 공개여부 설정에 회원번호 삽입
+			// 怨듦컻�뿬遺� �꽕�젙�뿉 �쉶�썝踰덊샇 �궫�엯
 			result = sqlSession.insert("memberMapper.insertUserPubPriFl", inputMember);
 		}
 		
@@ -41,7 +43,7 @@ public class MemberDAO {
 	
 	
 	
-	/** 회원가입_이메일 중복 체크 DAO
+	/** �쉶�썝媛��엯_�씠硫붿씪 以묐났 泥댄겕 DAO
 	 * @param memberEmail
 	 * @return result
 	 */
@@ -51,7 +53,7 @@ public class MemberDAO {
 
 	
 
-	/** 회원가입_닉네임 중복 체크 서비스 DAO
+	/** �쉶�썝媛��엯_�땳�꽕�엫 以묐났 泥댄겕 �꽌鍮꾩뒪 DAO
 	 * @param memberNickname
 	 * @return result
 	 */
@@ -60,7 +62,7 @@ public class MemberDAO {
 	}
 
 
-	/** 계정찾기_ 비밀번호 재설정 DAO
+	/** 怨꾩젙李얘린_ 鍮꾨�踰덊샇 �옱�꽕�젙 DAO
 	 * @param memberEmail
 	 * @param memberPw
 	 * @return result
@@ -70,7 +72,7 @@ public class MemberDAO {
 	}
 
 
-	/** 자기자신 팔로우_ 회원번호 조회
+	/** �옄湲곗옄�떊 �뙏濡쒖슦_ �쉶�썝踰덊샇 議고쉶
 	 * @param memberEmail
 	 * @return memberNo
 	 */
@@ -81,12 +83,17 @@ public class MemberDAO {
 
 	
 	
-	/** 자기자신 팔로우_가입 시 자기 자신 팔로우 DAO
+	/** �옄湲곗옄�떊 �뙏濡쒖슦_媛��엯 �떆 �옄湲� �옄�떊 �뙏濡쒖슦 DAO
 	 * @param memberNo
 	 * @return result
 	 */
 	public int followMyself(int memberNo) {
 		return sqlSession.insert("memberMapper.followMyself", memberNo);
+	}
+
+
+	public List<String> selectProfileImageList() {
+		return sqlSession.selectList("memberMapper.selectProfileImageList");
 	}
 	
 }

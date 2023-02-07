@@ -91,6 +91,13 @@
   </insert>
   
   
+  <!-- 프로필 이미지 목록 조회 -->
+  <select id="selectProfileImageList" resultType="string">
+  	SELECT 
+		SUBSTR(MEMBER_PROFILE_IMG, INSTR(MEMBER_PROFILE_IMG, '/', -1)+1, LENGTH(MEMBER_PROFILE_IMG)) MEMBER_PROFILE_IMG
+	FROM "MEMBER" m 
+	WHERE MEMBER_PROFILE_IMG IS NOT NULL
+  </select>
 
   
   
