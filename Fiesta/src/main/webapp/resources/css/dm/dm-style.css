@@ -4,6 +4,45 @@ body {
     height: 100vh;
   }
 
+/* web */
+@media screen and (min-width: 471px){
+    .left{
+        width: 400px;
+        /* border: 1px solid #ccc; */
+        display: flex;
+        flex-direction: column;
+    }
+    
+    
+    .right{
+        width: 800px;
+        height: 800px;
+        border-left: 1px solid #ccc;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .right > #no-click{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .message-name{
+        display: none;
+    }
+
+    #clickUp{
+        flex-basis: 10%;
+        border-bottom: 1px solid #ccc;
+        display:flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;    
+        height: 80px;
+    }
+}
 
 .container{
     width: 1200px;
@@ -17,22 +56,6 @@ body {
 }
 
 
-.left{
-    width: 400px;
-    border: 1px solid #ccc;
-    display: flex;
-    flex-direction: column;
-}
-
-
-.right{
-    width: 800px;
-    height: 800px;
-    border-left: 1px solid #ccc;
-    display: flex;
-    flex-direction: column;
-}
-
 #dmOpen{
     margin-left: 30px;
 }
@@ -41,12 +64,7 @@ body {
     cursor: pointer;
 }
 
-.right > #no-click{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .left > .up{
     flex-basis: 10%;
@@ -166,14 +184,7 @@ margin: 10px;
     color:#8e8e8e;
 }
 
-#clickUp{
-    flex-basis: 10%;
-    border-bottom: 1px solid #ccc;
-    display:flex;
-    width: 100%;
-    justify-content: center;
-    align-items: center;    
-}
+
 
 .profile-div{
     width: 550px;
@@ -249,7 +260,7 @@ margin: 10px;
 }
 
 .chatMember > span {
-    font-size: 12px;
+    font-size: 1rem;
 }
 
 .modalProfile{
@@ -437,30 +448,71 @@ margin: 10px;
 
 
 
-
 @media screen and (max-width: 470px) {
 
 
-.container > .right {
+/* .container > .right {
     display: none;
+} */
+
+    #no-click{
+        display: none;
+    }
+
+    #click{
+        width: 100vw;
+        background-color: white;
+        position: relative;
+        z-index: 500;
+    }
+
+    .container{
+        border: none;
+        margin-top: 0;
+    }
+
+    .left{
+        width: 100vw;
+        position: absolute;
+    }
+
+    .profile-area{
+        display: none;
+    }
+
+
+    .left > .up{
+        margin-top: 15px;
+        border: none;
+    }
+
+
+    .message-name{
+        display: flex;
+        font-weight: bold;
+    }
+
+    #clickUp{
+        flex-basis: 10%;
+        background-color: white;
+        border-bottom: 1px solid #ccc;
+        display:flex;
+        width: 100vw;
+        height: 100px;
+        justify-content: center;
+        align-items: center;    
+        position: sticky;
+        top: 0;
+        padding : 0 10px;
+
+    }
 }
 
-#click{
-    width: 100vw;
-    background-color: white;
-    position: relative;
-    z-index: 500;
+
+.hide{
+    display : none
 }
 
-.container{
-    border: none;
-    margin-top: 0;
-
-}
-
-.left{
-    width: 100vw;
-    position: absolute;
-}
-
+.appear{
+    display: flex;
 }

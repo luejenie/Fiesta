@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" href="/resources/css/swiper-bundle.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
+<script src="https://kit.fontawesome.com/591746f9e8.js" crossorigin="anonymous"></script>
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -46,6 +46,7 @@
               <div class="id">${loginMember.memberNickname}</div>
             </a>
             <!-- 로그인 연결 -->
+            <span class="message-name">메시지</span>
             <button id="dmOpen">  
               <img
                 src="/resources/images/write.png"
