@@ -1,5 +1,7 @@
 package edu.kh.fiesta.member.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,17 +16,17 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDAO dao;
 	
-	// spring-security.xml에서 등록한 bean을 의존성 주입(DI)
+	// spring-security.xml�뿉�꽌 �벑濡앺븳 bean�쓣 �쓽議댁꽦 二쇱엯(DI)
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
 	
 	
-	// 로그인
+	// 濡쒓렇�씤
 	@Override
 	public Member login(Member inputMember) {
 		
-//		System.out.println("입력한 비밀번호 : " + inputMember.getMemberPw());
-//		System.out.println("암호화 비밀번호 : " + bcrypt.encode(inputMember.getMemberPw()));
+//		System.out.println("�엯�젰�븳 鍮꾨�踰덊샇 : " + inputMember.getMemberPw());
+//		System.out.println("�븫�샇�솕 鍮꾨�踰덊샇 : " + bcrypt.encode(inputMember.getMemberPw()));
 		
 		Member loginMember = dao.login(inputMember.getMemberEmail());
 		
@@ -41,7 +43,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	
-	// 회원가입
+	// �쉶�썝媛��엯
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int signUp(Member inputMember) {
@@ -51,13 +53,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		int result = dao.signUp(inputMember);
 		
-		// 회원가입되면 자기자신 팔로우
+		// �쉶�썝媛��엯�릺硫� �옄湲곗옄�떊 �뙏濡쒖슦
 		if(result > 0) {
 			
-			// 회원번호 조회
+			// �쉶�썝踰덊샇 議고쉶
 			int memberNo = dao.selectMemberNo(inputMember.getMemberEmail());
 			
-			// 자기자신 팔로우
+			// �옄湲곗옄�떊 �뙏濡쒖슦
 			result = dao.followMyself(memberNo);
 		}
 		return result;
@@ -65,7 +67,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	
-	// 회원가입_이메일 중복 체크
+	// �쉶�썝媛��엯_�씠硫붿씪 以묐났 泥댄겕
 	@Override
 	public int emailDupCheck(String memberEmail) {
 		return dao.emailDupCheck(memberEmail);
@@ -73,14 +75,14 @@ public class MemberServiceImpl implements MemberService{
 
 
 
-	// 회원가입_닉네임 중복 체크 서비스
+	// �쉶�썝媛��엯_�땳�꽕�엫 以묐났 泥댄겕 �꽌鍮꾩뒪
 	@Override
 	public int nicknameDupCheck(String memberNickname) {
 		return dao.nicknameDupCheck(memberNickname);
 	}
 
 
-	// 계정찾기_비밀번호 재설정
+	// 怨꾩젙李얘린_鍮꾨�踰덊샇 �옱�꽕�젙
 	@Override
 	public int updatePw(String inputEmail, String memberPw) {
 		
@@ -94,6 +96,12 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println(member.getMemberEmail());
 		
 		return dao.updatePw(member);
+	}
+	
+	
+	@Override
+	public List<String> selectProfileImageList() {
+		return dao.selectProfileImageList();
 	}
 
 }
