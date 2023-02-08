@@ -47,7 +47,7 @@
           <div id="profile-photo">
             <button id="self">
               <c:if test="${ empty loginMember.memberProfileImg}">
-                <img id="selfImg" src="/resources/images/profile/profile.jpg" />
+                <img id="selfImg" src="/resources/images/default/user.jpg" />
               </c:if>
 
               <c:if test="${ !empty loginMember.memberProfileImg}">
@@ -100,7 +100,7 @@
         <div id="profile-photo">
           <span> <%-- 바꿔라!! --%>
             <c:if test="${ empty feedMember.memberProfileImg}">
-                <img id="selfImg" src="/resources/images/profile/profile.jpg" />
+                <img id="selfImg" src="/resources/images/default/user.jpg" />
               </c:if>
 
               <c:if test="${ !empty feedMember.memberProfileImg}">

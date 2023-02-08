@@ -329,7 +329,7 @@ function createBoard(board) {
 
   // 멤버 프로필 이미지가 있으면 그 이미지로, 없으면 기본 이미지 출력
   if (board.memberProfileImg == undefined) {
-    profileImage.setAttribute('src', '/resources/images/profile/profile.jpg');
+    profileImage.setAttribute('src', '/resources/images/default/user.jpg');
   } else {
     profileImage.setAttribute('src', board.memberProfileImg);
   }
@@ -861,7 +861,7 @@ function createBoard(board) {
         if(boardMemberProfileImg != undefined) {
           feedProfileImageM.setAttribute('src', boardMemberProfileImg);
         } else {
-          feedProfileImageM.setAttribute('src', "/resources/images/profile/profile.jpg");
+          feedProfileImageM.setAttribute('src', "/resources/images/default/user.jpg");
           
         }
         
@@ -955,7 +955,7 @@ function createBoard(board) {
         } else {
           commentProfileImg.setAttribute(
             'src',
-            '/resources/images/profile/profile.jpg'
+            '/resources/images/default/user.jpg'
           );
         }
 
@@ -1320,7 +1320,7 @@ function createBoard(board) {
                       if (mention.memberProfileImg != undefined) {
                         mentionProfileImg.setAttribute('src', mention.memberProfileImg);
                       } else {
-                        mentionProfileImg.setAttribute('src', '/resources/images/profile/profile.jpg');
+                        mentionProfileImg.setAttribute('src', '/resources/images/default/user.jpg');
                       }
 
                       autoCompleteDiv.append(mentionProfileImg);
@@ -1844,7 +1844,7 @@ function selectCommentList(boardNo1, commentListUl, flag) {
           } else {
             commentProfileImg.setAttribute(
               'src',
-              '/resources/images/profile/profile.jpg'
+              '/resources/images/default/user.jpg'
             );
           }
 
@@ -2087,7 +2087,7 @@ function selectReplyList(commentNo, commentLi) {
         } else {
           replyProfileImg.setAttribute(
             'src',
-            '/resources/images/profile/profile.jpg'
+            '/resources/images/default/user.jpg'
           );
         }
 
@@ -2511,7 +2511,7 @@ feedCommentBtnLogin.addEventListener('click', () => {
               } else {
                 commentProfileImg.setAttribute(
                   'src',
-                  '/resources/images/profile/profile.jpg'
+                  '/resources/images/default/user.jpg'
                 );
               }
   
@@ -3086,7 +3086,7 @@ function selectCommentListM(boardNo, commentListUl) {
           } else {
             commentProfileImg.setAttribute(
               'src',
-              '/resources/images/profile/profile.jpg'
+              '/resources/images/default/user.jpg'
             );
           }
 
@@ -3308,7 +3308,7 @@ function selectReplyListM(commentNo, commentLi, boardNo) {
         } else {
           replyProfileImg.setAttribute(
             'src',
-            '/resources/images/profile/profile.jpg'
+            '/resources/images/default/user.jpg'
           );
         }
 

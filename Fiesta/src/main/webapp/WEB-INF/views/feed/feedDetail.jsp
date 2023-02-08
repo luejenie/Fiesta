@@ -63,7 +63,7 @@
                     <div class="writer-info">
                       <a href="/feed/${board.memberNickname}" class="profile-photo">
                         <c:if test="${empty board.memberProfileImg}">
-                          <img class="feed-profile-image" src="/resources/images/profile/profile.jpg" />
+                          <img class="feed-profile-image" src="/resources/images/default/user.jpg" />
                         </c:if>
                         <c:if test="${not empty board.memberProfileImg}">
                           <img class="feed-profile-image" src="${board.memberProfileImg}" />
@@ -174,7 +174,7 @@
                                   <div class="comment-firstchild">
                                     <a href="/feed/${comment.memberNickname}" class="comment-profile">
                                       <c:if test="${empty comment.memberProfileImg}">
-                                        <img class="comment-profile-image" src="/resources/images/profile/profile.jpg" />
+                                        <img class="comment-profile-image" src="/resources/images/default/user.jpg" />
                                       </c:if>
                                       <c:if test="${not empty comment.memberProfileImg}">
                                         <img class="comment-profile-image" src="${comment.memberProfileImg}" />
@@ -216,7 +216,7 @@
                                       <div class="reply-firstchild">
                                         <a href="/feed/${comment.memberNickname}" class="comment-profile">
                                           <c:if test="${empty comment.memberProfileImg}">
-                                          <img class="comment-profile-image" src="/resources/images/profile/profile.jpg" />
+                                          <img class="comment-profile-image" src="/resources/images/default/user.jpg" />
                                           </c:if>
                                           <c:if test="${not empty comment.memberProfileImg}">
                                             <img class="comment-profile-image" src="${comment.memberProfileImg}" />

@@ -305,7 +305,7 @@ const selectChattingProfile = () => {
           aProImg.setAttribute("href", "/feed/" + targetProfile.memberNickname);
           chatProfileImg.setAttribute("src", targetProfile.memberProfileImg);
         } else {
-          chatProfileImg.setAttribute("src", "/resources/images/profile/profile.jpg");
+          chatProfileImg.setAttribute("src", "/resources/images/default/user.jpg");
         }
       } 
 
@@ -461,7 +461,7 @@ const selectRoomList = () =>{
         listProfile.classList.add("target-profile");
 
         if(room.targetProfile == undefined){
-          listProfile.setAttribute("src", "/resources/images/profile/profile.jpg");
+          listProfile.setAttribute("src", "/resources/images/default/user.jpg");
         } else{
           listProfile.setAttribute("src", room.targetProfile);
         }
