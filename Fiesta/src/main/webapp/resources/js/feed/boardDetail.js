@@ -56,7 +56,7 @@ function selectReplyList(commentNo, commentLi) {
         } else {
           replyProfileImg.setAttribute(
             'src',
-            '/resources/images/profile/profile.jpg'
+            '/resources/images/default/user.jpg'
           );
         }
 
@@ -342,7 +342,7 @@ function selectCommentList(boardNo1, commentListUl, flag) {
           } else {
             commentProfileImg.setAttribute(
               'src',
-              '/resources/images/profile/profile.jpg'
+              '/resources/images/default/user.jpg'
             );
           }
 

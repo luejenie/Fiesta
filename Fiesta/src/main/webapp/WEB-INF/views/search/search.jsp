@@ -127,7 +127,7 @@
                           <img src="${account.memberProfileImg}">
                         </c:if>
                         <c:if test="${empty acoount.memberProfileImg}">
-                          <img src="/resources/images/profile/profile.jpg">
+                          <img src="/resources/images/default/user.jpg">
                         </c:if>
                       </a>
                       <a href="/feed/${account.memberNickname}" class="profileNickname">
@@ -145,7 +145,7 @@
                           <img src="${memberProfileImg}">
                         </c:if>
                         <c:if test="${empty memberProfileImg}">
-                          <img src="/resources/images/profile/profile.jpg">
+                          <img src="/resources/images/default/user.jpg">
                         </c:if>
                       </a>
                       <a href="/feed/${loginMember.memberNickname}" class="profileNickname">

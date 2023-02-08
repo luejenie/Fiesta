@@ -188,7 +188,7 @@ const searchInput1 = document.getElementById('searchInput');
                   if (mention.memberProfileImg != undefined) {
                     mentionProfileImg.setAttribute('src', mention.memberProfileImg);
                   } else {
-                    mentionProfileImg.setAttribute('src', '/resources/images/profile/profile.jpg');
+                    mentionProfileImg.setAttribute('src', '/resources/images/default/user.jpg');
                   }
 
                   autoCompleteDiv.append(mentionProfileImg);
@@ -325,7 +325,7 @@ const searchInput1 = document.getElementById('searchInput');
                     if (mention.memberProfileImg != undefined) {
                       mentionProfileImg.setAttribute('src', mention.memberProfileImg);
                     } else {
-                      mentionProfileImg.setAttribute('src', '/resources/images/profile/profile.jpg');
+                      mentionProfileImg.setAttribute('src', '/resources/images/default/user.jpg');
                     }
   
                     autoCompleteDiv2.append(mentionProfileImg);

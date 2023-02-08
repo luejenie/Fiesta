@@ -41,7 +41,7 @@
                 <img src="${loginMember.memberProfileImg}" class="profile-image">
               </c:if>
               <c:if test="${empty loginMember.memberProfileImg}">
-                <img src="/resources/images/profile/profile.jpg" class="profile-image">
+                <img src="/resources/images/default/user.jpg" class="profile-image">
               </c:if>
               <div class="id">${loginMember.memberNickname}</div>
             </a>
@@ -63,7 +63,7 @@
                       <img class="target-profile" src="${room.targetProfile}">
                     </c:if>
                     <c:if test="${empty room.targetProfile}">
-                      <img class="target-profile" src="/resources/images/profile/profile.jpg">
+                      <img class="target-profile" src="/resources/images/default/user.jpg">
                     </c:if>
                   </div>
                   <div class="item-body">

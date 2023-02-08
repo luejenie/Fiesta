@@ -51,7 +51,7 @@ followingPeople.addEventListener("click", function(){
                     const profileImg = document.createElement("img");
                     
                     if(following.memberProfileImg == undefined){
-                        profileImg.setAttribute("src", "/resources/images/profile/profile.jpg");
+                        profileImg.setAttribute("src", "/resources/images/default/user.jpg");
                         
                     } else {
                         profileImg.setAttribute("src", following.memberProfileImg);
@@ -185,7 +185,7 @@ followBtn.addEventListener("click", function(){
                     const profileImg = document.createElement("img");
 
                     if(follow.memberProfileImg == undefined) {
-                        profileImg.setAttribute("src","/resources/images/profile/profile.jpg" )
+                        profileImg.setAttribute("src","/resources/images/default/user.jpg" )
                     
                     } else {
                         profileImg.setAttribute("src",follow.memberProfileImg);
@@ -254,7 +254,7 @@ followingBtn.addEventListener("click", function(){
                     const profileImg = document.createElement("img");
                     
                     if(following.memberProfileImg == undefined){
-                        profileImg.setAttribute("src", "/resources/images/profile/profile.jpg");
+                        profileImg.setAttribute("src", "/resources/images/default/user.jpg");
                         
                     } else {
                         profileImg.setAttribute("src", following.memberProfileImg);

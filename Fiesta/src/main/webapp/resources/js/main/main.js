@@ -376,7 +376,7 @@ feedCommentBtnLogin.addEventListener('click', () => {
               } else {
                 commentProfileImg.setAttribute(
                   'src',
-                  '/resources/images/profile/profile.jpg'
+                  '/resources/images/default/user.jpg'
                 );
               }
   

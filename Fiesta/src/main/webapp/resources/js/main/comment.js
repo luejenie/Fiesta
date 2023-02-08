@@ -117,7 +117,7 @@ for (let i = 0; i < commentInput.length; i++) {
                     if (mention.memberProfileImg != undefined) {
                       mentionProfileImg.setAttribute('src', mention.memberProfileImg);
                     } else {
-                      mentionProfileImg.setAttribute('src', '/resources/images/profile/profile.jpg');
+                      mentionProfileImg.setAttribute('src', '/resources/images/default/user.jpg');
                     }
 
                     autoCompleteDiv.append(mentionProfileImg);
@@ -798,7 +798,7 @@ function selectCommentListM(boardNo, commentListUl) {
           } else {
             commentProfileImg.setAttribute(
               'src',
-              '/resources/images/profile/profile.jpg'
+              '/resources/images/default/user.jpg'
             );
           }
 
@@ -1024,7 +1024,7 @@ function selectReplyListM(commentNo, commentLi, boardNo) {
         } else {
           replyProfileImg.setAttribute(
             'src',
-            '/resources/images/profile/profile.jpg'
+            '/resources/images/default/user.jpg'
           );
         }
 
