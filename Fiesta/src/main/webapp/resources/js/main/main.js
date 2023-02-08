@@ -423,6 +423,10 @@ feedCommentBtnLogin.addEventListener('click', () => {
                         commentLikeBtn.innerHTML = '';
                         commentLikeBtn.innerHTML = solidHeart;
                         commentLikeBtn.classList.add('red');
+
+                        // 좋아요 알림 전송
+                        sendNotification(4, comment.commentNo, null);
+
                       } else {
                         console.log('댓글 좋아요 증가 안됨');
                       }
@@ -590,6 +594,18 @@ feedCommentBtnLogin.addEventListener('click', () => {
                 },
                 success: (result) => {
                   if (result > 0) {
+
+                    //TODO 댓글 등록 시 알림 전송
+                    // 답글 작성 시
+                    if(upperCommentNo > 0) {
+                      sendNotification(2, upperCommentNo, commentInput.value);
+                      sendNotification(1, board.boardNo, commentInput.value);
+
+                    } else { // 댓글 작성 시
+                      sendNotification(1, board.boardNo, commentInput.value);
+                    }
+
+
                     const flag = 1; //1이 등록 0이 삭제
   
                     selectCommentList(board.boardNo, commentUl, flag);
@@ -619,6 +635,18 @@ feedCommentBtnLogin.addEventListener('click', () => {
                   },
                   success: (result) => {
                     if (result > 0) {
+
+                      //TODO 댓글 등록 시 알림 전송
+                      // 답글 작성 시
+                      if(upperCommentNo > 0) {
+                        sendNotification(2, upperCommentNo, commentInput.value);
+                        sendNotification(1, board.boardNo, commentInput.value);
+
+                      } else { // 댓글 작성 시
+                        sendNotification(1, board.boardNo, commentInput.value);
+                      }
+
+
                       const flag = 1; //1이 등록 0이 삭제
     
                       selectCommentList(board.boardNo, commentUl, flag);
@@ -759,6 +787,10 @@ for (let i = 0; i < likeBtn.length; i++) {
         data: { "boardNo": boardNo[i].value, "memberNo": memberNo },
         success: (result) => {
           if (result > 0) {
+
+            //게시글 좋아요 알림 전송
+            sendNotification(3, boardNo[i].value, null);
+
             likeBtn[i].innerHTML = "";
             likeBtn[i].innerHTML = solidHeart;
             likeBtn[i].classList.add("red");

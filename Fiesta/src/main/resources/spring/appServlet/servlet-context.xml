@@ -82,7 +82,7 @@
    <beans:bean id="notificationHandler" class="edu.kh.fiesta.notification.model.websocket.NotificationWebsocketHandler"/>
    <websocket:handlers>
       <!-- websocket 매핑 주소 -->
-      <websocket:mapping handler="notificationHandler" path="/notificationSock"/>
+      <websocket:mapping handler="notificationHandler" path="/notification"/>
       
       <websocket:handshake-interceptors> 
          <!-- interceptor : http통신에서 request, response를 가로채는 역할

@@ -51,21 +51,19 @@
     <!-- main 태그 안쪽에 구현할 태그 작성해주시면 됩니다. -->
     <main>
       <!-- 최대 6개 -->
-      <div style="display:flex; justify-content:center; 
-        padding-top: 10px; width:90%; border-radius:10px; overflow-x:scroll; height: auto;
-        margin-bottom: 10px">
-        <section class="accountResult-section" style="display:flex; flex-direction:column;">
-            <span class="accountTitle">
-                <span style="margin-left:10px; font-size:13px;">추천 멤버</span>
-                <!-- <span>모두 보기</span> -->
-            </span>
+      <div class="popular-member">
+        <div class="account-title">
+            <span style="margin-left:10px; font-size:18px;">추천 멤버</span>
+            <!-- <span>모두 보기</span> -->
+        </div>
+        <section class="accountResult-section">
             
             <c:if test="${not empty accountList}">
-            <article class="account-container">
+            <div class="popular-account-container">
               <c:forEach var="account" items="${accountList}">
 
               <c:if test="${account.memberNickname != loginMember.memberNickname}">
-                <div class="account-Group">
+                <div class="account-group">
                   <a href="/feed/${account.memberNickname}" class="profileImages" >
                     <c:if test="${not empty account.memberProfileImg}">
                       <img src="${account.memberProfileImg}">
@@ -97,7 +95,7 @@
               </c:if>
 
               </c:forEach>
-            </article>
+            </div>
             </c:if>
         </section>
       </div>
@@ -227,7 +225,7 @@
                           <c:if test="${not empty board.commentList}">
                             <c:forEach var="comment" items="${board.commentList}">
                               <c:if test="${comment.upperCommentNo == 0 }">
-                                <li class="comment">
+                                <li class="comment" id="cmt${comment.commentNo}">
                                   <input type="hidden" value="${comment.commentNo}" class="comment-no">
                                   <div class="comment-firstchild">
                                     <a href="#" class="comment-profile">
@@ -406,7 +404,7 @@
           el: ".swiper-pagination",
           clickable: true,
         },
-        mousewheel: true,
+        mousewheel: false,
         keyboard: true,
       });
     </script>

@@ -315,7 +315,7 @@ function createBoard(board) {
       el: '.swiper-pagination',
       clickable: true,
     },
-    mousewheel: true,
+    mousewheel: false,
     keyboard: true,
   });
   // ! 스와이퍼 슬라이드 초기화 끝
@@ -480,6 +480,9 @@ function createBoard(board) {
         url: '/boardLikeUp',
         data: { "boardNo": board.boardNo, "memberNo": memberNo },
         success: (result) => {
+
+            //게시글 좋아요 알림 전송
+            sendNotification(3, board.boardNo, null);
 
             likeBtn.innerHTML = '';
             likeBtn.innerHTML = solidHeart;
@@ -706,6 +709,7 @@ function createBoard(board) {
       // commentUl의 자식 요소 commentLi
       const commentLi = document.createElement('li');
       commentLi.classList.add('comment');
+      commentLi.id = "cmt" + comment.commentNo;
       commentUl.append(commentLi);
 
       // commentNo input hidden 태그 생성
@@ -788,6 +792,10 @@ function createBoard(board) {
                 commentLikeBtn.innerHTML = '';
                 commentLikeBtn.innerHTML = solidHeart;
                 commentLikeBtn.classList.add('red');
+
+                // 댓글 좋아요 알림 전송
+                sendNotification(4, comment.commentNo, null);
+
               } else {
                 console.log('댓글 좋아요 증가 안됨');
               }
@@ -964,6 +972,17 @@ function createBoard(board) {
         },
         success: (result) => {
           if (result > 0) {
+
+            //TODO 댓글 등록 시 알림 전송
+            // 답글 작성 시
+            if(upperCommentNo > 0) {
+              sendNotification(2, upperCommentNo, commentInput.value);
+              sendNotification(1, board.boardNo, commentInput.value);
+
+            } else { // 댓글 작성 시
+              sendNotification(1, board.boardNo, commentInput.value);
+            }
+
             const flag = 1; //1이 등록 0이 삭제
 
             selectCommentList(board.boardNo, commentUl, flag);
@@ -994,6 +1013,17 @@ function createBoard(board) {
           },
           success: (result) => {
             if (result > 0) {
+
+              // 댓글 등록 시 알림 전송
+              // 답글 작성 시
+              if(upperCommentNo > 0) {
+                sendNotification(2, upperCommentNo, commentInput.value);
+                sendNotification(1, board.boardNo, commentInput.value);
+
+              } else { // 댓글 작성 시
+                sendNotification(1, board.boardNo, commentInput.value);
+              }             
+
               const flag = 1; //1이 등록 0이 삭제
 
               selectCommentList(board.boardNo, commentUl, flag);
@@ -1783,6 +1813,10 @@ function selectCommentList(boardNo1, commentListUl, flag) {
                     commentLikeBtn.innerHTML = '';
                     commentLikeBtn.innerHTML = solidHeart;
                     commentLikeBtn.classList.add('red');
+
+                    // 댓글 좋아요 알림 전송
+                    sendNotification(4, comment.commentNo, null);
+
                   } else {
                     console.log('댓글 좋아요 증가 안됨');
                   }
@@ -2021,6 +2055,9 @@ function selectReplyList(commentNo, commentLi) {
                   replyLikeBtn.innerHTML = '';
                   replyLikeBtn.innerHTML = solidHeart;
                   replyLikeBtn.classList.add('red');
+
+                  // 댓글 좋아요 알림 전송
+                  sendNotification(4, comment.commentNo, null);
                 } else {
                   console.log('댓글 좋아요 증가 안됨');
                 }

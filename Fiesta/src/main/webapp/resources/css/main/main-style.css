@@ -67,6 +67,61 @@ main > section {
   justify-content: center;
 }
 
+.popular-member {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  width: 90%;
+  height: auto;
+
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.account-title {
+  width: 100%;
+  font-size: var(--large-font-size);
+  font-weight: bold;
+}
+
+.accountResult-section {
+  width: 100%;
+}
+
+.popular-account-container {
+  width: 100%;
+  overflow-x: scroll;
+  display: flex;
+  align-items: center;
+}
+
+.popular-account-container::-webkit-scrollbar {
+  height: 5px;
+}
+.popular-account-container::-webkit-scrollbar-thumb {
+  background-color: var(--fiesta-color);
+  border-radius: 4px;
+  height: 10%;
+}
+
+.popular-account-container::-webkit-scrollbar-thumb:hover {
+  background-color: black;
+}
+
+.popular-account-container::-webkit-scrollbar-track {
+  background-color: #fafafa; /*스크롤바 트랙 색상*/
+}
+
+.account-group {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 5px;
+}
 
 #emptyBoardList {
   height: 73vh;

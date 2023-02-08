@@ -561,6 +561,7 @@ for (let i = 0; i < commentLikeBtn.length; i++) {
             commentLikeBtn[i].classList.add('red');
 
             //TODO: 좋아요 성공 시 알림 전송
+            console.log("알림 전송");
             sendNotification(4, commentNo[i].value, null);
 
 
@@ -711,11 +712,24 @@ for (let i = 0; i < commentInput.length; i++) {
           },
           success: (result) => {
             if (result > 0) {
+
+              //TODO 댓글 등록 시 알림 전송
+              // 답글 작성 시
+              if(upperCommentNo > 0) {
+                sendNotification(2, upperCommentNo, commentInput[i].value);
+                sendNotification(1, boardNo.value, commentInput[i].value);
+
+              } else { // 댓글 작성 시
+                sendNotification(1, boardNo.value, commentInput[i].value);
+              }
+
               const flag = 1; // 1이 등록, 2가 삭제
               selectCommentList(boardNo.value, commentListUl, flag);
               commentInput[i].value = '';
               postingBtn[i].setAttribute('disabled', true);
               mainContainer.scrollTop = mainContainer.scrollHeight;
+
+
               upperCommentNo = 0;
             }
           },
@@ -830,6 +844,10 @@ function selectCommentListM(boardNo, commentListUl) {
                     commentLikeBtn.innerHTML = '';
                     commentLikeBtn.innerHTML = solidHeart;
                     commentLikeBtn.classList.add('red');
+
+                    // 댓글 좋아요 알림 전송
+                    sendNotification(4, comment.commentNo, null);
+
                   } else {
                     console.log('댓글 좋아요 증가 안됨');
                   }
@@ -1053,6 +1071,9 @@ function selectReplyListM(commentNo, commentLi, boardNo) {
                   replyLikeBtn.innerHTML = '';
                   replyLikeBtn.innerHTML = solidHeart;
                   replyLikeBtn.classList.add('red');
+
+                  sendNotification(4, comment.commentNo, null);
+
                 } else {
                   console.log('댓글 좋아요 증가 안됨');
                 }
@@ -1295,6 +1316,18 @@ postingBtnM.addEventListener('click', () => {
       success: (result) => {
         if (result > 0) {
           selectCommentListM(boardNo, commentListUlM);
+
+          //TODO 댓글 등록 시 알림 전송
+          // 답글 작성 시
+          if(upperCommentNo > 0) {
+            sendNotification(2, upperCommentNo, commentInputM.value);
+            sendNotification(1, boardNo, commentInputM.value);
+
+          } else { // 댓글 작성 시
+            sendNotification(1, boardNo, commentInputM.value);
+          }
+          
+
           commentInputM.value = '';
           postingBtnM.setAttribute('disabled', true);
           upperCommentNo = 0;
@@ -1325,6 +1358,17 @@ commentInputM.addEventListener('keypress', e => {
         success: (result) => {
           if (result > 0) {
             selectCommentListM(boardNo, commentListUlM);
+
+            //TODO 댓글 등록 시 알림 전송
+            // 답글 작성 시
+            if(upperCommentNo > 0) {
+              sendNotification(2, upperCommentNo, commentInputM.value);
+              sendNotification(1, boardNo, commentInputM.value);
+
+            } else { // 댓글 작성 시
+              sendNotification(1, boardNo, commentInputM.value);
+            }
+
             commentInputM.value = '';
             postingBtnM.setAttribute('disabled', true);
             upperCommentNo = 0;

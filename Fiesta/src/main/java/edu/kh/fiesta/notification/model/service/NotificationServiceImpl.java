@@ -1,5 +1,7 @@
 package edu.kh.fiesta.notification.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +26,7 @@ public class NotificationServiceImpl implements NotificationService{
 		
 		switch (typeNo) {
 		
-		// 댓글
+		// 댓글 작성 시 게시글 작성자에게 알림
 		case 1: 
 			board = dao.selectBoard(targetNo);
 			notification.setMemberNo(board.getMemberNo());
@@ -34,16 +36,17 @@ public class NotificationServiceImpl implements NotificationService{
 			
 			break;
 			
-		// 답글
+		// 답글 작성 시 부모 댓글 작성자에게 알림
 		case 2: 
 			comment = dao.selectComment(targetNo);
 			notification.setMemberNo(comment.getCommentMemberNo());
-			notification.setNotificationContent(notification.getSenderNickname() + "님이 댓글을 달았습니다. " +
-			notification.getNotificationContent());
+			notification.setNotificationContent(notification.getSenderNickname() 
+					+ "님이 댓글을 달았습니다. " + notification.getNotificationContent());
+			notification.setQuickLink("/feedDetail/" + comment.getBoardNo());
 			break;
 			
 			
-		// 게시글 좋아요
+		// 게시글 좋아요 시 게시글 작성자에게 알림
 		case 3:
 			board = dao.selectBoard(targetNo);
 			notification.setMemberNo(board.getMemberNo());
@@ -52,18 +55,51 @@ public class NotificationServiceImpl implements NotificationService{
 			notification.setQuickLink("/feedDetail/" + targetNo);
 			break;
 			
-		// 댓글 좋아요
+		// 댓글 좋아요 시 댓글 작성자에게 알림
 		case 4:
 			comment = dao.selectComment(targetNo);
 			notification.setMemberNo(comment.getCommentMemberNo());
-			
-			notification.setNotificationContent(notification.getSenderNickname() + "님이 회원님의 댓글을 좋아합니다 ");
+			notification.setNotificationContent(notification.getSenderNickname() 
+					+ "님이 회원님의 댓글을 좋아합니다 ");
+			notification.setQuickLink("/feedDetail/" 
+					+ comment.getBoardNo());
 			
 			break;	
 		}
 		
-		return dao.insertNotification(notification);
+		int result = 0;
+		
+		// 알림을 보낸 사람과 받는 사람이 일치하지 않을 때만 DB에 저장
+		if(notification.getSenderNo() != notification.getMemberNo()) {
+			result = dao.insertNotification(notification);
+		}
+		
+		return result;
 		
 	}
+	
+	/** 알림 목록 조회
+	 *
+	 */
+	@Override
+	public List<Notification> selectNotificationList(int memberNo) {
+		return dao.selectNotificationList(memberNo);
+	}
+	
+	/** 읽지 않은 알림 수 조회
+	 *
+	 */
+	@Override
+	public int countNotification(int memberNo) {
+		return dao.countNotification(memberNo);
+	}
 
+	
+	/** 알림 읽음 처리
+	 *
+	 */
+	@Override
+	public int changeNotificationStatus(int notificationNo) {
+		return dao.changeNotificationStatus(notificationNo);
+	}
 }
