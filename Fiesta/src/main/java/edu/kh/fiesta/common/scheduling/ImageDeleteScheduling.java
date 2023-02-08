@@ -34,7 +34,7 @@ public class ImageDeleteScheduling {
 	
 
 //	프로필 사진 삭제 스케줄러
-	@Scheduled(cron = "0 0 * * * * ")
+	@Scheduled(cron = "0 0 3 * * * ")
 	public void deleteprofileImgFile() {
 		
 		List<String> dbList = memberService.selectProfileImageList();
@@ -68,7 +68,7 @@ public class ImageDeleteScheduling {
 	
 	
 //	게시글 이미지 삭제 스케줄러
-	@Scheduled(cron = "0 0 * * * * ")
+	@Scheduled(cron = "0 0 3 * * * ")
 	public void deleteBgImgFile() {
 		
 		List<String> dbList = boardService.selectImageList();

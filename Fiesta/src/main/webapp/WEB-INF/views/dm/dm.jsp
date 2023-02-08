@@ -21,7 +21,7 @@
 
 <link rel="stylesheet" href="/resources/css/swiper-bundle.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
+<script src="https://kit.fontawesome.com/591746f9e8.js" crossorigin="anonymous"></script>
     <script
       src="https://kit.fontawesome.com/591746f9e8.js"
       crossorigin="anonymous"
@@ -34,7 +34,7 @@
     <!-- main 태그 안쪽에 구현할 태그 작성해주시면 됩니다. -->
     <main>
       <section class="container">
-        <div class="left">
+        <div class="left" id="left">
           <section class="up">
             <a href="/feed/${loginMember.memberNickname}" class="profile-area">
               <c:if test="${not empty loginMember.memberProfileImg}">
@@ -46,6 +46,7 @@
               <div class="id">${loginMember.memberNickname}</div>
             </a>
             <!-- 로그인 연결 -->
+            <span class="message-name">메시지</span>
             <button id="dmOpen">  
               <img
                 src="/resources/images/write.png"

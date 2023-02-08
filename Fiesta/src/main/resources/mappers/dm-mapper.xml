@@ -21,6 +21,7 @@
       <result property="messageContent" column="CHAT_CONTENT" />
       <result property="readFlag" column="CHAT_READ_FL" />
       <result property="senderNo" column="C_FROM_MEMBER_NO" />
+      <result property="targetNo" column="C_TO_MEMBER_NO" />
       <result property="chattingNo" column="CHATTING_NO" />
       <result property="chatSendDate" column="CHAT_SEND_DATE" />
       <result property="chatSendTime" column="CHAT_SEND_TIME" />
