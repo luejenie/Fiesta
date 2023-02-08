@@ -64,7 +64,6 @@
                 <div class="new-notification hide" id="newNotification"></div>
               </button>
               <ul class="notification-container hide" id="notificationContainer">
-
               </ul>
             </li>
             <li class="header-menu-parent">

@@ -65,6 +65,16 @@ public class NotificationServiceImpl implements NotificationService{
 					+ comment.getBoardNo());
 			
 			break;	
+		
+		// 팔로우 시 팔로잉 대상에게 알림
+		case 5:
+			int memberNo = dao.selectMemberNo(notification.getNotificationContent());;
+			notification.setMemberNo(memberNo);
+			notification.setNotificationContent(notification.getSenderNickname() 
+					+ "님이 회원님을 팔로우 했습니다.");
+			notification.setQuickLink("/feed/" + notification.getSenderNickname());
+			
+			break;	
 		}
 		
 		int result = 0;

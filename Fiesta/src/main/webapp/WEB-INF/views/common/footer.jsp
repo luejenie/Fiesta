@@ -35,7 +35,7 @@
 
   <script>
     var notificationNo = "${loginMember.memberNo}";
-    var memberNickname = "${loginMember.memberNickname}";
+    var notificationName = "${loginMember.memberNickname}";
 
   </script>
 

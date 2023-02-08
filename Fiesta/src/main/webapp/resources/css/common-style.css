@@ -320,9 +320,15 @@ nav i {
   cursor: pointer;
 }
 
+.notification-profile {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
 .notification-container > li > div {
-  width: 87%;
-  padding-right: 10px;
+  width: 85%;
+  /* padding-right: 10px; */
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
@@ -336,7 +342,7 @@ nav i {
 
 .notification-container > li > span {
   font-size: 10px;
-  width: 13%;
+  width: 15%;
   display: flex;
   justify-content: center;
   align-items: center;

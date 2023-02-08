@@ -64,5 +64,13 @@ public class NotificationDAO {
 		return sqlSession.update("notificationMapper.changeNotificationStatus", notificationNo);
 	}
 
+	/** 회원 닉네임으로 회원 번호 조회
+	 * @param notificationContent
+	 * @return
+	 */
+	public int selectMemberNo(String notificationContent) {
+		return sqlSession.selectOne("notificationMapper.selectMemberNo", notificationContent);
+	}
+
 
 }

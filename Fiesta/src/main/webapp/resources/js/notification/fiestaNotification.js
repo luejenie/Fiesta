@@ -33,10 +33,12 @@ notificationSock.onmessage = e => {
 
 	const onNotification = document.getElementById('onNotification');
 
+	// 알림 버튼에 빨갛게 새 알림 표시하기
 	if(document.getElementById('newNotification').classList.contains('hide')) {
 		document.getElementById('newNotification').classList.remove('hide');
 	}
 	
+	// 새로운 메시지 알림 창 켜기
 	if(onNotification.classList.contains('hide')) {
 		onNotification.classList.add('appear2');
 		onNotification.classList.remove('hide');
@@ -51,6 +53,12 @@ notificationSock.onmessage = e => {
 			onNotification.classList.add('hide');
 		},3500);
 	}
+
+	if(!notificationContainer.classList.contains('hide')) {
+		notificationContainer.innerHTML = "";
+		//TODO 알림 목록 조회 후 출력
+		selectNotificationList();
+	}
 }
 
 
@@ -61,10 +69,12 @@ const sendNotification = (typeNo, targetNo, content) => {
 		"typeNo": typeNo,
 		"targetNo": targetNo,
 		"senderNo": notificationNo,
-		"senderNickname": memberNickname,
+		"senderNickname": notificationName,
 		"notificationContent" : content
 	};
 	
+	console.log("알림 전송 시작 \n" + obj.senderNickname);
+
 	notificationSock.send(JSON.stringify(obj));
 }
 	
@@ -118,7 +128,7 @@ const selectNotificationList = () => {
 // 알림 목록 조회 후 출력하는 함수
 const printNotificationList = (notificationList) => {
 	if(notificationList.length == 0) {
-		notificationContainer.innerText = "알림이 없습니다."
+		notificationContainer.innerHTML = "<span style='margin-top:80px;'>알림이 없습니다.</span>"
 
 	} else {
 		for(let notification of notificationList) {
@@ -130,13 +140,21 @@ const printNotificationList = (notificationList) => {
 				li.classList.add('read');
 			}
 
+			const img = document.createElement('img');
+			img.classList.add('notification-profile');
+			if(notification.memberProfileImg != undefined) {
+				img.src = notification.memberProfileImg;
+			} else {
+				img.src = "/resources/images/default/user.jpg";
+			}
+
 			const div = document.createElement('div');
 			div.innerHTML = notification.notificationContent;
 
 			const span = document.createElement('span');
 			span.innerHTML = notification.notificationDate;
 			
-			li.append(div, span);
+			li.append(img, div, span);
 			notificationContainer.append(li);
 			
 			// 목록 클릭 시 읽음 처리
@@ -157,6 +175,7 @@ const printNotificationList = (notificationList) => {
 }
 
 
+// 알림 읽음 처리
 const changeNotificationStatus = (notificationNo) => {
 	console.log(notificationNo);
 	$.ajax({
