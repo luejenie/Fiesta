@@ -1,12 +1,14 @@
 package edu.kh.fiesta.notification.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import edu.kh.fiesta.main.model.vo.Board;
 import edu.kh.fiesta.main.model.vo.Comment;
 import edu.kh.fiesta.notification.dao.NotificationDAO;
 import edu.kh.fiesta.notification.model.vo.Notification;
 
+@Service
 public class NotificationServiceImpl implements NotificationService{
 	
 	@Autowired

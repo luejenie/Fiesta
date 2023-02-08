@@ -561,7 +561,7 @@ for (let i = 0; i < commentLikeBtn.length; i++) {
             commentLikeBtn[i].classList.add('red');
 
             //TODO: 좋아요 성공 시 알림 전송
-            sendNotification(4, commentNo[i].value);
+            sendNotification(4, commentNo[i].value, null);
 
 
 

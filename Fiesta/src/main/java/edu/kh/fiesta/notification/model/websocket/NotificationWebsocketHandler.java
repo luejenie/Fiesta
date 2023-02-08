@@ -23,7 +23,7 @@ import edu.kh.fiesta.notification.model.vo.Notification;
 
 public class NotificationWebsocketHandler extends TextWebSocketHandler {
 	
-	private Logger logger = LoggerFactory.getLogger(ChattingWebsocketHandler.class);
+	private Logger logger = LoggerFactory.getLogger(NotificationWebsocketHandler.class);
 	
 	@Autowired
 	private NotificationService service;
