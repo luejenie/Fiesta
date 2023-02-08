@@ -507,6 +507,10 @@ const profileNickname = document.getElementById("follow-to-nickname");
                             e.target.innerText = "팔로잉";
                             e.target.classList.add("unfollowAccountBtn");
                             e.target.classList.remove("followAccountBtn");
+
+                            // 팔로잉 알림 전송
+                            console.log("팔로잉 알림 전송")
+                            sendNotification(5, null, profileNickname.value);
                         } else {
                             console.log("계정 팔로잉 실패");
                         }

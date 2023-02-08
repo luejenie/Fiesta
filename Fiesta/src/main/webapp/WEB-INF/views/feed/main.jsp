@@ -69,7 +69,7 @@
                       <img src="${account.memberProfileImg}">
                     </c:if>
                     <c:if test="${empty account.memberProfileImg}">
-                      <img src="/resources/images/profile/profile.jpg">
+                      <img src="/resources/images/default/user.jpg">
                     </c:if>
                   </a>
                   <a href="/feed/${account.memberNickname}" style="font-size:8px" class="profileNickname">
@@ -85,7 +85,7 @@
                       <img src="${memberProfileImg}">
                     </c:if>
                     <c:if test="${empty memberProfileImg}">
-                      <img src="/resources/images/profile/profile.jpg">
+                      <img src="/resources/images/default/user.jpg">
                     </c:if>
                   </a>
                   <a href="/feed/${loginMember.memberNickname}" class="profileNickname" style="font-size:8px">
@@ -120,13 +120,13 @@
                     <div class="writer-info">
                       <a href="/feed/${board.memberNickname}" class="profile-photo">
                         <c:if test="${empty board.memberProfileImg}">
-                          <img class="feed-profile-image" src="/resources/images/profile/profile.jpg" />
+                          <img class="feed-profile-image" src="/resources/images/default/user.jpg" />
                         </c:if>
                         <c:if test="${not empty board.memberProfileImg}">
                           <img class="feed-profile-image" src="${board.memberProfileImg}" />
                         </c:if>
                       </a>
-                      <a href="#" class="feed-memberId">${board.memberNickname}</a>
+                      <a href="/feed/${board.memberNickname}" class="feed-memberId">${board.memberNickname}</a>
                     </div>
                     <div>
                       <button type="button" class="fa-solid fa-ellipsis feed-header-menu"></button>
@@ -230,7 +230,7 @@
                                   <div class="comment-firstchild">
                                     <a href="#" class="comment-profile">
                                       <c:if test="${empty comment.memberProfileImg}">
-                                        <img class="comment-profile-image" src="/resources/images/profile/profile.jpg" />
+                                        <img class="comment-profile-image" src="/resources/images/default/user.jpg" />
                                       </c:if>
                                       <c:if test="${not empty comment.memberProfileImg}">
                                         <img class="comment-profile-image" src="${comment.memberProfileImg}" />
@@ -272,7 +272,7 @@
                                       <div class="reply-firstchild">
                                         <a href="#" class="comment-profile">
                                           <c:if test="${empty comment.memberProfileImg}">
-                                          <img class="comment-profile-image" src="/resources/images/profile/profile.jpg" />
+                                          <img class="comment-profile-image" src="/resources/images/default/user.jpg" />
                                           </c:if>
                                           <c:if test="${not empty comment.memberProfileImg}">
                                             <img class="comment-profile-image" src="${comment.memberProfileImg}" />

@@ -15,6 +15,7 @@ const followHashtagBtn = document.getElementById("followHashtagBtn");
                 followHashtagBtn.classList.add("unfollowHashtagBtn");
                 followHashtagBtn.classList.remove("followHashtagBtn");
                 console.log("해시태그 팔로우한 상태");
+
             } else { // 팔로우 안 한 상태
                 followHashtagBtn.innerText = "팔로우";
                 followHashtagBtn.classList.add("followHashtagBtn");
@@ -25,6 +26,7 @@ const followHashtagBtn = document.getElementById("followHashtagBtn");
         error: (result) => {console.log("해시태그 팔로우 여부 조회 오류");}
     })
 })();
+
 
 
 followHashtagBtn.addEventListener("click", e => {
@@ -140,6 +142,9 @@ for(let i=0; i < followAccountBtn.length; i++){
                             e.target.innerText = "팔로잉";
                             e.target.classList.add("unfollowAccountBtn");
                             e.target.classList.remove("followAccountBtn");
+
+                            // 팔로잉 알림 전송
+                            sendNotification(5, null, profileNickname[i].innerText);
                         } else {
                             console.log("계정 팔로잉 실패");
                         }

@@ -225,11 +225,16 @@
       
 
     </main>
-        <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-        <jsp:include page="/WEB-INF/views/profile/follow-board.jsp"/>
-        <jsp:include page="/WEB-INF/views/profile/following-board.jsp"/>
-        <jsp:include page="/WEB-INF/views/profile/profile-edit-board.jsp"/>
-        <%-- 새게시물작성 모달jsp --%>
+
+
+    <!-- footer include -->
+    <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
+
+    <jsp:include page="/WEB-INF/views/profile/follow-board.jsp"/>
+    <jsp:include page="/WEB-INF/views/profile/following-board.jsp"/>
+    <jsp:include page="/WEB-INF/views/profile/profile-edit-board.jsp"/>
+
     <jsp:include page="/WEB-INF/views/board/newpost-file.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-eidt.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-text.jsp" />

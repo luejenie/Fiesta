@@ -49,6 +49,7 @@ public class NotificationWebsocketHandler extends TextWebSocketHandler {
 		
 		// 알림을 해석해서 DB에 저장
 		int result = service.insertNotification(notification);
+		logger.debug(notification.toString());
 		
 		// DB에 잘 저장되었으면... 알림을 반환
 		if(result > 0) {
