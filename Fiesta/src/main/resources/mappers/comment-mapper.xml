@@ -51,6 +51,7 @@
   	#{boardNo}, #{upperCommentNo})
   </insert>
   
+  <!-- 답글 수 조회 -->
   <select id="selectReplyCount" resultType="_int">
   	SELECT COUNT(*)
   	FROM "COMMENT"
@@ -88,6 +89,10 @@
 			(SELECT COUNT(*) FROM BOARD WHERE BOARD_CONTENT LIKE '%#${searchName}%') BOARD_COUNT
 		FROM HASHTAG
 		WHERE HASHTAG_CONTENT LIKE '%${searchName}%'
+	</select>
+	
+	<select id="selectComment" resultMap="comment_rm">
+		SELECT COMMENT_MEMBER_NO, BOARD_NO FROM "COMMENT" WHERE COMMENT_NO = #{targetNo}
 	</select>
   
 </mapper>

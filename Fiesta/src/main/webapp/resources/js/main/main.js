@@ -777,6 +777,11 @@ for (let i = 0; i < likeBtn.length; i++) {
                 likeCount[i].innerText = "여러 명이 좋아합니다";     
               }
             }
+
+
+            //TODO: 게시글 좋아요 시 알림 전송
+            
+
           } else {
             console.log("증가 실패");
           }

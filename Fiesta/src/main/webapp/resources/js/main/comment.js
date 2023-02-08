@@ -34,8 +34,10 @@ const loading =
 +'</div>'  
   + '</div > ';
 
- 
+// optimize 댓글 작성 언급/해시태그 자동완성 기능 
 let autoCompleteModal;
+
+
 for (let i = 0; i < commentInput.length; i++) {
   commentInput[i].addEventListener('keyup', function (event) {
     
@@ -557,6 +559,12 @@ for (let i = 0; i < commentLikeBtn.length; i++) {
             commentLikeBtn[i].innerHTML = '';
             commentLikeBtn[i].innerHTML = solidHeart;
             commentLikeBtn[i].classList.add('red');
+
+            //TODO: 좋아요 성공 시 알림 전송
+            sendNotification(4, commentNo[i].value);
+
+
+
           } else {
             console.log('댓글 좋아요 증가 안됨');
           }
@@ -642,9 +650,24 @@ for (let i = 0; i < postingBtn.length; i++) {
           if (result > 0) {
             const flag = 1; // 1이 등록, 2가 삭제
             selectCommentList(boardNo.value, commentListUl, flag);
+
+
+            //TODO 댓글 등록 시 알림 전송
+            // 답글 작성 시
+            if(upperCommentNo > 0) {
+              sendNotification(2, upperCommentNo, commentInput[i].value);
+              sendNotification(1, boardNo.value, commentInput[i].value);
+
+            } else { // 댓글 작성 시
+              sendNotification(1, boardNo.value, commentInput[i].value);
+            }
+
+
             commentInput[i].value = '';
             postingBtn[i].setAttribute('disabled', true);
             mainContainer.scrollTop = mainContainer.scrollHeight;
+
+
             upperCommentNo = 0;
           }
         },

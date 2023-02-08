@@ -43,6 +43,7 @@
 		<mapper resource="/mappers/follow-mapper.xml"/>
 		<mapper resource="/mappers/dm-mapper.xml"/>
 		<mapper resource="/mappers/board-setting-mapper.xml"/>
+		<mapper resource="/mappers/notification-mapper.xml"/>
 
 		
 	
