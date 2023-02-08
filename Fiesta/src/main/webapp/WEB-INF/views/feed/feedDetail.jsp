@@ -169,7 +169,7 @@
                           <c:if test="${not empty board.commentList}">
                             <c:forEach var="comment" items="${board.commentList}">
                               <c:if test="${comment.upperCommentNo == 0 }">
-                                <li class="comment">
+                                <li class="comment" id="cmt${comment.commentNo}">
                                   <input type="hidden" value="${comment.commentNo}" class="comment-no">
                                   <div class="comment-firstchild">
                                     <a href="/feed/${comment.memberNickname}" class="comment-profile">

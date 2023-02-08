@@ -308,6 +308,7 @@ function selectCommentList(boardNo1, commentListUl, flag) {
           // commentUl의 자식 요소 commentLi
           const commentLi = document.createElement('li');
           commentLi.classList.add('comment');
+          commentLi.id = "cmt" + comment.commentNo;
           commentListUl.append(commentLi);
 
           // commentNo input hidden 태그 생성

@@ -32,3 +32,14 @@
 
     <c:remove var="message" />
   </c:if>
+
+  <script>
+    var notificationNo = "${loginMember.memberNo}";
+    var memberNickname = "${loginMember.memberNickname}";
+
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="/resources/js/notification/fiestaNotification.js"></script>

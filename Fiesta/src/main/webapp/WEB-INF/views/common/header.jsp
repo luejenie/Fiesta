@@ -58,10 +58,14 @@
                 <i class="fa-regular fa-compass"></i>
               </a>
             </li>
-            <li>
-              <button>
+            <li class="notification-button">
+              <button id="notificationBtn">
                 <i class="fa-regular fa-bell"></i>
+                <div class="new-notification hide" id="newNotification"></div>
               </button>
+              <ul class="notification-container hide" id="notificationContainer">
+
+              </ul>
             </li>
             <li class="header-menu-parent">
               <label for="header-menu-toggle">
@@ -105,5 +109,9 @@
       <span>&uarr;</span>
       <span>TOP</span>
     </button>
+
+    <div class="on-notification hide" id="onNotification">
+      새로운 알림이 있습니다.
+    </div>
 
 

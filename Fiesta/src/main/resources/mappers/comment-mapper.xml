@@ -24,6 +24,22 @@
 	   <result property="hashtagContent" column="HASHTAG_CONTENT" />
 	   <result property="boardCount" column="BOARD_COUNT" />
  	</resultMap>
+ 	
+ 	  <resultMap type="Comment" id="comment_rm">
+        <!-- DB에서 PK에 해당하는 필드, 컬럼을 작성하는 태그 -->
+     <id property = "commentNo" column="COMMENT_NO"/>
+     <!-- 나머지 일반 컬럼 -->
+      <result property="commentMemberNo" column="COMMENT_MEMBER_NO" />
+      <result property="commentContent" column="COMMENT_CONTENT" />
+      <result property="commentCreateDate" column="COMMENT_CREATE_DATE" />
+      <result property="boardNo" column="BOARD_NO" />
+      <result property="upperCommentNo" column="UPPER_COMMENT_NO" />
+      <result property="memberNickname" column="MEMBER_NICKNAME" />
+      <result property="memberProfileImg" column="MEMBER_PROFILE_IMG" />
+      <result property="replyCount" column="REPLY_COUNT" />
+      <result property="mentionNickname" column="MENTION_NICKNAME" />
+      <result property="commentLikeCheck" column="COMMENT_LIKE_CHECK" />
+  </resultMap>
 
 
 
@@ -51,6 +67,7 @@
   	#{boardNo}, #{upperCommentNo})
   </insert>
   
+  <!-- 답글 수 조회 -->
   <select id="selectReplyCount" resultType="_int">
   	SELECT COUNT(*)
   	FROM "COMMENT"
@@ -88,6 +105,10 @@
 			(SELECT COUNT(*) FROM BOARD WHERE BOARD_CONTENT LIKE '%#${searchName}%') BOARD_COUNT
 		FROM HASHTAG
 		WHERE HASHTAG_CONTENT LIKE '%${searchName}%'
+	</select>
+	
+	<select id="selectComment" resultMap="comment_rm">
+		SELECT COMMENT_MEMBER_NO, BOARD_NO FROM "COMMENT" WHERE COMMENT_NO = #{targetNo}
 	</select>
   
 </mapper>

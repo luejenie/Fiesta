@@ -127,6 +127,10 @@
 	FROM BOARD_IMG
 	WHERE IMG_CHANGE_NAME IS NOT NULL
   </select>
+  
+  <select id="selectBoard" resultMap="board_rm">
+	SELECT MEMBER_NO FROM BOARD WHERE BOARD_NO = #{targetNo}  
+  </select>
 
 
 
