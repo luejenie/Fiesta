@@ -73,4 +73,10 @@ public class DmServiceImple implements DmService{
 		return dao.deleteRoom(chattingNo);
 	}
 	
+	// 새로운 채팅 알림
+	@Override
+	public int newMessageNotice(int loginMemberNo) {
+		return dao.newMessageNotice(loginMemberNo);
+	}
+	
 }

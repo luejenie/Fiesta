@@ -44,6 +44,12 @@ public interface DmService {
 	 */
 	int deleteRoom(int chattingNo);
 
+	/** 새로운 채팅 알림
+	 * @param loginMemberNo
+	 * @return result
+	 */
+	int newMessageNotice(int loginMemberNo);
+
 
 	
 }

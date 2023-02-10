@@ -51,8 +51,8 @@
 	<select id="selectMember" parameterType="string" resultMap="member_rm">
 		SELECT MEMBER_NICKNAME, MEMBER_PROFILE_IMG, MEMBER_NO
 		FROM "MEMBER"
-		WHERE MEMBER_NICKNAME LIKE UPPER('%${memberNickname}%') OR MEMBER_NICKNAME LIKE LOWER('%${memberNickname}%')
-		AND MEMBER_NICKNAME != #{memberNickname}
+		WHERE (MEMBER_NICKNAME LIKE UPPER('%${memberNickname}%') OR MEMBER_NICKNAME LIKE LOWER('%${memberNickname}%')
+		OR MEMBER_NICKNAME != #{memberNickname})
 		AND MEMBER_NO != #{loginMemberNo}
 		AND SECESSION_FL = 'N'
 	</select>
@@ -142,7 +142,7 @@
 	</select>
 	
 	
-	
+	<!-- 채팅방 프로필 조회 -->
 	<select id="selectTargetProfile" resultMap="member_rm">
 		SELECT MEMBER_NO, MEMBER_NICKNAME, MEMBER_PROFILE_IMG
 		FROM MEMBER
@@ -151,11 +151,19 @@
 	</select>
 	
 	
+	<!-- 채팅방 나가기 (삭제) -->
 	<delete id="deleteRoom">
 		DELETE FROM CHATTING_ROOM
 		WHERE CHATTING_NO = #{chattingNo}
 	</delete>
 	
+	<!-- 새로운 채팅 알림 -->
+	<select id="newMessageNotice" resultType="_int">
+		SELECT COUNT(*)
+		FROM CHAT
+		WHERE CHAT_READ_FL = 'N'
+		AND C_TO_MEMBER_NO = #{loginMemberNo}
+	</select>
 	
 
 </mapper>

@@ -19,15 +19,12 @@ const modalNick = document.getElementsByClassName("modalNick");
 const recipient = document.getElementById("Recipient");
 const sendPeople = document.getElementById("sendPeople");
 
-
-
 document.addEventListener("DOMContentLoaded", ()=>{
 
     dmMenu.style.display = "none";
     click.style.display = "none";
 
     right.style.justifyContent = "center";
-
 });
 
 // 메세지 보내기 버튼 클릭 시
@@ -67,8 +64,6 @@ window.addEventListener('click', (e) => {
    // DM 모달창 밖 클릭 시 닫힘
    e.target === dmContainer ? dmContainer.style.display = 'none' : false
 });
-
-
 
 
 
@@ -162,7 +157,7 @@ nextButton.addEventListener("click", () => {
       selectTargetNo = map.targetNo;
       selectChattingNo = map.chattingNo;
 
-      selectRoomList(); 
+      // selectRoomList(); 
       selectChattingFn();
 
       if(tempNo != ""){
@@ -238,6 +233,9 @@ const roomListAddEvent = () =>{
   for(let item of chattingItemList){
     item.addEventListener("click", e =>{
 
+      noClick.style.display = "none";
+      click.style.display = "flex";
+
       const id = item.getAttribute("id");
       const arr = id.split("-");
 
@@ -256,9 +254,11 @@ const roomListAddEvent = () =>{
 
       selectChattingFn();
       updateReadFlag();
-
     });
   }
+
+  // 메세지 모두 읽었을 때, 비행기 아이콘에서 알림표시 해제
+  newMessageNotice();
 }
 
 
@@ -300,9 +300,9 @@ const selectChattingProfile = () => {
 
       } else{
         chatProfileImg.style.width = "50px";
-        
+        aProImg.setAttribute("href", "/feed/" + targetProfile.memberNickname);
+
         if(targetProfile.memberProfileImg != null){
-          aProImg.setAttribute("href", "/feed/" + targetProfile.memberNickname);
           chatProfileImg.setAttribute("src", targetProfile.memberProfileImg);
         } else {
           chatProfileImg.setAttribute("src", "/resources/images/default/user.jpg");
@@ -343,8 +343,8 @@ const selectChattingProfile = () => {
 /**비동기로 메세지 목록을 조회하는 함수*/
 const selectChattingFn = () =>{
   
-  noClick.style.display = "none";
-  click.style.display = "flex";
+  // noClick.style.display = "none";
+  // click.style.display = "flex";
 
   console.log("메시지목록 selectChattingNo : " + selectChattingNo);
   selectChattingProfile();
@@ -409,11 +409,6 @@ const selectChattingFn = () =>{
         
         ul.append(sendDate, li);
         chattingRoom.scrollTop = chattingRoom.scrollHeight;
-
-        //fixme
-        // 메시지 목록 불러왔을 때,
-        // 메시지 목록 없이 화면 밖으로 나가면
-        // 채팅방 지우기
 
       }
 
@@ -492,8 +487,13 @@ const selectRoomList = () =>{
         
         if(room.lastMessage != undefined){
           recentMessage.innerHTML = room.lastMessage;
-
-        } 
+        } else if(room.lastMessage == null){
+          //fixme
+          // 메시지 목록 불러왔을 때,
+          // 메시지 목록 없이 화면 밖으로 나가면
+          // 채팅방 지우기
+          deleteRoom();
+        }
 
         itemBodyLeft.append(itemBodyUp, recentMessage);
 
@@ -532,7 +532,7 @@ const updateReadFlag = () =>{
     data : {"chattingNo" : selectChattingNo, "memberNo" : loginMemberNo},
     type:"GET",
     success : result => {
-      // console.log(result);
+    
     },
     error : () => {
       console.log("실패");
@@ -591,21 +591,22 @@ chattingInput.addEventListener("keyup", e=>{
 
 const chattingRoom = document.getElementById("chattingRoom");
 
-// WebSocket 객체 chattingSock이 서버로 부터 메세지를 통지 받으면 자동으로 실행될 콜백 함수
+// WebSocket 객체 chattingSock이 서버로부터 메세지를 통지 받으면 자동으로 실행될 콜백 함수
 chattingSock.onmessage = function(e){
   const msg = JSON.parse(e.data);
 
-
-  console.log(msg);
-  console.log(msg.sendDate);
-  console.log(msg.sendTime);
-
+  // 메시지
   if(selectChattingNo == msg.chattingNo){
 
     // noClick.style.display = "none";
     // click.style.display = "flex";
     // messageName.innerText = selectTargetName;
     // chatProfile.setAttribute("src", selectTargetProfile);
+
+    if(msg.messageContent == undefined){
+      noClick.style.display = "flex";
+      click.style.display = "none";
+    }
 
     const ul = document.querySelector(".dm-area");
 
@@ -646,6 +647,12 @@ chattingSock.onmessage = function(e){
   }
 
  selectChattingFn();
+ console.log("여기?");
+
+  // 새로운 메시지 알림
+  newMessageNotice();
+
+
 }
 
 
@@ -662,3 +669,24 @@ const openNo = () => {
 
 }
 
+
+//todo: 새로운 메시지 알림
+const newMessageNotice = () => { 
+  $.ajax({
+    url:'/dm/newMessageNotice',
+		type: 'GET',
+    success: result => {
+      console.log(result);
+      if(result > 0){
+        document.getElementById('newMessage').classList.remove('hide');
+      } else {
+        document.getElementById('newMessage').classList.add('hide');
+      }
+
+    }, 
+    error: () => { console.log("새로운 메시지 알림 에러");}	
+  })
+}
+
+
+  

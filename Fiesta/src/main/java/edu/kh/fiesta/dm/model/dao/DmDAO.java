@@ -82,6 +82,15 @@ public class DmDAO {
 		return sqlSession.delete("dmMapper.deleteRoom", chattingNo);
 	}
 
+
+	/** 새로운 채팅 알림
+	 * @param loginMemberNo
+	 * @return result
+	 */
+	public int newMessageNotice(int loginMemberNo) {
+		return sqlSession.selectOne("dmMapper.newMessageNotice", loginMemberNo);
+	}
+
 	
 
 }

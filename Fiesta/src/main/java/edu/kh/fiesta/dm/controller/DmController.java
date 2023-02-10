@@ -162,4 +162,16 @@ public class DmController {
 		return service.deleteRoom(chattingNo);
 	}
 	
+	
+	// 새 매시지 오면 헤더에 알림 표시 (비행기 아이콘)
+	@GetMapping("/newMessageNotice")
+	@ResponseBody
+	public int newMessageNotice(@SessionAttribute(value="loginMember")Member loginMember) {
+		
+		int loginMemberNo = loginMember.getMemberNo();
+		
+		return service.newMessageNotice(loginMemberNo);
+	}
+	
+	
 }

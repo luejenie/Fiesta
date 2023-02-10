@@ -41,9 +41,10 @@
             <li>
               <a href="/main"> <i class="fa-solid fa-house"></i></a>
             </li>
-            <li>
+            <li class="dm-button">
               <a href="/dm/dm">
                 <i class="fa-regular fa-paper-plane"></i>
+                <div class="new-message hide" id="newMessage"></div>
               </a>
             </li>
             <%-- new-post버튼 --%>
