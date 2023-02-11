@@ -394,27 +394,27 @@ const searchInput1 = document.getElementById('searchInput');
     });
 
 
-document.addEventListener('DOMContentLoaded', () => { 
-  newMessageNotice();
+// document.addEventListener('DOMContentLoaded', () => { 
+//   newMessageNotice();
 
-  if(document.getElementById('newMessage').classList.contains('hide')) {
-    document.getElementById('newMessage').classList.remove('hide');
-  }
-})
+//   if(document.getElementById('newMessage').classList.contains('hide')) {
+//     document.getElementById('newMessage').classList.remove('hide');
+//   }
+// })
 
-const newMessageNotice = () => { 
-  $.ajax({
-    url:'/dm/newMessageNotice',
-		type: 'GET',
-    success: result => {
-      console.log(result);
-      if(result > 0){
-        document.getElementById('newMessage').classList.remove('hide');
-      } else {
-        document.getElementById('newMessage').classList.add('hide');
-      }
+// const newMessageNotice = () => { 
+//   $.ajax({
+//     url:'/dm/newMessageNotice',
+// 		type: 'GET',
+//     success: result => {
+//       console.log(result);
+//       if(result > 0){
+//         document.getElementById('newMessage').classList.remove('hide');
+//       } else {
+//         document.getElementById('newMessage').classList.add('hide');
+//       }
 
-    }, 
-    error: () => { console.log("새로운 메시지 알림 에러");}	
-  })
-}
+//     }, 
+//     error: () => { console.log("새로운 메시지 알림 에러");}	
+//   })
+// }
