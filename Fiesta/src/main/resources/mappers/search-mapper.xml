@@ -63,8 +63,7 @@
 		<select id="selectAccountTotal" parameterType="string" resultType="_int">
 			SELECT COUNT(*)
 			FROM "MEMBER" 
-			WHERE (MEMBER_NICKNAME LIKE UPPER('%${searchInput}%') OR MEMBER_NICKNAME LIKE LOWER('%${searchInput}%')
-			OR MEMBER_NAME LIKE UPPER('%${searchInput}%') OR MEMBER_NAME LIKE LOWER('%${searchInput}%'))
+			WHERE (LOWER(MEMBER_NICKNAME) LIKE LOWER('%${searchInput}%') OR LOWER(MEMBER_NAME) LIKE LOWER('%${searchInput}%'))
 			AND SECESSION_FL = 'N'
 		</select>
 		<!-- '&${searchInput}% -->
@@ -77,10 +76,10 @@
 						FROM "BOARD" 
 						JOIN "MEMBER" USING(MEMBER_NO)
 						JOIN "COMMENT" USING(BOARD_NO)
-						WHERE (BOARD_CONTENT LIKE UPPER('%#${searchInput}%') OR BOARD_CONTENT LIKE LOWER('%#${searchInput}%')
-						OR COMMENT_CONTENT LIKE UPPER('%#${searchInput}%') OR COMMENT_CONTENT LIKE LOWER('%#${searchInput}%'))
+						WHERE LOWER(BOARD_CONTENT) LIKE LOWER('%#${searchInput}%')
+						OR LOWER(COMMENT_CONTENT) LIKE LOWER('%#${searchInput}%')
 						AND BOARD_DEL_FL = 'N'
-						AND SECESSION_FL = 'N')	
+						AND SECESSION_FL = 'N')
 		</select>
 	
 	
@@ -90,8 +89,7 @@
 			SELECT MEMBER_PROFILE_IMG, MEMBER_NICKNAME, MEMBER_NO, MEMBER_NAME	
 			FROM "MEMBER" 
 			WHERE SECESSION_FL = 'N'
-			AND (MEMBER_NICKNAME LIKE UPPER('%${searchInput}%') OR MEMBER_NICKNAME LIKE LOWER('%${searchInput}%') OR MEMBER_NICKNAME LIKE ('%${searchInput}%')
-			OR MEMBER_NAME LIKE UPPER('%${searchInput}%') OR MEMBER_NAME LIKE LOWER('%${searchInput}%') OR MEMBER_NAME LIKE ('%${searchInput}%'))
+			AND (LOWER(MEMBER_NICKNAME) LIKE LOWER('%${searchInput}%') OR LOWER(MEMBER_NAME) LIKE LOWER('%${searchInput}%'))
 			<!-- AND MEMBER_NICKNAME != #{memberNickname} -->
 			<![CDATA[AND ROWNUM <= 6 ]]>	
 			ORDER BY MEMBER_NICKNAME
@@ -115,9 +113,8 @@
 					JOIN "MEMBER" USING(MEMBER_NO)
 					LEFT JOIN "COMMENT" ON ("COMMENT".BOARD_NO = B.BOARD_NO)
 					JOIN BOARD_IMG BI ON (B.BOARD_NO = BI.BOARD_NO)
-					WHERE BOARD_CREATE_DATE > (SYSDATE - 30)  
-					AND (BOARD_CONTENT LIKE UPPER('%#${searchInput}%') OR BOARD_CONTENT LIKE LOWER('%#${searchInput}%')
-					 OR COMMENT_CONTENT LIKE UPPER('%#${searchInput}%') OR COMMENT_CONTENT LIKE LOWER('%#${searchInput}%'))
+					WHERE BOARD_CREATE_DATE > (SYSDATE - 90)  <!-- 최근 날짜 조정하기! -->
+					AND LOWER(BOARD_CONTENT) LIKE LOWER('%#${searchInput}%') OR LOWER(COMMENT_CONTENT) LIKE LOWER('%#${searchInput}%')
 					AND BOARD_DEL_FL = 'N'
 					AND MEMBER_OPEN_FL = 'Y'
 					AND IMG_ORDER = 0
@@ -138,8 +135,7 @@
 				FROM BOARD B
 				JOIN MEMBER USING(MEMBER_NO)
 				LEFT JOIN "COMMENT" ON ("COMMENT".BOARD_NO = B.BOARD_NO)
-				WHERE (BOARD_CONTENT LIKE UPPER('%#${searchInput}%') OR BOARD_CONTENT LIKE LOWER('%#${searchInput}%') 
-				OR COMMENT_CONTENT LIKE UPPER('%#${searchInput}%') OR COMMENT_CONTENT LIKE LOWER('%#${searchInput}%'))
+				WHERE LOWER(BOARD_CONTENT) LIKE LOWER('%#${searchInput}%') OR LOWER(COMMENT_CONTENT) LIKE LOWER('%#${searchInput}%')
 				AND BOARD_DEL_FL = 'N'
 				AND MEMBER_OPEN_FL = 'Y'
 				ORDER BY BOARD_CREATE_DATE DESC 
@@ -160,8 +156,7 @@
 							FROM BOARD B
 							JOIN MEMBER USING(MEMBER_NO)
 							LEFT JOIN "COMMENT" ON ("COMMENT".BOARD_NO = B.BOARD_NO)
-							WHERE (BOARD_CONTENT LIKE UPPER('%#${searchInput}%') OR BOARD_CONTENT LIKE LOWER('%#${searchInput}%') 
-							OR COMMENT_CONTENT LIKE UPPER('%#${searchInput}%') OR COMMENT_CONTENT LIKE LOWER('%#${searchInput}%'))
+							WHERE LOWER(BOARD_CONTENT) LIKE LOWER('%#${searchInput}%') OR LOWER(COMMENT_CONTENT) LIKE LOWER('%#${searchInput}%')
 							AND BOARD_DEL_FL = 'N'
 							AND MEMBER_OPEN_FL = 'Y'
 							ORDER BY BOARD_CREATE_DATE DESC)
