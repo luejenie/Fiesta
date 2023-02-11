@@ -67,10 +67,10 @@ public class DmServiceImple implements DmService{
 	}
 	
 	
-	// 채팅방 나가기(지우기)
+	// 채팅 내용 없는 채팅방 지우기
 	@Override
-	public int deleteRoom(int chattingNo) {
-		return dao.deleteRoom(chattingNo);
+	public int deleteRoom() {
+		return dao.deleteRoom();
 	}
 	
 	// 새로운 채팅 알림

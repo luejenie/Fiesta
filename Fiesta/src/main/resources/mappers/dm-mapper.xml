@@ -52,7 +52,7 @@
 		SELECT MEMBER_NICKNAME, MEMBER_PROFILE_IMG, MEMBER_NO
 		FROM "MEMBER"
 		WHERE (MEMBER_NICKNAME LIKE UPPER('%${memberNickname}%') OR MEMBER_NICKNAME LIKE LOWER('%${memberNickname}%')
-		OR MEMBER_NICKNAME != #{memberNickname})
+		OR MEMBER_NICKNAME = #{memberNickname})
 		AND MEMBER_NO != #{loginMemberNo}
 		AND SECESSION_FL = 'N'
 	</select>
@@ -128,6 +128,16 @@
 		ORDER BY CHAT_NO
 	</select>
 	
+	<!-- 읽지 않은 메세지 개수 조회하기 -->
+	<select id="selectUnreadCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM CHAT
+		WHERE CHAT_READ_FL = 'N'
+		AND CHATTING_NO = #{chattingNo}
+		AND C_FROM_MEMBER_NO != #{memberNo}
+	</select>
+	
+	
 	<update id="updateReadFlag">
 		UPDATE "CHAT" SET
 		CHAT_READ_FL = 'Y'
@@ -150,8 +160,18 @@
 		AND SECESSION_FL = 'N'
 	</select>
 	
+	<!-- 채팅방은 있지만 메세지는 없는 채팅방 번호 조회하기 -->
+	<select id="selectDeleteChattingNo" resultType="arraylist">
+		SELECT CHATTING_NO
+		FROM CHATTING_ROOM
+		LEFT JOIN CHAT USING(CHATTING_NO)
+		LEFT JOIN MEMBER ON (MEMBER_NO_1 = MEMBER_NO)
+		WHERE CHAT_CONTENT IS NULL
+		AND SECESSION_FL = 'N'
+	</select>
+
 	
-	<!-- 채팅방 나가기 (삭제) -->
+	<!-- 채팅 내용 없는 채팅방 지우기 -->
 	<delete id="deleteRoom">
 		DELETE FROM CHATTING_ROOM
 		WHERE CHATTING_NO = #{chattingNo}

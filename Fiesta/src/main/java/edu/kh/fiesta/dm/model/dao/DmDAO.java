@@ -1,5 +1,6 @@
 package edu.kh.fiesta.dm.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,8 +56,20 @@ public class DmDAO {
 	}
 
 
+	// 읽음 여부 비동기 조회
 	public int updateReadFlag(Map<String, Object> paramMap) {
-		return sqlSession.update("dmMapper.updateReadFlag", paramMap);
+		
+		int unreadCount = sqlSession.selectOne("dmMapper.selectUnreadCount", paramMap);
+		
+		int result = 0;
+		
+		// 읽지 않은 메시지 있을 때만 읽음 여부 변경
+		// 읽지 않은 메세지 개수 조회
+		if(unreadCount > 0) {
+			result = sqlSession.update("dmMapper.updateReadFlag", paramMap);
+		}
+		
+		return result;
 	}
 
 
@@ -74,12 +87,27 @@ public class DmDAO {
 	}
 
 
-	/** 채팅방 나가기(지우기)
+	/** 채팅 내용 없는 채팅방 지우기
 	 * @param chattingNo
 	 * @return
 	 */
-	public int deleteRoom(int chattingNo) {
-		return sqlSession.delete("dmMapper.deleteRoom", chattingNo);
+	public int deleteRoom() {
+		
+		// 채팅방 메세지 개수 확인하기
+		// 채팅방은 있지만 메세지는 없는 채팅방 번호
+		List<Integer> targetChattingNoList = new ArrayList<>();
+		
+		targetChattingNoList = sqlSession.selectList("dmMapper.selectDeleteChattingNo");
+		
+		int result = 0;
+		
+		
+		for(int chattingNo : (ArrayList<Integer>)targetChattingNoList) {
+			result = sqlSession.delete("dmMapper.deleteRoom", chattingNo);
+		}
+		
+			
+		return result;
 	}
 
 
