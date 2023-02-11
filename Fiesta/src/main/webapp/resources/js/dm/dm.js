@@ -101,7 +101,7 @@ sendPeople.addEventListener("input", ()=>{
         targetNoInput.value = member.memberNo;
         
         if(member.memberProfileImg == null){
-          img.setAttribute("src", "/resources/images/user.jpg")
+          img.setAttribute("src", "/resources/images/default/user.jpg")
         } else{
           img.setAttribute("src", member.memberProfileImg)
         }
@@ -149,7 +149,7 @@ nextButton.addEventListener("click", () => {
     data: { "targetNo": targetNo },
     dataType: "json",
     success: (map) => {
-      console.log("되는건가?");
+      console.log("채팅방 입장 성공");
 
       const messageList = map.messageList;
 
@@ -186,18 +186,9 @@ nextButton.addEventListener("click", () => {
   click.style.display = "flex";
   // messageName.innerText = recipient.innerText;
 
-  const RecipientMemberNick = recipient.innerText;
-
 })
 
 
-
-
-// 로그인이 되어 있을 경우에만
-// /chattingSock 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
-if(loginMemberNo != ""){
-	chattingSock = new SockJS("/chattingSock");
-}
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -226,7 +217,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 const dmArea = document.getElementsByClassName("dm-area")[0];
 //optimize
-/** 채팅방 목록에 이벤트를 추가하는 함수*/
+/** 채팅방 목록에 클릭하는 이벤트 추가하는 함수*/
 const roomListAddEvent = () =>{
   const chattingItemList = document.getElementsByClassName("dm-item");
 
@@ -254,11 +245,15 @@ const roomListAddEvent = () =>{
 
       selectChattingFn();
       updateReadFlag();
+
+      // 채팅 없는 채팅방 삭제
+      deleteRoom();
     });
   }
 
   // 메세지 모두 읽었을 때, 비행기 아이콘에서 알림표시 해제
   newMessageNotice();
+
 }
 
 
@@ -487,12 +482,13 @@ const selectRoomList = () =>{
         
         if(room.lastMessage != undefined){
           recentMessage.innerHTML = room.lastMessage;
+          
         } else if(room.lastMessage == null){
           //fixme
           // 메시지 목록 불러왔을 때,
           // 메시지 목록 없이 화면 밖으로 나가면
           // 채팅방 지우기
-          deleteRoom();
+          // deleteRoom();
         }
 
         itemBodyLeft.append(itemBodyUp, recentMessage);
@@ -501,8 +497,7 @@ const selectRoomList = () =>{
         const itemBodyRight = document.createElement("span");
         itemBodyRight.classList.add("item-body-right");
  
-
-   
+        // 읽지 않은 메시지 개수 표시
         if(room.notReadCount > 0 && room.chattingNo != selectChattingNo){
           const notReadCount = document.createElement("p");
           notReadCount.classList.add("not-read-count");
@@ -510,6 +505,7 @@ const selectRoomList = () =>{
           itemBodyRight.append(notReadCount);
 
         } else{
+          // 읽지 않은 메시지를 읽은 상태로 변경
           updateReadFlag();
         }
 
@@ -519,6 +515,7 @@ const selectRoomList = () =>{
 
       }
       roomListAddEvent();
+      newMessageNotice();
       // selectRoomList();
     }
   })
@@ -541,14 +538,14 @@ const updateReadFlag = () =>{
 }
 
 
-/** 채팅방 나가기 (채팅 내용 없는 채팅창 없애기) */ 
+/** 채팅 내용 없는 채팅창 없애기 */ 
 const deleteRoom = () => {
   $.ajax({
     url: "/dm/deleteRoom",
     data: {"chattingNo" : selectChattingNo},
     type: "GET",
     sucess: () => {
-      console.log("채팅방 나가기");
+      console.log("채팅 없는 채팅방 삭제");
     }, error : () => { console.log("채팅방 삭제 실패"); }
   })
 }
@@ -591,9 +588,18 @@ chattingInput.addEventListener("keyup", e=>{
 
 const chattingRoom = document.getElementById("chattingRoom");
 
+// 로그인이 되어 있을 경우에만
+// /chattingSock 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
+if(loginMemberNo != ""){
+	chattingSock = new SockJS("/chattingSock");
+}
+
+
 // WebSocket 객체 chattingSock이 서버로부터 메세지를 통지 받으면 자동으로 실행될 콜백 함수
 chattingSock.onmessage = function(e){
   const msg = JSON.parse(e.data);
+
+  console.log("여기? : " + selectChattingNo);
 
   // 메시지
   if(selectChattingNo == msg.chattingNo){
@@ -647,12 +653,6 @@ chattingSock.onmessage = function(e){
   }
 
  selectChattingFn();
- console.log("여기?");
-
-  // 새로운 메시지 알림
-  newMessageNotice();
-
-
 }
 
 
@@ -671,22 +671,23 @@ const openNo = () => {
 
 
 //todo: 새로운 메시지 알림
-const newMessageNotice = () => { 
-  $.ajax({
-    url:'/dm/newMessageNotice',
-		type: 'GET',
-    success: result => {
-      console.log(result);
-      if(result > 0){
-        document.getElementById('newMessage').classList.remove('hide');
-      } else {
-        document.getElementById('newMessage').classList.add('hide');
-      }
+/** 새로운 메시지 알림 */
+// const newMessageNotice = () => { 
+//   $.ajax({
+//     url:'/dm/newMessageNotice',
+// 		type: 'GET',
+//     success: result => {
+//       console.log(result);
+//       if(result > 0){
+//         document.getElementById('newMessage').classList.remove('hide');
+//       } else {
+//         document.getElementById('newMessage').classList.add('hide');
+//       }
 
-    }, 
-    error: () => { console.log("새로운 메시지 알림 에러");}	
-  })
-}
+//     }, 
+//     error: () => { console.log("새로운 메시지 알림 에러");}	
+//   })
+// }
 
 
   
