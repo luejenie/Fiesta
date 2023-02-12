@@ -41,6 +41,11 @@ public class DmDAO {
 	}
 
 
+	
+	/** 채팅방 목록 조회 함수
+	 * @param memberNo
+	 * @return roomList
+	 */
 	public List<ChattingRoom> selectRoomList(int memberNo) {
 		return sqlSession.selectList("dmMapper.selectRoomList", memberNo);
 	}
@@ -91,22 +96,22 @@ public class DmDAO {
 	 * @param chattingNo
 	 * @return
 	 */
-	public int deleteRoom() {
+	public int deleteRoom(){
 		
-		// 채팅방 메세지 개수 확인하기
-		// 채팅방은 있지만 메세지는 없는 채팅방 번호
-		List<Integer> targetChattingNoList = new ArrayList<>();
-		
-		targetChattingNoList = sqlSession.selectList("dmMapper.selectDeleteChattingNo");
+		// 메시지 없는 채팅방 리스트
+		// 2. 메시지 없는 채팅방 번호들 조회
+		List<Integer> targetRoomList = sqlSession.selectList("dmMapper.selectDeleteTargetRoom");
 		
 		int result = 0;
 		
-		
-		for(int chattingNo : (ArrayList<Integer>)targetChattingNoList) {
-			result = sqlSession.delete("dmMapper.deleteRoom", chattingNo);
+		// 3. 메시지 없는 채팅방이 1 이상이면, 해당 채팅방을 지우기
+		if(targetRoomList.size() > 0) {
+			for(int i=0; i<targetRoomList.size(); i++) {
+				int chattingNo = targetRoomList.get(i);
+				result = sqlSession.delete("dmMapper.deleteRoom", chattingNo);
+			}
 		}
 		
-			
 		return result;
 	}
 

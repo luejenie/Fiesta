@@ -108,8 +108,7 @@
 	      ,(SELECT COUNT(*) FROM CHAT C WHERE C.CHATTING_NO = R.CHATTING_NO AND CHAT_READ_FL = 'N' AND C_FROM_MEMBER_NO != #{memberNo}) NOT_READ_COUNT
 	      ,(SELECT MAX(CHAT_NO) CHAT_SEND_DATE FROM CHAT C WHERE R.CHATTING_NO  = C.CHATTING_NO) MAX_MESSAGE_NO
 	   FROM CHATTING_ROOM R
-	   WHERE MEMBER_NO_1 = #{memberNo}
-	   OR MEMBER_NO_2 = #{memberNo}
+	   WHERE (MEMBER_NO_1 = #{memberNo} OR MEMBER_NO_2 = #{memberNo})
 	   ORDER BY MAX_MESSAGE_NO DESC NULLS LAST    
 	</select>
 	
@@ -160,8 +159,8 @@
 		AND SECESSION_FL = 'N'
 	</select>
 	
-	<!-- 채팅방은 있지만 메세지는 없는 채팅방 번호 조회하기 -->
-	<select id="selectDeleteChattingNo" resultType="arraylist">
+	<!-- 채팅방은 있지만 메세지는 없는 채팅방 번호 조회하기 resultType = Integer-->
+	<select id="selectDeleteTargetRoom" resultType="int">
 		SELECT CHATTING_NO
 		FROM CHATTING_ROOM
 		LEFT JOIN CHAT USING(CHATTING_NO)

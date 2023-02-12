@@ -245,9 +245,6 @@ const roomListAddEvent = () =>{
 
       selectChattingFn();
       updateReadFlag();
-
-      // 채팅 없는 채팅방 삭제
-      deleteRoom();
     });
   }
 
@@ -482,14 +479,17 @@ const selectRoomList = () =>{
         
         if(room.lastMessage != undefined){
           recentMessage.innerHTML = room.lastMessage;
-          
-        } else if(room.lastMessage == null){
           //fixme
-          // 메시지 목록 불러왔을 때,
-          // 메시지 목록 없이 화면 밖으로 나가면
+          // 채팅방에 입력하지 않고 다른 채팅방 클릭했을 때,
           // 채팅방 지우기
-          // deleteRoom();
-        }
+          const dmItem = document.getElementsByClassName("dm-item");
+          for(let item of dmItem){
+            item.addEventListener('click', () => {
+              deleteRoom();
+            })
+          }
+
+        } 
 
         itemBodyLeft.append(itemBodyUp, recentMessage);
 
@@ -516,10 +516,10 @@ const selectRoomList = () =>{
       }
       roomListAddEvent();
       newMessageNotice();
-      // selectRoomList();
     }
   })
 }
+
 
 
 /**채팅 목록에서 readCount 없애기 */ 
@@ -538,7 +538,7 @@ const updateReadFlag = () =>{
 }
 
 
-/** 채팅 내용 없는 채팅창 없애기 */ 
+/** 채팅 내용 없는 채팅방 없애기 */ 
 const deleteRoom = () => {
   $.ajax({
     url: "/dm/deleteRoom",
@@ -596,10 +596,9 @@ if(loginMemberNo != ""){
 
 
 // WebSocket 객체 chattingSock이 서버로부터 메세지를 통지 받으면 자동으로 실행될 콜백 함수
+// chatttingSock에 insertMessage()
 chattingSock.onmessage = function(e){
   const msg = JSON.parse(e.data);
-
-  console.log("여기? : " + selectChattingNo);
 
   // 메시지
   if(selectChattingNo == msg.chattingNo){
@@ -668,26 +667,5 @@ const openNo = () => {
   })
 
 }
-
-
-//todo: 새로운 메시지 알림
-/** 새로운 메시지 알림 */
-// const newMessageNotice = () => { 
-//   $.ajax({
-//     url:'/dm/newMessageNotice',
-// 		type: 'GET',
-//     success: result => {
-//       console.log(result);
-//       if(result > 0){
-//         document.getElementById('newMessage').classList.remove('hide');
-//       } else {
-//         document.getElementById('newMessage').classList.add('hide');
-//       }
-
-//     }, 
-//     error: () => { console.log("새로운 메시지 알림 에러");}	
-//   })
-// }
-
 
   
