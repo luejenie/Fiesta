@@ -8,7 +8,6 @@ const modalBackgroundUpdate = document.getElementById("modalBackgroundUpdate");
 //! 수정
 feedUpdateBtnLogin.addEventListener("click", () => {
   document.body.style.overflow = "hidden";
-  console.log("눌림?");
 
   // 게시글 조회해와
   $.ajax({

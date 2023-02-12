@@ -48,7 +48,12 @@
           <div class="bottom-right-box">
             <div class="new-post-bottom-information">
               <div class="new-post-bottom-member">
-                <img id="file" src="${loginMember.memberProfileImg}" alt="작성자 프로필">
+                <c:if test="${not empty loginMember.memberProfileImg}">
+                  <img id="file" src="${loginMember.memberProfileImg}" alt="작성자 프로필">
+                </c:if>
+                <c:if test="${empty loginMember.memberProfileImg}">
+                  <img id="file" src="/resources/images/default/user.jpg" alt="기본 프로필">
+                </c:if>
                 <div class="member-nikname">${loginMember.memberNickname}</div>
               </div>
 
