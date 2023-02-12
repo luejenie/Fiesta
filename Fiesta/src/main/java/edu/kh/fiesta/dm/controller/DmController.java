@@ -155,11 +155,24 @@ public class DmController {
 	}
 	
 	
-	// 채팅방 나가기(채팅방 지우기)
+	// 채팅 내용 없는 채팅방 지우기
 	@GetMapping("/deleteRoom")
 	@ResponseBody
 	public int deleteRoom(@RequestParam(value="chattingNo", required=false, defaultValue="0") int chattingNo) {
-		return service.deleteRoom(chattingNo);
+		int result = service.deleteRoom();
+		return result;
 	}
+	
+	
+	// 새 매시지 오면 헤더에 알림 표시 (비행기 아이콘)
+	@GetMapping("/newMessageNotice")
+	@ResponseBody
+	public int newMessageNotice(@SessionAttribute(value="loginMember")Member loginMember) {
+		
+		int loginMemberNo = loginMember.getMemberNo();
+		
+		return service.newMessageNotice(loginMemberNo);
+	}
+	
 	
 }

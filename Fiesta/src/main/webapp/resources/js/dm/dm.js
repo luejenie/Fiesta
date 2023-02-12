@@ -19,15 +19,12 @@ const modalNick = document.getElementsByClassName("modalNick");
 const recipient = document.getElementById("Recipient");
 const sendPeople = document.getElementById("sendPeople");
 
-
-
 document.addEventListener("DOMContentLoaded", ()=>{
 
     dmMenu.style.display = "none";
     click.style.display = "none";
 
     right.style.justifyContent = "center";
-
 });
 
 // 메세지 보내기 버튼 클릭 시
@@ -70,8 +67,6 @@ window.addEventListener('click', (e) => {
 
 
 
-
-
 // 모달) 받는 사람에 입력 있을시
 sendPeople.addEventListener("input", ()=>{
 
@@ -106,7 +101,7 @@ sendPeople.addEventListener("input", ()=>{
         targetNoInput.value = member.memberNo;
         
         if(member.memberProfileImg == null){
-          img.setAttribute("src", "/resources/images/user.jpg")
+          img.setAttribute("src", "/resources/images/default/user.jpg")
         } else{
           img.setAttribute("src", member.memberProfileImg)
         }
@@ -154,7 +149,7 @@ nextButton.addEventListener("click", () => {
     data: { "targetNo": targetNo },
     dataType: "json",
     success: (map) => {
-      console.log("되는건가?");
+      console.log("채팅방 입장 성공");
 
       const messageList = map.messageList;
 
@@ -162,7 +157,7 @@ nextButton.addEventListener("click", () => {
       selectTargetNo = map.targetNo;
       selectChattingNo = map.chattingNo;
 
-      selectRoomList(); 
+      // selectRoomList(); 
       selectChattingFn();
 
       if(tempNo != ""){
@@ -191,18 +186,9 @@ nextButton.addEventListener("click", () => {
   click.style.display = "flex";
   // messageName.innerText = recipient.innerText;
 
-  const RecipientMemberNick = recipient.innerText;
-
 })
 
 
-
-
-// 로그인이 되어 있을 경우에만
-// /chattingSock 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
-if(loginMemberNo != ""){
-	chattingSock = new SockJS("/chattingSock");
-}
 
 
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -231,12 +217,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 const dmArea = document.getElementsByClassName("dm-area")[0];
 //optimize
-/** 채팅방 목록에 이벤트를 추가하는 함수*/
+/** 채팅방 목록에 클릭하는 이벤트 추가하는 함수*/
 const roomListAddEvent = () =>{
   const chattingItemList = document.getElementsByClassName("dm-item");
 
   for(let item of chattingItemList){
     item.addEventListener("click", e =>{
+
+      noClick.style.display = "none";
+      click.style.display = "flex";
 
       const id = item.getAttribute("id");
       const arr = id.split("-");
@@ -256,9 +245,12 @@ const roomListAddEvent = () =>{
 
       selectChattingFn();
       updateReadFlag();
-
     });
   }
+
+  // 메세지 모두 읽었을 때, 비행기 아이콘에서 알림표시 해제
+  newMessageNotice();
+
 }
 
 
@@ -300,9 +292,9 @@ const selectChattingProfile = () => {
 
       } else{
         chatProfileImg.style.width = "50px";
-        
+        aProImg.setAttribute("href", "/feed/" + targetProfile.memberNickname);
+
         if(targetProfile.memberProfileImg != null){
-          aProImg.setAttribute("href", "/feed/" + targetProfile.memberNickname);
           chatProfileImg.setAttribute("src", targetProfile.memberProfileImg);
         } else {
           chatProfileImg.setAttribute("src", "/resources/images/default/user.jpg");
@@ -343,8 +335,8 @@ const selectChattingProfile = () => {
 /**비동기로 메세지 목록을 조회하는 함수*/
 const selectChattingFn = () =>{
   
-  noClick.style.display = "none";
-  click.style.display = "flex";
+  // noClick.style.display = "none";
+  // click.style.display = "flex";
 
   console.log("메시지목록 selectChattingNo : " + selectChattingNo);
   selectChattingProfile();
@@ -409,11 +401,6 @@ const selectChattingFn = () =>{
         
         ul.append(sendDate, li);
         chattingRoom.scrollTop = chattingRoom.scrollHeight;
-
-        //fixme
-        // 메시지 목록 불러왔을 때,
-        // 메시지 목록 없이 화면 밖으로 나가면
-        // 채팅방 지우기
 
       }
 
@@ -492,6 +479,15 @@ const selectRoomList = () =>{
         
         if(room.lastMessage != undefined){
           recentMessage.innerHTML = room.lastMessage;
+          //fixme
+          // 채팅방에 입력하지 않고 다른 채팅방 클릭했을 때,
+          // 채팅방 지우기
+          const dmItem = document.getElementsByClassName("dm-item");
+          for(let item of dmItem){
+            item.addEventListener('click', () => {
+              deleteRoom();
+            })
+          }
 
         } 
 
@@ -501,8 +497,7 @@ const selectRoomList = () =>{
         const itemBodyRight = document.createElement("span");
         itemBodyRight.classList.add("item-body-right");
  
-
-   
+        // 읽지 않은 메시지 개수 표시
         if(room.notReadCount > 0 && room.chattingNo != selectChattingNo){
           const notReadCount = document.createElement("p");
           notReadCount.classList.add("not-read-count");
@@ -510,6 +505,7 @@ const selectRoomList = () =>{
           itemBodyRight.append(notReadCount);
 
         } else{
+          // 읽지 않은 메시지를 읽은 상태로 변경
           updateReadFlag();
         }
 
@@ -519,10 +515,11 @@ const selectRoomList = () =>{
 
       }
       roomListAddEvent();
-      // selectRoomList();
+      newMessageNotice();
     }
   })
 }
+
 
 
 /**채팅 목록에서 readCount 없애기 */ 
@@ -532,7 +529,7 @@ const updateReadFlag = () =>{
     data : {"chattingNo" : selectChattingNo, "memberNo" : loginMemberNo},
     type:"GET",
     success : result => {
-      // console.log(result);
+    
     },
     error : () => {
       console.log("실패");
@@ -541,14 +538,14 @@ const updateReadFlag = () =>{
 }
 
 
-/** 채팅방 나가기 (채팅 내용 없는 채팅창 없애기) */ 
+/** 채팅 내용 없는 채팅방 없애기 */ 
 const deleteRoom = () => {
   $.ajax({
     url: "/dm/deleteRoom",
     data: {"chattingNo" : selectChattingNo},
     type: "GET",
     sucess: () => {
-      console.log("채팅방 나가기");
+      console.log("채팅 없는 채팅방 삭제");
     }, error : () => { console.log("채팅방 삭제 실패"); }
   })
 }
@@ -591,21 +588,30 @@ chattingInput.addEventListener("keyup", e=>{
 
 const chattingRoom = document.getElementById("chattingRoom");
 
-// WebSocket 객체 chattingSock이 서버로 부터 메세지를 통지 받으면 자동으로 실행될 콜백 함수
+// 로그인이 되어 있을 경우에만
+// /chattingSock 이라는 요청 주소로 통신할 수 있는  WebSocket 객체 생성
+if(loginMemberNo != ""){
+	chattingSock = new SockJS("/chattingSock");
+}
+
+
+// WebSocket 객체 chattingSock이 서버로부터 메세지를 통지 받으면 자동으로 실행될 콜백 함수
+// chatttingSock에 insertMessage()
 chattingSock.onmessage = function(e){
   const msg = JSON.parse(e.data);
 
-
-  console.log(msg);
-  console.log(msg.sendDate);
-  console.log(msg.sendTime);
-
+  // 메시지
   if(selectChattingNo == msg.chattingNo){
 
     // noClick.style.display = "none";
     // click.style.display = "flex";
     // messageName.innerText = selectTargetName;
     // chatProfile.setAttribute("src", selectTargetProfile);
+
+    if(msg.messageContent == undefined){
+      noClick.style.display = "flex";
+      click.style.display = "none";
+    }
 
     const ul = document.querySelector(".dm-area");
 
@@ -662,3 +668,4 @@ const openNo = () => {
 
 }
 
+  

@@ -321,7 +321,7 @@ editClose.addEventListener("click", function(){
 })
 
 const feedSection = document.querySelector(".feed-section");
-let listEnd = feedSection.lastElementChild;
+// let listEnd = feedSection.lastElementChild;
 const option = {
   root: null,
   rootMargin: "0px 0px 0px 0px",
@@ -466,8 +466,6 @@ const profileNickname = document.getElementById("follow-to-nickname");
             data: {"followToNickname" : profileNickname.value},
             type: "GET",
             success: (result) => {
-                
-                console.log(profileNickname.value);
 
                     if(result > 0) {  // 팔로우한 상태
                         followAccountBtn.innerText = "팔로잉";

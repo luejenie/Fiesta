@@ -46,7 +46,7 @@
           <div class="bottom-right-box">
             <div class="new-post-bottom-information">
               <div class="new-post-bottom-member">
-                <img id="file" src="${loginMember.memberProfileImg}" alt="작성자 프로필">
+                <img id="file" src="${loginMember.memberProfileImg}" alt="${loginMember.memberProfileImg}">
                 <div class="member-nikname">${loginMember.memberNickname}</div>
               </div>
 

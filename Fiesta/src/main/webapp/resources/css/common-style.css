@@ -240,6 +240,7 @@ nav li {
 nav li > button {
   width: 100%;
   font-size: var(--large-icon-size);
+  cursor: pointer;
 }
 
 nav li > button:active {
@@ -258,7 +259,7 @@ nav i {
   flex-shrink: 0;
 }
 
-.new-notification {
+.new-notification{
   width: 10px;
   height: 10px;
   background-color: #dd4132;
@@ -376,7 +377,6 @@ nav i {
   color: black;
 }
 
-
 .appear2 {
   animation: fade-in2 1.5s;
   animation-fill-mode: forwards;
@@ -387,6 +387,24 @@ nav i {
   animation: fade-out2 1.5s;
   animation-fill-mode: forwards;
 }
+
+/* 새로운 채팅 알림 */
+.new-message{
+  width: 10px;
+  height: 10px;
+  background-color: #dd4132;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 0;
+  left: -4px;
+}
+
+.dm-button {
+  position: relative;
+}
+
+
 
 @keyframes fade-in2 {
   from {

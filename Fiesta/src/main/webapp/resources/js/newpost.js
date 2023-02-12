@@ -68,6 +68,10 @@ document.getElementById("closeTextDelete").addEventListener("click", () => {
   textFileSwiper.innerHTML = "";
   // postFileTextArea.innerHTML = "";
 });
+
+// fixme
+// 텍스트입력 창에서 뒤로가기 버튼 누르면
+// 선택한 사진이 유지되어서 재선택이 안됨. -> 리셋 시키기 
 const backBtnText = document.getElementById("backBtnText");
 backBtnText.addEventListener("click", () => {
   modalBackground.style.display = "flex";
@@ -77,6 +81,9 @@ backBtnText.addEventListener("click", () => {
   slideImages.innerHTML = ""; // 취소했을때 미리보기 이미지 다 지우기
   filePreview.innerHTML = "";
   textFileSwiper.innerHTML = "";
+
+  // *(수정)선택한 사진이 유지되어서 재선택이 안됨. -> 리셋 시키기 (value 이용함)
+  document.getElementById("cropperfile").value = "";
   console.log(document.getElementById("cropperfile").files);
 });
 document.getElementById("closeTextCancel").addEventListener("click", () => {
@@ -169,6 +176,8 @@ document.getElementById("basicImage").addEventListener("click", () => {
     modalBackground.style.display = "flex";
     modalBackgroundEidt.style.display = "none";
     modalBackgroundText.style.display = "none";
+
+
   });
 });
 // document.getElementById("newPostAll").addEventListener("click", () => {
@@ -176,12 +185,18 @@ document.getElementById("basicImage").addEventListener("click", () => {
 // });
 //! 컴퓨터에서 선택
 document.getElementById("cropperfile").addEventListener("change", (e) => {
+
   if (e.target.files[0] != undefined) {
     // 이벤트 발생한 요소에 선택된 파일이 있을 경우
     for (let i = 0; i < e.target.files.length; i++) {
-      // 이벤트 발생 파일 길이 만큼 반복문 돌림
 
+      // 이벤트 발생 파일 길이 만큼 반복문 돌림
       form.append("files", e.target.files[i]);
+
+      //fixme: 파일 추가, 삭제 기능 추가하기
+      //fixme: 이미지 1:1로
+      //fixme: 이미지위치 조정
+
 
       const reader = new FileReader(); // 파일 읽는 객체
       reader.readAsDataURL(e.target.files[i]); // 파일 정보를 불러와서 URL형태로 저장
@@ -201,7 +216,8 @@ document.getElementById("cropperfile").addEventListener("change", (e) => {
         fileImg.id = "files";
         fileImg.setAttribute("src", e.target.result);
 
-        console.log(e.target.result);
+
+        // console.log(e.target.result);
 
         swiperSildeDiv.append(fileImg);
         textFileSwiper.append(swiperSildeDiv);
@@ -261,6 +277,7 @@ document.getElementById("cropperfile").addEventListener("change", (e) => {
   }
 });
 
+// 게시글 작성 유효성 검사
 function writeValidate() {
   const boardContent = document.getElementById("updateBoardContent");
   if (boardContent.value.trim().length == 0) {
@@ -314,16 +331,16 @@ window.addEventListener("click", (e) => {
     ? (modalBackgroundEidt.style.display = "none")
     : false;
 
-  // 텍스트작성홤녀
+  // 텍스트작성 화면
   e.target === modalBackgroundText
     ? ( modalBackgroundClose.style.display = "flex")
     : false;
 
-  // 작성완료 홤녀
+  // 작성완료 화면
   e.target === modalBackgroundFinish
     ? (modalBackgroundFinish.style.display = "none" ): false;
 
-  // 업데이트 홤녀
+  // 업데이트 화면
   e.target === modalBackgroundUpdate
     ? (modalBackgroundUpdate.style.display = "none")
     : false;

@@ -38,11 +38,17 @@ public interface DmService {
 	 */
 	Member selectTargetProfile(int targetNo);
 
-	/** 채팅방 나가기(채팅방 지우기)
+	/** 채팅 내용 없는 채팅방 지우기
 	 * @param chattingNo
 	 * @return 
 	 */
-	int deleteRoom(int chattingNo);
+	int deleteRoom();
+
+	/** 새로운 채팅 알림
+	 * @param loginMemberNo
+	 * @return result
+	 */
+	int newMessageNotice(int loginMemberNo);
 
 
 	

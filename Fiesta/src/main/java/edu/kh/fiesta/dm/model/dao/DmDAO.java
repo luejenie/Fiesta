@@ -1,5 +1,6 @@
 package edu.kh.fiesta.dm.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +41,11 @@ public class DmDAO {
 	}
 
 
+	
+	/** 채팅방 목록 조회 함수
+	 * @param memberNo
+	 * @return roomList
+	 */
 	public List<ChattingRoom> selectRoomList(int memberNo) {
 		return sqlSession.selectList("dmMapper.selectRoomList", memberNo);
 	}
@@ -55,8 +61,20 @@ public class DmDAO {
 	}
 
 
+	// 읽음 여부 비동기 조회
 	public int updateReadFlag(Map<String, Object> paramMap) {
-		return sqlSession.update("dmMapper.updateReadFlag", paramMap);
+		
+		int unreadCount = sqlSession.selectOne("dmMapper.selectUnreadCount", paramMap);
+		
+		int result = 0;
+		
+		// 읽지 않은 메시지 있을 때만 읽음 여부 변경
+		// 읽지 않은 메세지 개수 조회
+		if(unreadCount > 0) {
+			result = sqlSession.update("dmMapper.updateReadFlag", paramMap);
+		}
+		
+		return result;
 	}
 
 
@@ -74,12 +92,36 @@ public class DmDAO {
 	}
 
 
-	/** 채팅방 나가기(지우기)
+	/** 채팅 내용 없는 채팅방 지우기
 	 * @param chattingNo
 	 * @return
 	 */
-	public int deleteRoom(int chattingNo) {
-		return sqlSession.delete("dmMapper.deleteRoom", chattingNo);
+	public int deleteRoom(){
+		
+		// 메시지 없는 채팅방 리스트
+		// 2. 메시지 없는 채팅방 번호들 조회
+		List<Integer> targetRoomList = sqlSession.selectList("dmMapper.selectDeleteTargetRoom");
+		
+		int result = 0;
+		
+		// 3. 메시지 없는 채팅방이 1 이상이면, 해당 채팅방을 지우기
+		if(targetRoomList.size() > 0) {
+			for(int i=0; i<targetRoomList.size(); i++) {
+				int chattingNo = targetRoomList.get(i);
+				result = sqlSession.delete("dmMapper.deleteRoom", chattingNo);
+			}
+		}
+		
+		return result;
+	}
+
+
+	/** 새로운 채팅 알림
+	 * @param loginMemberNo
+	 * @return result
+	 */
+	public int newMessageNotice(int loginMemberNo) {
+		return sqlSession.selectOne("dmMapper.newMessageNotice", loginMemberNo);
 	}
 
 	
