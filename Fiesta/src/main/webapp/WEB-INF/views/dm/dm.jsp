@@ -13,19 +13,19 @@
     <link rel="stylesheet" href="/resources/css/dm/dm-style.css" />
     <link rel="stylesheet" href="/resources/css/dm/dm-message2.css"/>
 
-    <link rel="stylesheet" href="/resources/css/board/newpost-eidt-style.css" />
+    <link rel="stylesheet" href="/resources/css/board/newpost-file-style.css" />
+    <link rel="stylesheet" href="/resources/css/board/newpost-edit-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-text-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-finish-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-close-style.css" />
 
+    <link rel="stylesheet" href="/resources/css/search/search-complete-style.css" />
+    <link rel="stylesheet" href="/resources/css/search/search-complete-style2.css" />
 
-<link rel="stylesheet" href="/resources/css/swiper-bundle.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-<script src="https://kit.fontawesome.com/591746f9e8.js" crossorigin="anonymous"></script>
-    <script
-      src="https://kit.fontawesome.com/591746f9e8.js"
-      crossorigin="anonymous"
-    ></script>
+    <link rel="stylesheet" href="/resources/css/swiper-bundle.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/591746f9e8.js" crossorigin="anonymous"></script>
+
   </head>
   <body>
     <!-- 헤더 -->
@@ -125,12 +125,13 @@
           </div>
         </div>
       </section>
-      <jsp:include page="/WEB-INF/views/board/newpost-file.jsp" />
+      <!-- <jsp:include page="/WEB-INF/views/board/newpost-file.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-eidt.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-text.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-close.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-finish.jsp" />
-    <jsp:include page="/WEB-INF/views/board/newpost-update.jsp" />
+    <jsp:include page="/WEB-INF/views/board/newpost-update.jsp" /> -->
+    <jsp:include page="/WEB-INF/views/board/newpost.jsp" />
     </main>
     <!-- 푸터 -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
@@ -156,8 +157,8 @@
       const tempNo = "${chattingNo}"; 
     </script>
     <script src="/resources/js/dm/dm.js"></script>
-    <script src="/resources/js/newpost.js"></script>
-    <script src="/resources/js/boardWriteUpdate.js"></script>
+    <!-- <script src="/resources/js/newpost.js"></script> -->
+    <!-- <script src="/resources/js/boardWriteUpdate.js"></script> -->
     <script src="/resources/js/common/common.js"></script>
   </body>
 </html>
