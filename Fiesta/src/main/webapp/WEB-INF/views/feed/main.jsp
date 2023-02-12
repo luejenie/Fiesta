@@ -30,11 +30,13 @@
     <link rel="stylesheet" href="/resources/css/action/comment-style.css" />
     <link rel="stylesheet" href="/resources/css/action/confirm-style.css" />
     <link rel="stylesheet" href="/resources/css/action/comment-auto-complete-style.css" />
+
     <link rel="stylesheet" href="/resources/css/board/newpost-file-style.css" />
-    <%-- <link rel="stylesheet" href="/resources/css/board/newpost-eidt-style.css" /> --%>
+    <link rel="stylesheet" href="/resources/css/board/newpost-edit-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-text-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-finish-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-close-style.css" />
+
     <link rel="stylesheet" href="/resources/css/search/search-complete-style.css" />
     <link rel="stylesheet" href="/resources/css/search/search-complete-style2.css" />
 
@@ -415,8 +417,8 @@
     <script type="text/javascript" defer src="/resources/js/main/comment.js"></script>
     <script type="text/javascript" defer src="/resources/js/common/common.js"></script>
 
-    <script src="/resources/js/newpost.js"></script>
-    <script src="/resources/js/boardWriteUpdate.js"></script>
+    <script type="text/javascript" src="/resources/js/newpost.js"></script>
+    <script type="text/javascript" src="/resources/js/boardWriteUpdate.js"></script>
 
   </body>
 </html>
