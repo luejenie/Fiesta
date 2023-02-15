@@ -296,6 +296,8 @@ main > section {
 
 .b-img{
     width: 310px;
+    height: 310px;
+    object-fit: cover;
     /* height: 320px; */
 
 /*  width: 100%;
@@ -324,6 +326,9 @@ main > section {
     
     background-color: #00000070;
 
+    /* fix:나중에 한 번 더 확인 */
+    transition-duration: 3s;
+
     position: absolute;
     top: 0;
     left: 0;
@@ -331,6 +336,7 @@ main > section {
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 
 .iHover {
