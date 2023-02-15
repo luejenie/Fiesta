@@ -21,11 +21,11 @@
     
     <!-- CSS  링크 -->
     <link rel="stylesheet" href="/resources/css/dm/dm-message.css" />
-    <link rel="stylesheet" href="/resources/css/board/newpost-file-style.css" />
+    <!-- <link rel="stylesheet" href="/resources/css/board/newpost-file-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-eidt-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-text-style.css" />
     <link rel="stylesheet" href="/resources/css/board/newpost-finish-style.css" />
-    <link rel="stylesheet" href="/resources/css/board/newpost-close-style.css" />
+    <link rel="stylesheet" href="/resources/css/board/newpost-close-style.css" /> -->
 
 
     <link rel="stylesheet" href="/resources/css/common-style.css" />
@@ -398,8 +398,8 @@
     <%-- jQuery 라이브러리(.js 파일) 추가 (CDN 방식 (Content Delivery Network)) --%>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
         
-    <script src="/resources/js/newpost.js"></script>
-    <script src="/resources/js/boardWriteUpdate.js"></script>
+    <!-- <script src="/resources/js/newpost.js"></script>
+    <script src="/resources/js/boardWriteUpdate.js"></script> -->
 
     <script src="/resources/js/search/search.js"></script> <%-- mainBoard.js와 거의 동일 --%>
     <script src="/resources/js/follow/follow.js"></script>
