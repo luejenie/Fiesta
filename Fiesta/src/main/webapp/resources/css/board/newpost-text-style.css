@@ -354,6 +354,7 @@
   color: rgb(141, 141, 141);
   font-size: 15px;
   padding: 0 16px;
+  line-height: 23px;
   /* overflow: auto; */
 }
 /* .new-post-bottom-inputtext > textarea:active {
