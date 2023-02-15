@@ -65,20 +65,30 @@ public class BoardController {
 		return "redirect:"+path;
 	}
 	
-	// 게시글 수정
+	// 게시글 수정하기 클릭 후, 게시글 조회하기
 	@GetMapping("/selectOneBoard")
 	@ResponseBody
 	public String selectOneBoard(int boardNo, Model model) {
+		
+		// 게시글 조회
 		Board board = service.selectOneBoard(boardNo);
 //		System.out.println(board.setBoardContent());
-		board.setBoardContent(Util.hashTagClear(board.getBoardContent()));
 		
-		board.setBoardContent(Util.newLineHandling(board.getBoardContent()));
+		
+		// 개행문자 처리 해제
+		board.setBoardContent(Util.newLineClear(board.getBoardContent())); 
+		
+		System.out.println(board.getBoardContent());
+		
+		// 해시태그 처리 해제
+		board.setBoardContent(Util.hashTagClearForUpdate(board.getBoardContent()));
+		
 //		System.out.println(boardCon);
 //		 model.addAttribute("board", board);
 		return new Gson().toJson(board);
 	}
 	
+	// 게시글 수정
 	@PostMapping("/boardUpdate")
 	public String boardUpdate(Board board,@RequestHeader("referer") String referer) throws IOException { 
 		

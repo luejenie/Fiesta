@@ -77,11 +77,40 @@ public class Util {
 //	해시태그 인식해서 a태그로 감싸기 해제
 	public static String hashTagClear(String content) {
 		
-
 			content = content.replaceAll("<a href='/search?searchInput=", ""); 
 			content = content.replaceAll("</a>", ""); 
 			content = content.replaceAll("' class='hashtag'>", ""); 
 
+		return content;
+	}
+	
+	
+//	게시글 수정 시, 해시태그 인식해서 a태그로 감싸기 해제
+	public static String hashTagClearForUpdate(String content) {
+		// \s 공백문자(스페이스, 탭, 줄바꿈 등)
+		Pattern pattern = Pattern.compile("(#[^\\s#]+)");
+		
+		Matcher matcher = pattern.matcher(content);
+		
+		while(matcher.find()) {
+			// str = #내용</a>
+			String str = matcher.group(1);
+			str = str.replaceAll("</a>", ""); 
+			
+			String pathName = str.replaceAll("#", ""); 
+			
+//			System.out.println("str :" + str);
+//			System.out.println("pathName :" + pathName);
+			
+										// <a href='/search?searchInput=내용' class='hashtag'>#내용</a>
+			content = content.replace("<a href='/search?searchInput="+pathName+"' class='hashtag'>"+str+"</a>", str);
+			
+		}
+		
+//		content = content.replaceAll("<a href='/search?searchInput=", ""); 
+//		content = content.replaceAll("</a>", ""); 
+//		content = content.replaceAll("' class='hashtag'>", ""); 
+		
 		return content;
 	}
 	

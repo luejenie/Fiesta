@@ -17,7 +17,7 @@
 
         <div class="new-post-top-text">
           <div id="updateClose">취소</div>
-          <p id="postName">정보 수정</p>
+          <p id="postName">수정하기</p>
           <button name="newpostText" id="newPostAll">완료</button>
         </div>
         <!-- post-bottom -->
@@ -26,9 +26,8 @@
           <div class="bottom-left-box swiper">
           <div class="swiper-wrapper" id="textFileSwiper">
 
-            <div class=" swiper-slide" id="boardImageOne">
-
-            </div> 
+            <!-- <div class=" swiper-slide" id="boardImageOne"> -->
+            <!-- </div>  -->
             
           </div>
         <div class="swiper-pagination"></div>
@@ -51,7 +50,7 @@
               </div>
 
               <div class="new-post-bottom-inputtext">
-                <textarea name="boardContent" rows="15" placeholder="문구 입력..." id="updateBoardContent"></textarea>
+                <textarea name="boardContent" rows="15" placeholder="문구 입력..." id="updateBoardContent" spellcheck="false"></textarea>
               </div>
 <%-- 
               <div class="new-post-bottom-textsize">
