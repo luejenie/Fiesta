@@ -134,4 +134,10 @@
 
 
 
+	<!-- 해당 게시글 번호에 이미지가 있는지 확인 -->
+	<select id="checkImage" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD_IMG
+		WHERE BOARD_NO = #{boardNo}
+	</select>
 </mapper>

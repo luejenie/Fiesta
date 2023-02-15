@@ -81,10 +81,18 @@ public class BoardServicepImple implements BoardService{
 	}
 
 	
+	// 수정할 게시글 조회
 	@Override
 	public Board selectOneBoard(int boardNo) {
 		return dao.selectOneBoard(boardNo);
 	}
+	
+	// 게시글 번호에 이미지가 있는지 확인
+	@Override
+	public int checkImage(int boardNo) {
+		return dao.checkImage(boardNo);
+	}
+	
 	
 	
 	// 게시글 수정

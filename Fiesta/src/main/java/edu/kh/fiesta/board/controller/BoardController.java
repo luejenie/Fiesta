@@ -1,7 +1,9 @@
 package edu.kh.fiesta.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -72,20 +74,24 @@ public class BoardController {
 		
 		// 게시글 조회
 		Board board = service.selectOneBoard(boardNo);
-//		System.out.println(board.setBoardContent());
+		
+		// 게시글 번호로 이미지가 있는지 확인
+		int count = service.checkImage(boardNo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board", board);
+		map.put("count", count);
 		
 		
 		// 개행문자 처리 해제
 		board.setBoardContent(Util.newLineClear(board.getBoardContent())); 
-		
-		System.out.println(board.getBoardContent());
 		
 		// 해시태그 처리 해제
 		board.setBoardContent(Util.hashTagClearForUpdate(board.getBoardContent()));
 		
 //		System.out.println(boardCon);
 //		 model.addAttribute("board", board);
-		return new Gson().toJson(board);
+		return new Gson().toJson(map);
 	}
 	
 	// 게시글 수정

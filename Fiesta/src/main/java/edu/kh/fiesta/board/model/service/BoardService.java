@@ -31,6 +31,15 @@ public interface BoardService {
 	 */
 	List<String> selectImageList();
 
+	
+	
+	
+	/** 게시글 번호에 이미지가 있는지 확인
+	 * @param boardNo
+	 * @return result
+	 */
+	int checkImage(int boardNo);
+
 
 
 }

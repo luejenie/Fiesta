@@ -5,6 +5,8 @@ const updateClose2 = document.getElementById("updateClose2");
 
 const modalBackgroundUpdate = document.getElementById("modalBackgroundUpdate");
 
+const boardContent = document.getElementById('updateBoardContent');
+
 //! 수정
 feedUpdateBtnLogin.addEventListener("click", (e) => {
   document.body.style.overflow = "hidden";
@@ -14,33 +16,50 @@ feedUpdateBtnLogin.addEventListener("click", (e) => {
     url: "/selectOneBoard",
     data: { boardNo: boardNo},
     dataType: "json",
-    success: (board) => {
-      console.log(board);
-      const boardContent = document.getElementById('updateBoardContent');
+    success: (map) => {
+      console.log(map);
+
       // const boardImageOne = document.getElementById('boardImageOne');
       const boardNo = document.getElementById('boardNo');
-      boardNo.value = board.boardNo;
+      boardNo.value = map.board.boardNo;
       
-      //todo: 이미지 불러와서 swiper 적용하기
+      // * 수정: 이미지 불러와서 swiper 적용하기
 
       // 이벤트 발생한 요소에 선택된 파일이 있을 경우
-      for (let i = 0; i < board.imageList.length; i++) {
+      for (let i = 0; i < map.board.imageList.length; i++) {
   
+        
+        const imgFileSwiper = document.getElementById("imgFileSwiper");
+        const swiperSlideDiv = document.createElement("div");
+        const img = document.createElement("img");
+        
+        swiperSlideDiv.classList.add("swiper-slide");
+        img.classList.add("post-img-viwe");
+        img.id = "updateImgList";
+        
+        if(map.count == 0){
+        //fixme: default이미지가 안보여!!!
+        img.setAttribute("src", "/resources/images/default/defaultImg.png");
+        } else {
+          img.setAttribute("src", map.board.imageList[i].imgAddress + map.board.imageList[i].imgChangeName);
+        }
+
+        
         //fixme: 파일 추가, 삭제 기능 추가하기
-        //fixme: 이미지 1:1로
-        //fixme: 이미지위치 조정te
-  
-  
-        const swiperSildeDiv = document.createElement("div");
-        const fileImg = document.createElement("img");
+        // todo: 휴지통 아이콘
+        const trashIcon = document.createElement("i")
+        trashIcon.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
+        trashIcon.classList.add("trash-icon");
 
-        swiperSildeDiv.classList.add("swiper-slide");
-        fileImg.classList.add("post-img-viwe");
-        fileImg.id = "updateImgList";
-        fileImg.setAttribute("src", board.imageList[i].imgAddress+board.imageList[i].imgChangeName);
+        // todo: 사진추가
+        const plusIcon = document.createElement("i")
+        plusIcon.innerHTML = '<i class="fa-solid fa-square-plus"></i>';
+        plusIcon.classList.add("plus-icon");
 
-        swiperSildeDiv.append(fileImg);
-        textFileSwiper.append(swiperSildeDiv);
+        swiperSlideDiv.append(img, trashIcon, plusIcon);
+        imgFileSwiper.append(swiperSlideDiv);
+        
+   
 
         var swiper = new Swiper(".swiper", {
           spaceBetween: 0.5, // 슬라이드 사이 여백
@@ -82,8 +101,8 @@ feedUpdateBtnLogin.addEventListener("click", (e) => {
       // console.log(img);
       // boardImageOne.append(img);
 
-      // fix: 개행문자 해제 위해 innerText -> innerHTML로 수정
-      boardContent.innerHTML = board.boardContent;
+      // * 수정) 개행문자 해제 위해 innerText -> innerHTML로 수정
+      boardContent.innerHTML = map.board.boardContent;
 
       modalBackgroundUpdate.style.display = "flex";
       feedMenuLogin.style.display = "none";
@@ -99,7 +118,7 @@ feedUpdateBtnLogin.addEventListener("click", (e) => {
     modalBackgroundUpdate.style.display = "none";
     // boardContent.innerText = "";
     document.body.style.overflow = "unset";
-    boardImageOne.innerHTML = "";
+    imgFileSwiper.innerHTML = "";
     boardContent.innerText = "";
 
   });
@@ -110,20 +129,43 @@ feedUpdateBtnLogin.addEventListener("click", (e) => {
     // console.log("눌렸나욤?2");
     document.body.style.overflow = "unset";
     // document.getElementById("updateImgList").remove();
-    boardImageOne.innerHTML = "";
+    imgFileSwiper.innerHTML = "";
     boardContent.innerText = "";
   });
 });
 
 
+//todo: 사진 추가하기
+const addImages = () => {
 
 
 
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 바깥 클릭하면 모달창 닫힘
 window.addEventListener('click', (e) => {
   const modalBackgroundUpdate = document.getElementById("modalBackgroundUpdate");
 
   // 업데이트 화면
-  e.target === modalBackgroundUpdate ? (modalBackgroundUpdate.style.display = "none", boardImageOne.innerHTML = "", boardContent.innerText = "") : false
+  e.target === modalBackgroundUpdate ? (modalBackgroundUpdate.style.display = "none", imgFileSwiper.innerHTML="", boardContent.innerHTML = "") : false
   e.target === modalBackground ? (modalBackground.style.display = "none") : false;
   document.body.style.overflow = "unset";
   // document.getElementById("updateImgList").remove();

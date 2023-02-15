@@ -24,23 +24,23 @@
         <div class="new-post-bottom-text">
         
           <div class="bottom-left-box swiper">
-          <div class="swiper-wrapper" id="textFileSwiper">
+          <div class="swiper-wrapper" id="imgFileSwiper">
 
             <!-- <div class=" swiper-slide" id="boardImageOne"> -->
             <!-- </div>  -->
             
           </div>
-        <div class="swiper-pagination"></div>
+          <div class="swiper-pagination"></div>
 
-            <div class="siltde-btn-area ">
-              <div class="sild-file-btn ">
+            <div class="siltde-btn-area slide-controller">
+              <div class="sild-file-btn swiper-button-prev">
                 <!-- <div class="material-icons">arrow_back</div> -->
               </div>
-              <%-- <div class="sild-file-btn swiper-button-next"> --%>
+              <div class="sild-file-btn swiper-button-next">
                 <!-- <div class="material-icons">arrow_forward</div> -->
-              <%-- </div> --%>
+              </div>
             </div>
-          </div>
+            </div>
 
           <div class="bottom-right-box">
             <div class="new-post-bottom-information">

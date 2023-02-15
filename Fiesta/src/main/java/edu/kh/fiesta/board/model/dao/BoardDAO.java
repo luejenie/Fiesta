@@ -45,4 +45,14 @@ public class BoardDAO {
 	public List<String> selectImageList() {
 		return sqlSession.selectList("boardMapper.selectBoardImageList");
 	}
+
+	
+	
+	/** 게시글 번호에 이미지 있는지 확인
+	 * @param boardNo
+	 * @return result
+	 */
+	public int checkImage(int boardNo) {
+		return sqlSession.selectOne("boardMapper.checkImage", boardNo);
+	}
 }
