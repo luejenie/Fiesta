@@ -23,26 +23,6 @@ feedUpdateBtnLogin.addEventListener("click", (e) => {
 
 const imgFileSwiper = document.getElementById("imgFileSwiper");
 
-updateClose.addEventListener("click", () => {
-  modalBackgroundUpdate.style.display = "none";
-  // boardContent.innerText = "";
-  document.body.style.overflow = "unset";
-  imgFileSwiper.innerHTML = "";
-  boardContent.innerText = "";
-  
-});
-updateClose2.addEventListener("click", () => {
-  modalBackgroundUpdate.style.display = "none";
-  // boardImageOne.innerHTML = "";
-  // boardContent.innerText = "";
-  // console.log("눌렸나욤?2");
-  document.body.style.overflow = "unset";
-  // document.getElementById("updateImgList").remove();
-  imgFileSwiper.innerHTML = "";
-  boardContent.innerText = "";
-});
-
-
 var imgOrder; // 이미지 순서
 
 //optimize
@@ -56,36 +36,44 @@ const selectOneBoard = () => {
       success: (map) => {
         console.log(map);
   
-        // const boardImageOne = document.getElementById('boardImageOne');
         const boardNo = document.getElementById('boardNo');
         boardNo.value = map.board.boardNo;
-    
-        // * 수정: 이미지 불러와서 swiper 적용하기
-        // 이벤트 발생한 요소에 선택된 파일이 있을 경우
-        for (let i = 0; i < map.board.imageList.length; i++) {
 
-          const imgFileSwiper = document.getElementById("imgFileSwiper");
-          imgFileSwiper.classList.add("swiper-wrapper");
-          imgFileSwiper.id = "imgFileSwiper";
-  
+        // * 수정) 개행문자 해제 위해 innerText -> innerHTML로 수정
+        boardContent.innerHTML = map.board.boardContent;
+
+
+        const imgFileSwiper = document.getElementById("imgFileSwiper");
+        imgFileSwiper.classList.add("swiper-wrapper");
+        imgFileSwiper.id = "imgFileSwiper";
+
+        // 이미지 개수가 없을 때
+        if(map.count == 0){
           const swiperSlideDiv = document.createElement("div");
           swiperSlideDiv.classList.add("swiper-slide");
-
+  
           const img = document.createElement("img");
           img.classList.add("post-img-viwe");
           img.id = "updateImgList";
-          
-          // if(map.board.imageList[0].imgAddress != null){
-          // } else { 
-          if(map.count > 0){
-            img.setAttribute("src", map.board.imageList[i].imgAddress + map.board.imageList[i].imgChangeName);
-          } 
-          else if(map.count == 0) {
-            console.log("map.count : " + map.count);
-            //fixme: default이미지가 안보여ㅠㅠㅠ
-            img.setAttribute("src", "/resources/images/default/defaultImg.jpg");
-          }
-          
+          img.setAttribute("src", "/resources/images/default/defaultImg.jpg");
+  
+          swiperSlideDiv.append(img);
+          imgFileSwiper.append(swiperSlideDiv);
+        }
+    
+        // 이미지 개수가 0개 이상일때
+        // * 수정: 이미지 불러와서 swiper 적용하기
+        else if(map.count > 0){  
+
+        for (let i = 0; i < map.board.imageList.length; i++) {
+          const swiperSlideDiv = document.createElement("div");
+          swiperSlideDiv.classList.add("swiper-slide");
+  
+          // * 수정: default이미지가 안보이는 문제 해결함!
+          const img = document.createElement("img");
+          img.classList.add("post-img-viwe");
+          img.id = "updateImgList";
+          img.setAttribute("src", map.board.imageList[i].imgAddress + map.board.imageList[i].imgChangeName);
 
           // *휴지통 아이콘
           const iconBackcircle1 = document.createElement("span");
@@ -143,8 +131,7 @@ const selectOneBoard = () => {
           // swiperSlideDiv.append(img);
           imgFileSwiper.append(swiperSlideDiv);
   
-          // * 수정) 개행문자 해제 위해 innerText -> innerHTML로 수정
-          boardContent.innerHTML = map.board.boardContent;
+
      
           var swiper = new Swiper(".swiper", {
             spaceBetween: 0.5, // 슬라이드 사이 여백
@@ -168,12 +155,29 @@ const selectOneBoard = () => {
               prevEl: ".swiper-button-prev",
             },
           });
-          
         }
+
+        }  
+
       },
       error: () => {
         console.log("게시글 조회 error");
       },
+    });
+
+    updateClose.addEventListener("click", () => {
+      modalBackgroundUpdate.style.display = "none";
+      boardContent.innerText = "";
+      document.body.style.overflow = "unset";
+      imgFileSwiper.innerHTML = "";
+      boardContent.innerText = "";
+      
+    });
+    updateClose2.addEventListener("click", () => {
+      modalBackgroundUpdate.style.display = "none";
+      document.body.style.overflow = "unset";
+      imgFileSwiper.innerHTML = "";
+      boardContent.innerText = "";
     });
 }
 
@@ -184,28 +188,40 @@ const selectOneBoard = () => {
 // 삭제 알림창에서 삭제 클릭하면,
 /** 사진 삭제하는 함수 */
 console.log("imgOrder: " + imgOrder);
+
+// var yesClicked = 0;
+
 document.getElementById("deleteYes").addEventListener('click', () => {
-  console.log("클릭");
+//   yesClicked = 1;
+//   document.getElementById("deleteModalContainer").style.display = "none";
+//   console.log(yesClicked);
+// });
 
-  $.ajax({
-    url: "/deleteBoardImage",
-    data: { "boardNo": boardNo, "imgOrder": imgOrder },
-    type: "GET",
-    dataType: "json",
-    success: (result) => { 
-      
-      if(result > 0){
-        console.log("사진 삭제 성공"); 
-        document.getElementById("deleteModalContainer").style.display = "none";
-      }
-      imgFileSwiper.innerHTML = "";
 
-      selectOneBoard();
-      
-  },
-    error: () => {console.log("사진 삭제 실패");}
+// // 삭제를 누르고, 완료까지 누르면, 삭제하기
+// if(yesClicked == 1 ){
+//   document.getElementById("newPostAll").addEventListener('submit', () => {
+    $.ajax({
+      url: "/deleteBoardImage",
+      data: { "boardNo": boardNo, "imgOrder": imgOrder },
+      type: "GET",
+      dataType: "json",
+      success: (result) => { 
+        
+        if(result > 0){
+          console.log("사진 삭제 성공"); 
+          document.getElementById("deleteModalContainer").style.display = "none";
+          imgFileSwiper.innerHTML = "";
+          selectOneBoard();
+        }
+  
+        
+    },
+      error: () => {console.log("사진 삭제 실패");}
+    })
   })
-})
+// }
+
 
 
 // 삭제 알림창에서 취소 클릭하면,
