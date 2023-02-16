@@ -51,7 +51,7 @@ public class SignUpEmailController {
 			return 1;
 		}
 		
-		return 1;   //0으로
+		return 0;  //
 	}
 	
 	
