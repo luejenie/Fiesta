@@ -290,6 +290,7 @@
     .b-img{
         width: 32vw;
         height: 32vw;
+        object-fit: cover;
         /* width: 100%;
         height: 100%; */
     }
@@ -311,8 +312,12 @@
     .b-img:hover + .hover-icon-container {
         width: 100%;
         height: 100%;
+        object-fit: cover;
         
         background-color: #00000070;
+
+        /* fix:나중에 한 번 더 확인 */
+        transition-duration: 3s;
 
         position: absolute;
         top: 0;

@@ -14,7 +14,7 @@ public class MemberDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	/** 濡쒓렇�씤 DAO
+	/** 로그인 DAO
 	 * @param memberEmail
 	 * @return loginMember
 	 */
@@ -23,7 +23,7 @@ public class MemberDAO {
 	}
 
 	
-	/** �쉶�썝媛��엯 DAO
+	/** 회원가입 DAO
 	 * @param inputMember
 	 * @return result
 	 */
@@ -34,7 +34,7 @@ public class MemberDAO {
 		System.out.println(inputMember);
 		
 		if(result > 0) {
-			// 怨듦컻�뿬遺� �꽕�젙�뿉 �쉶�썝踰덊샇 �궫�엯
+			// 공개여부 설정에 회원번호 삽입
 			result = sqlSession.insert("memberMapper.insertUserPubPriFl", inputMember);
 		}
 		
@@ -43,7 +43,7 @@ public class MemberDAO {
 	
 	
 	
-	/** �쉶�썝媛��엯_�씠硫붿씪 以묐났 泥댄겕 DAO
+	/** 회원가입_이메일 중복 체크 DAO
 	 * @param memberEmail
 	 * @return result
 	 */
@@ -53,7 +53,7 @@ public class MemberDAO {
 
 	
 
-	/** �쉶�썝媛��엯_�땳�꽕�엫 以묐났 泥댄겕 �꽌鍮꾩뒪 DAO
+	/** 회원가입_닉네임 중복 체크 DAO
 	 * @param memberNickname
 	 * @return result
 	 */
@@ -62,7 +62,7 @@ public class MemberDAO {
 	}
 
 
-	/** 怨꾩젙李얘린_ 鍮꾨�踰덊샇 �옱�꽕�젙 DAO
+	/** 회원가입_비밀번호 재설정 DAO
 	 * @param memberEmail
 	 * @param memberPw
 	 * @return result
@@ -72,7 +72,7 @@ public class MemberDAO {
 	}
 
 
-	/** �옄湲곗옄�떊 �뙏濡쒖슦_ �쉶�썝踰덊샇 議고쉶
+	/** 자기자신 팔로우 (회원번호 조회)
 	 * @param memberEmail
 	 * @return memberNo
 	 */
@@ -83,7 +83,7 @@ public class MemberDAO {
 
 	
 	
-	/** �옄湲곗옄�떊 �뙏濡쒖슦_媛��엯 �떆 �옄湲� �옄�떊 �뙏濡쒖슦 DAO
+	/** 가입 시 자기자신 팔로우 DAO
 	 * @param memberNo
 	 * @return result
 	 */
@@ -92,6 +92,9 @@ public class MemberDAO {
 	}
 
 
+	/** 프로필 이미지 조회
+	 * @return
+	 */
 	public List<String> selectProfileImageList() {
 		return sqlSession.selectList("memberMapper.selectProfileImageList");
 	}

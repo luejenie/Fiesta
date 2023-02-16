@@ -71,6 +71,8 @@
   .modal_post_section_text {
     width: 250px;
     height: 600px;
+
+    color: black;
   }
   .bottom-left-box {
     width: 250px;
@@ -100,6 +102,8 @@
   .modal_post_section_text {
     width: 350px;
     height: 700px;
+
+    color: black;
   }
   .bottom-left-box {
     width: 350px;
@@ -130,6 +134,8 @@
   .modal_post_section_text {
     width: 400px;
     height: 700px;
+
+    color: black;
   }
   .bottom-left-box {
     width: 400px;
@@ -161,11 +167,16 @@
     /* height: 50px; */
   }
 }
+
+
+
 @media (min-width: 992px) {
   /* 992px 이상 노트북, 작은 데스크톱 */
   .modal_post_section_text {
     width: 890px;
     height: 550px;
+
+    color: black;
   }
   .bottom-left-box {
     width: 500px;
@@ -229,6 +240,8 @@
 .modal_post_section-text {
   background-color: white;
   border-radius: 10px;
+
+  color: black;
 }
 /* ----- 게시물작성 top ------ */
 .new-post-top-text {
@@ -297,7 +310,70 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+  /* *수정* */
+  position: relative;
+
 }
+
+/* !fixme */
+.back-circle1{
+  position: absolute;
+  top: 11px;
+  right: 15px;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.back-circle2{
+  position: absolute;
+  top: 10px;
+  right: 53px;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.trash-icon{
+  position: absolute;
+  color: white;
+  font-size: 15px;
+}
+
+.back-circle1:hover, .back-circle2:hover{
+  /* color: var(--fiesta-color); */
+  color: lightgray;
+}
+
+.plus-icon{
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  margin-left: 1px;
+  z-index: 5000;
+}
+
+
+
+
+
 
 .bottom-right-box {
   /* width: 46%; */
@@ -305,6 +381,18 @@
   /* height: auto; */
 
   /* background-color: blueviolet; */
+}
+
+/* 스크롤바 */
+.bottom-right-box::-webkit-scrollbar{
+  width: 7px;
+  border-radius: 10px;
+}
+
+.bottom-right-box::-webkit-scrollbar-thumb{
+  background-color: lightgray;
+  opacity: 0.5;
+  border-radius: 10px;
 }
 
 .new-post-bottom-set,
@@ -354,6 +442,7 @@
   color: rgb(141, 141, 141);
   font-size: 15px;
   padding: 0 16px;
+  line-height: 23px;
   /* overflow: auto; */
 }
 /* .new-post-bottom-inputtext > textarea:active {
@@ -361,7 +450,7 @@
 } */
 .new-post-bottom-inputtext > textarea:focus {
   outline: none;
-  color: balck;
+  color: black;
 }
 /* 작성가능 글자수 */
 .new-post-bottom-textsize {
@@ -489,3 +578,83 @@
 .toggleButton {
   transition: all 0.2s ease-in;
 } */
+
+
+/*  */
+/* 삭제 확인 모달 */
+.delete-modal-container{
+  /* width: 100vw;
+  height: 100vh; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+
+  display: none;
+}
+
+.delete-check-modal{
+  width: 455px;
+  height: 130px;
+  background-color: white;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-ask{
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+}
+
+.delete-ask2{
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid gray;
+  font-size: 15px;
+  color: red;
+  padding-bottom: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.yes-or-no{
+  width: 100%;
+  height: 40px;
+  display: flex;
+}
+
+#deleteYes{
+  width: 50%;
+  border-right: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  cursor: pointer;
+}
+
+#deleteNo{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

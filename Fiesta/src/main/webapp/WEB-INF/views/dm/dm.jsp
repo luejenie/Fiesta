@@ -125,13 +125,15 @@
           </div>
         </div>
       </section>
-      <!-- <jsp:include page="/WEB-INF/views/board/newpost-file.jsp" />
+
+    <!-- 모달창 include -->
+    <jsp:include page="/WEB-INF/views/board/newpost-file.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-eidt.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-text.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-close.jsp" />
     <jsp:include page="/WEB-INF/views/board/newpost-finish.jsp" />
-    <jsp:include page="/WEB-INF/views/board/newpost-update.jsp" /> -->
-    <jsp:include page="/WEB-INF/views/board/newpost.jsp" />
+    <jsp:include page="/WEB-INF/views/board/newpost-update.jsp" />
+    
     </main>
     <!-- 푸터 -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
@@ -157,8 +159,8 @@
       const tempNo = "${chattingNo}"; 
     </script>
     <script src="/resources/js/dm/dm.js"></script>
-    <!-- <script src="/resources/js/newpost.js"></script> -->
-    <!-- <script src="/resources/js/boardWriteUpdate.js"></script> -->
+    <script src="/resources/js/newpost.js"></script>
+    <script src="/resources/js/boardWriteUpdate.js"></script>
     <script src="/resources/js/common/common.js"></script>
   </body>
 </html>

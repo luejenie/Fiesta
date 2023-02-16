@@ -86,8 +86,13 @@ backBtnText.addEventListener("click", () => {
   document.getElementById("cropperfile").value = "";
   console.log(document.getElementById("cropperfile").files);
 });
+
 document.getElementById("closeTextCancel").addEventListener("click", () => {
   modalBackgroundClose.style.display = "none";
+
+  // *(수정)선택한 사진이 유지되어서 재선택이 안됨. -> 리셋 시키기 (value 이용함)
+  document.getElementById("cropperfile").value = "";
+  console.log(document.getElementById("cropperfile").files);
 });
 // text작성중 x버튼
 // document
@@ -190,13 +195,10 @@ document.getElementById("cropperfile").addEventListener("change", (e) => {
     // 이벤트 발생한 요소에 선택된 파일이 있을 경우
     for (let i = 0; i < e.target.files.length; i++) {
 
+      console.log(e.target.files[i]);
+      
       // 이벤트 발생 파일 길이 만큼 반복문 돌림
       form.append("files", e.target.files[i]);
-
-      //fixme: 파일 추가, 삭제 기능 추가하기
-      //fixme: 이미지 1:1로
-      //fixme: 이미지위치 조정
-
 
       const reader = new FileReader(); // 파일 읽는 객체
       reader.readAsDataURL(e.target.files[i]); // 파일 정보를 불러와서 URL형태로 저장
@@ -208,6 +210,7 @@ document.getElementById("cropperfile").addEventListener("change", (e) => {
         // *text 부분 파일-------------------------------------------------------------
         // <div class="swiper-slide"><img id="file" src="../../resources/images/20e6905c2155885b86dc81e6a63fc88b.jpg" alt="파일미리보기"></div>
 
+        // swiper
         const swiperSildeDiv = document.createElement("div");
         const fileImg = document.createElement("img");
 
@@ -221,6 +224,22 @@ document.getElementById("cropperfile").addEventListener("change", (e) => {
 
         swiperSildeDiv.append(fileImg);
         textFileSwiper.append(swiperSildeDiv);
+
+        // cropper = fileImg.cropper({
+        //       dragMode: 'move',
+        //       viewMode: 1,
+        //       aspectRatio: 1,
+        //       autoCropArea: 0.9,
+        //       minCropBoxWidth: 500,
+        //       restore: false,
+
+        //       guides: false,
+        //       center: true,
+        //       highlight: false,
+        //       cropBoxMovable: false,
+        //       cropBoxResizable: false,
+        //       toggleDragModeOnDblclick: false
+        // });
 
         // // *text 접근성 부분 파일*
         // // postFileText.style.display = "block";

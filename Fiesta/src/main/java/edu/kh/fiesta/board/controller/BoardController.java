@@ -1,7 +1,9 @@
 package edu.kh.fiesta.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -65,20 +67,36 @@ public class BoardController {
 		return "redirect:"+path;
 	}
 	
-	// 게시글 수정
+	// 게시글 수정하기 클릭 후, 게시글 조회하기
 	@GetMapping("/selectOneBoard")
 	@ResponseBody
 	public String selectOneBoard(int boardNo, Model model) {
-		Board board = service.selectOneBoard(boardNo);
-//		System.out.println(board.setBoardContent());
-		board.setBoardContent(Util.hashTagClear(board.getBoardContent()));
 		
-		board.setBoardContent(Util.newLineHandling(board.getBoardContent()));
+		// 게시글 조회
+		Board board = service.selectOneBoard(boardNo);
+		
+		// 게시글 번호로 이미지가 있는지 확인
+		int count = service.checkImage(boardNo);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board", board);
+		map.put("count", count);
+		
+		
+		// 개행문자 처리 해제
+		board.setBoardContent(Util.newLineClear(board.getBoardContent())); 
+		
+		// 해시태그 처리 해제
+		board.setBoardContent(Util.hashTagClearForUpdate(board.getBoardContent()));
+		
 //		System.out.println(boardCon);
 //		 model.addAttribute("board", board);
-		return new Gson().toJson(board);
+		return new Gson().toJson(map);
 	}
 	
+	
+	
+	// 게시글 수정
 	@PostMapping("/boardUpdate")
 	public String boardUpdate(Board board,@RequestHeader("referer") String referer) throws IOException { 
 		
@@ -96,6 +114,14 @@ public class BoardController {
 		return "redirect:"+path;
 	}
 	
+	
+	// 게시글 수정_사진 삭제
+	@GetMapping("/deleteBoardImage")
+	@ResponseBody
+	public int deleteBoardImage(int boardNo, int imgOrder) {
+		int result = service.deleteBoardImage(boardNo, imgOrder);
+		return result; 
+	}
 	
 	
 	

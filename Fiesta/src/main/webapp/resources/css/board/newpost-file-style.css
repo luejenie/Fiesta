@@ -32,6 +32,11 @@
 }
 
 /* ************** 게시물 작성 창 ******************* */
+.modal_post_section{
+  color: black;
+}
+
+
 @media (max-width: 400px) {
   /* 400px이하 핸드폰 */
   .modal_post_section {

@@ -81,7 +81,7 @@
                     <ul class="swiper-wrapper">
                       <c:if test="${empty board.imageList}">
                         <li class="swiper-slide">
-                          <img class="uploaded-image" src="/resources/images/이영지.jpg" />
+                          <img class="uploaded-image" src="/resources/images/default/defaultImg.jpg" />
                         </li>
                       </c:if>
                       <c:if test="${not empty board.imageList}">

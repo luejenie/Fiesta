@@ -58,7 +58,7 @@
               </div>
 
               <div class="new-post-bottom-inputtext">
-                <textarea name="boardContent" rows="5" placeholder="문구 입력..." id="boardContent2"></textarea>
+                <textarea name="boardContent" rows="5" placeholder="문구 입력..." id="boardContent2" spellcheck="false"></textarea>
               </div>
 
               <%-- <div class="new-post-bottom-textsize">

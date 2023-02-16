@@ -1,6 +1,8 @@
 package edu.kh.fiesta.board.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class BoardDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	/** 寃뚯떆湲� �궫�엯
+	/** 게시글 작성하기
 	 * @param board
 	 * @return boardNo
 	 */
@@ -44,5 +46,28 @@ public class BoardDAO {
 
 	public List<String> selectImageList() {
 		return sqlSession.selectList("boardMapper.selectBoardImageList");
+	}
+
+	
+	
+	/** 게시글 번호에 이미지 있는지 확인
+	 * @param boardNo
+	 * @return result
+	 */
+	public int checkImage(int boardNo) {
+		return sqlSession.selectOne("boardMapper.checkImage", boardNo);
+	}
+
+	
+	/** 게시글 수정하기_사진 삭제
+	 * @param boardNo
+	 * @param imgNo
+	 * @return result
+	 */
+	public int deleteBoardImage(int boardNo, int imgOrder) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("boardNo", boardNo);
+		paramMap.put("imgOrder", imgOrder);
+		return sqlSession.delete("boardMapper.deleteBoardImage", paramMap);
 	}
 }

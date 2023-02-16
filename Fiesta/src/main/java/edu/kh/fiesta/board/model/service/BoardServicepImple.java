@@ -24,51 +24,52 @@ public class BoardServicepImple implements BoardService{
 	@Autowired
 	private BoardDAO dao;
 
-	// 寃뚯떆湲� �궫�엯
-	@Transactional(rollbackFor = Exception.class) // 紐⑤뱺 �삁�쇅 諛쒖깮 �떆 濡ㅻ갚
+	// 게시글 삽입
+	@Transactional(rollbackFor = Exception.class) // 모든 예외 발생 시 롤백
 	@Override
 	public int boardWrite(Board board, List<MultipartFile> fileList, String webPath, String folderPath) throws IOException {
 		
-		// 寃뚯떆湲� �궫�엯
-		board.setBoardContent(Util.XSSHandling(board.getBoardContent())); // XSS 諛⑹� 泥섎━
+		// 게시글 처리
+		board.setBoardContent(Util.XSSHandling(board.getBoardContent())); // XSS 방지 처리
 		
-		board.setBoardContent(Util.hashTagHandling(board.getBoardContent())); // �빐�떆�깭�겕 媛먯떥湲�
+		board.setBoardContent(Util.hashTagHandling(board.getBoardContent())); // 해시태크 감싸기
 		
-		board.setBoardContent(Util.mentionHandling(board.getBoardContent())); // a�깭洹� 媛먯떥湲�
+		board.setBoardContent(Util.mentionHandling(board.getBoardContent())); // a태그 감싸기
 		
-		board.setBoardContent(Util.newLineHandling(board.getBoardContent())); // 媛쒗뻾臾몄옄 泥섎━
+		board.setBoardContent(Util.newLineHandling(board.getBoardContent())); // 개행문자 처리
 		
 		
 		int boardNo = dao.boardWrite(board);
 		
-		// �씠誘몄� �궫�엯
+		// 이미지 삽입
 		if(boardNo > 0) {
 			List<BoardImg> boardImgList = new ArrayList<BoardImg>();
 			List<String> imgChangeNameList = new ArrayList<String>();
-			// �뾽濡쒕뱶�맂 �뙆�씪 遺꾨쪟 �옉�뾽
+			// 업로드된 파일 분류 작업
 			for(int i=0; i < fileList.size(); i++) {
-				if(fileList.get(i).getSize() > 0) { // �뙆�씪�씠 �엳�뒗吏� �솗�씤
-					BoardImg img = new BoardImg(); // boardImg 媛앹껜 �깮�꽦
+				if(fileList.get(i).getSize() > 0) { // 파일이 있는지 확인
+					BoardImg img = new BoardImg(); // boardImg 객체 생성
 					img.setImgAddress(webPath);
 					
-//					 String reName = Util.fileRename(�썝蹂명뙆�씪紐�);
+//					 String reName = Util.fileRename(원본파일명);
 					String reName = Util.fileRename(fileList.get(i).getOriginalFilename());
 					img.setImgChangeName(reName);
-					imgChangeNameList.add(reName); // 蹂�寃� �뙆�씪紐� 由ъ뒪�듃 異붽�
+					imgChangeNameList.add(reName); // 변경 파일명 리스트 추가
 					
-					img.setImgOriginalName(fileList.get(i).getOriginalFilename()); // �썝蹂� �뙆�씪紐�
-					img.setBoardNo(boardNo); // 泥⑤� 寃뚯떆湲� 踰덊샇
-					img.setImgOrder(i); // �씠誘몄� �닚�꽌
+					
+					img.setImgOriginalName(fileList.get(i).getOriginalFilename()); // 원본 파일명
+					img.setBoardNo(boardNo); // 첨부 게시글 번호
+					img.setImgOrder(i); // 이미지 순서
 					
 					boardImgList.add(img);
 				}
 			}
-			if(!boardImgList.isEmpty()) { // �뾽濡쒕뱶 
+			if(!boardImgList.isEmpty()) { // 업로드 
 				int result = dao.insertBoardImageList(boardImgList);
 				
 				if(result == boardImgList.size()){
 					for(int i=0; i < boardImgList.size(); i++) {
-						int index = boardImgList.get(i).getImgOrder(); // �닚�꽌 �뼸�뼱�샂
+						int index = boardImgList.get(i).getImgOrder(); // 순서 얻어옴
 						
 						fileList.get(index).transferTo(new File(folderPath + imgChangeNameList.get(i)));
 					}
@@ -80,28 +81,50 @@ public class BoardServicepImple implements BoardService{
 	}
 
 	
+	// 수정할 게시글 조회
 	@Override
 	public Board selectOneBoard(int boardNo) {
-		
 		return dao.selectOneBoard(boardNo);
 	}
 	
+	// 게시글 번호에 이미지가 있는지 확인
+	@Override
+	public int checkImage(int boardNo) {
+		return dao.checkImage(boardNo);
+	}
 	
+	
+	
+	// 게시글 수정
+	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int boardUpdate(Board board) {
-		board.setBoardContent(Util.XSSHandling(board.getBoardContent())); // XSS 諛⑹� 泥섎━
 		
-		board.setBoardContent(Util.hashTagHandling(board.getBoardContent())); // �빐�떆�깭�겕 媛먯떥湲�
+		// 1. 게시글 부분 수정
+		// 1) XSS, 개행문자, 해시태그 ,A태그 처리
+		board.setBoardContent(Util.XSSHandling(board.getBoardContent())); // XSS 방지 처리
+		board.setBoardContent(Util.hashTagHandling(board.getBoardContent())); // 해시태그 감싸기
+		board.setBoardContent(Util.mentionHandling(board.getBoardContent())); // a태그 감싸기
+		board.setBoardContent(Util.newLineHandling(board.getBoardContent())); // 개행문자 처리
 		
-		board.setBoardContent(Util.mentionHandling(board.getBoardContent())); // a�깭洹� 媛먯떥湲�
+
+		// 2) DAO 호출
+		int result = dao.boardUpdate(board);
 		
-		board.setBoardContent(Util.newLineHandling(board.getBoardContent())); // 媛쒗뻾臾몄옄 泥섎━
-		return dao.boardUpdate(board);
+		return result;
 	}
 	
 	@Override
 	public List<String> selectImageList() {
 		return dao.selectImageList();
+	}
+	
+	
+	
+	// 게시글 수정_사진 삭제
+	@Override
+	public int deleteBoardImage(int boardNo, int imgOrder) {
+		return dao.deleteBoardImage(boardNo, imgOrder);
 	}
 
 

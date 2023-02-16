@@ -17,29 +17,25 @@
 
         <div class="new-post-top-text">
           <div id="updateClose">취소</div>
-          <p id="postName">정보 수정</p>
+          <p id="postName">수정하기</p>
           <button name="newpostText" id="newPostAll">완료</button>
         </div>
         <!-- post-bottom -->
         <div class="new-post-bottom-text">
-        
-          <div class="bottom-left-box swiper">
-          <div class="swiper-wrapper" id="textFileSwiper">
+          <div class="bottom-left-box swiper" id="leftBox">
+            <div class="swiper-wrapper" id="imgFileSwiper">
+              
+            </div>
+            <div class="swiper-pagination">
 
-            <div class=" swiper-slide" id="boardImageOne">
-
-            </div> 
-            
-          </div>
-        <div class="swiper-pagination"></div>
-
-            <div class="siltde-btn-area ">
-              <div class="sild-file-btn ">
+            </div>
+            <div class="siltde-btn-area slide-controller">
+              <div class="sild-file-btn swiper-button-prev">
                 <!-- <div class="material-icons">arrow_back</div> -->
               </div>
-              <%-- <div class="sild-file-btn swiper-button-next"> --%>
+              <div class="sild-file-btn swiper-button-next">
                 <!-- <div class="material-icons">arrow_forward</div> -->
-              <%-- </div> --%>
+              </div>
             </div>
           </div>
 
@@ -51,7 +47,7 @@
               </div>
 
               <div class="new-post-bottom-inputtext">
-                <textarea name="boardContent" rows="15" placeholder="문구 입력..." id="updateBoardContent"></textarea>
+                <textarea name="boardContent" rows="15" placeholder="문구 입력..." id="updateBoardContent" spellcheck="false"></textarea>
               </div>
 <%-- 
               <div class="new-post-bottom-textsize">
@@ -71,4 +67,16 @@
     </section>
   </div>
 </form>
+
+<!-- 삭제 확인 모달 -->
+<div class="delete-modal-container" id="deleteModalContainer">
+  <div class="delete-check-modal" id="deleteCheckModal">
+    <div class="delete-ask">이 사진을 삭제하시겠습니까?</div>
+    <div class="delete-ask2"> 삭제를 클릭하면, 게시글 수정을 취소하여도 사진은 삭제됩니다.</div>
+    <div class="yes-or-no">
+      <span class="delete-option" id="deleteYes">삭제</span>
+      <span class="delete-option" id="deleteNo">취소</span>
+    </div>
+  </div>
+</div>
      
