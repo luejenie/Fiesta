@@ -39,6 +39,13 @@ public interface BoardService {
 	 * @return result
 	 */
 	int checkImage(int boardNo);
+	
+
+	/** 게시글 수정_사진 삭제
+	 * @param imgNo
+	 * @return
+	 */
+	int deleteBoardImage(int boardNo, int imgOrder);
 
 
 

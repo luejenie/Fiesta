@@ -94,6 +94,8 @@ public class BoardController {
 		return new Gson().toJson(map);
 	}
 	
+	
+	
 	// 게시글 수정
 	@PostMapping("/boardUpdate")
 	public String boardUpdate(Board board,@RequestHeader("referer") String referer) throws IOException { 
@@ -112,6 +114,14 @@ public class BoardController {
 		return "redirect:"+path;
 	}
 	
+	
+	// 게시글 수정_사진 삭제
+	@GetMapping("/deleteBoardImage")
+	@ResponseBody
+	public int deleteBoardImage(int boardNo, int imgOrder) {
+		int result = service.deleteBoardImage(boardNo, imgOrder);
+		return result; 
+	}
 	
 	
 	

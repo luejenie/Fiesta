@@ -86,6 +86,7 @@ backBtnText.addEventListener("click", () => {
   document.getElementById("cropperfile").value = "";
   console.log(document.getElementById("cropperfile").files);
 });
+
 document.getElementById("closeTextCancel").addEventListener("click", () => {
   modalBackgroundClose.style.display = "none";
 
@@ -194,14 +195,10 @@ document.getElementById("cropperfile").addEventListener("change", (e) => {
     // 이벤트 발생한 요소에 선택된 파일이 있을 경우
     for (let i = 0; i < e.target.files.length; i++) {
 
+      console.log(e.target.files[i]);
+      
       // 이벤트 발생 파일 길이 만큼 반복문 돌림
       form.append("files", e.target.files[i]);
-
-      //fixme: 파일 추가, 삭제 기능 추가하기
-      
-
-      //fixme: 이미지위치 조정
-
 
       const reader = new FileReader(); // 파일 읽는 객체
       reader.readAsDataURL(e.target.files[i]); // 파일 정보를 불러와서 URL형태로 저장

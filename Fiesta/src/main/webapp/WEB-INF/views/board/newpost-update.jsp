@@ -22,16 +22,13 @@
         </div>
         <!-- post-bottom -->
         <div class="new-post-bottom-text">
-        
-          <div class="bottom-left-box swiper">
-          <div class="swiper-wrapper" id="imgFileSwiper">
+          <div class="bottom-left-box swiper" id="leftBox">
+            <div class="swiper-wrapper" id="imgFileSwiper">
+              
+            </div>
+            <div class="swiper-pagination">
 
-            <!-- <div class=" swiper-slide" id="boardImageOne"> -->
-            <!-- </div>  -->
-            
-          </div>
-          <div class="swiper-pagination"></div>
-
+            </div>
             <div class="siltde-btn-area slide-controller">
               <div class="sild-file-btn swiper-button-prev">
                 <!-- <div class="material-icons">arrow_back</div> -->
@@ -40,7 +37,7 @@
                 <!-- <div class="material-icons">arrow_forward</div> -->
               </div>
             </div>
-            </div>
+          </div>
 
           <div class="bottom-right-box">
             <div class="new-post-bottom-information">
@@ -70,4 +67,16 @@
     </section>
   </div>
 </form>
+
+<!-- 삭제 확인 모달 -->
+<div class="delete-modal-container" id="deleteModalContainer">
+  <div class="delete-check-modal" id="deleteCheckModal">
+    <div class="delete-ask">이 사진을 삭제하시겠습니까?</div>
+    <div class="delete-ask2"> 삭제를 클릭하면, 게시글 수정을 취소하여도 사진은 삭제됩니다.</div>
+    <div class="yes-or-no">
+      <span class="delete-option" id="deleteYes">삭제</span>
+      <span class="delete-option" id="deleteNo">취소</span>
+    </div>
+  </div>
+</div>
      

@@ -311,32 +311,63 @@
   height: 100%;
   object-fit: cover;
 
-  /* *수정 */
+  /* *수정* */
   position: relative;
 
 }
 
 /* !fixme */
-.trash-icon{
+.back-circle1{
   position: absolute;
-  top: 10px;
+  top: 11px;
   right: 15px;
-  color: black;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   cursor: pointer;
-  font-size: 20px;
 }
 
-.trash-icon:hover, .plus-icon:hover{
-  color: var(--fiesta-color);
+.back-circle2{
+  position: absolute;
+  top: 10px;
+  right: 53px;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.trash-icon{
+  position: absolute;
+  color: white;
+  font-size: 15px;
+}
+
+.back-circle1:hover, .back-circle2:hover{
+  /* color: var(--fiesta-color); */
+  color: lightgray;
 }
 
 .plus-icon{
   position: absolute;
-  top: 10px;
-  right: 45px;
-  color: black;
-  font-size: 22px;
-  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  margin-left: 1px;
+  z-index: 5000;
 }
 
 
@@ -547,3 +578,83 @@
 .toggleButton {
   transition: all 0.2s ease-in;
 } */
+
+
+/*  */
+/* 삭제 확인 모달 */
+.delete-modal-container{
+  /* width: 100vw;
+  height: 100vh; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+
+  display: none;
+}
+
+.delete-check-modal{
+  width: 455px;
+  height: 130px;
+  background-color: white;
+  border-radius: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-ask{
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+}
+
+.delete-ask2{
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid gray;
+  font-size: 15px;
+  color: red;
+  padding-bottom: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.yes-or-no{
+  width: 100%;
+  height: 40px;
+  display: flex;
+}
+
+#deleteYes{
+  width: 50%;
+  border-right: 1px solid gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+  cursor: pointer;
+}
+
+#deleteNo{
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

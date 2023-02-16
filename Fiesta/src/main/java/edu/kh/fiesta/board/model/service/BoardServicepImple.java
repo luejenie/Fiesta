@@ -29,7 +29,7 @@ public class BoardServicepImple implements BoardService{
 	@Override
 	public int boardWrite(Board board, List<MultipartFile> fileList, String webPath, String folderPath) throws IOException {
 		
-		// 寃뚯떆湲� �궫�엯
+		// 게시글 처리
 		board.setBoardContent(Util.XSSHandling(board.getBoardContent())); // XSS 방지 처리
 		
 		board.setBoardContent(Util.hashTagHandling(board.getBoardContent())); // 해시태크 감싸기
@@ -111,23 +111,20 @@ public class BoardServicepImple implements BoardService{
 		// 2) DAO 호출
 		int result = dao.boardUpdate(board);
 		
-		
-		// 2. 이미지 수정
-		if(result > 0) {  // 게시글이 정상적으로 수정되었다면,
-			
-			
-		}
-		
-		
-		
-		
-		
 		return result;
 	}
 	
 	@Override
 	public List<String> selectImageList() {
 		return dao.selectImageList();
+	}
+	
+	
+	
+	// 게시글 수정_사진 삭제
+	@Override
+	public int deleteBoardImage(int boardNo, int imgOrder) {
+		return dao.deleteBoardImage(boardNo, imgOrder);
 	}
 
 

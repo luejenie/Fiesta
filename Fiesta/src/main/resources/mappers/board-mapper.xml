@@ -110,9 +110,9 @@
   <!-- 게시글 이미지 조회 -->
   <select id="selectImageList" parameterType="_int" resultMap="boardImg_rm">
   	SELECT *
-	FROM BOARD_IMG
-	WHERE BOARD_NO = #{boardNo}
-	ORDER BY IMG_ORDER
+		FROM BOARD_IMG
+		WHERE BOARD_NO = #{boardNo}
+		ORDER BY IMG_ORDER
   </select>
   
   <update id="boardUpdate">
@@ -122,10 +122,9 @@
   </update>
   
   <select id="selectBoardImageList" resultType="string">
-  	SELECT 
-		IMG_CHANGE_NAME 
-	FROM BOARD_IMG
-	WHERE IMG_CHANGE_NAME IS NOT NULL
+  	SELECT IMG_CHANGE_NAME 
+		FROM BOARD_IMG
+		WHERE IMG_CHANGE_NAME IS NOT NULL
   </select>
   
   <select id="selectBoard" resultMap="board_rm">
@@ -140,4 +139,12 @@
 		FROM BOARD_IMG
 		WHERE BOARD_NO = #{boardNo}
 	</select>
+	
+	
+	<!-- 게시글 수정하기 - 사진 삭제 -->
+	<delete id="deleteBoardImage">
+		DELETE FROM BOARD_IMG
+		WHERE BOARD_NO = #{boardNo}
+		AND IMG_ORDER = #{imgOrder}
+	</delete>
 </mapper>
