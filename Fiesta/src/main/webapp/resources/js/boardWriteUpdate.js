@@ -47,7 +47,7 @@ const selectOneBoard = () => {
         imgFileSwiper.classList.add("swiper-wrapper");
         imgFileSwiper.id = "imgFileSwiper";
 
-        
+        // 이미지 개수가 없을 때
         if(map.count == 0){
           const swiperSlideDiv = document.createElement("div");
           swiperSlideDiv.classList.add("swiper-slide");
@@ -61,6 +61,7 @@ const selectOneBoard = () => {
           imgFileSwiper.append(swiperSlideDiv);
         }
     
+        // 이미지 개수가 0개 이상일때
         // * 수정: 이미지 불러와서 swiper 적용하기
         else if(map.count > 0){  
 
