@@ -168,8 +168,12 @@
 
             <c:forEach var="board" items ="${boardList}" begin="0" end="2">
             <a href="/feedDetail/${board.boardNo}" class="aButtonImg">
-              <img class="feed-img" src="${board.imgPath}"
-              />
+              <c:if test ="${not empty board.imgPath}">
+                <img class="feed-img" src="${board.imgPath}" />
+              </c:if>
+              <c:if test="${empty board.imgPath}">
+                <img class="feed-img" src="/resources/images/default/defaultImg.jpg" />
+              </c:if>
               <div class="hover-icon-container">
                 <i class="fa-regular fa-heart"></i><span>${board.likeCount}</span>
                 <i class="fa-regular fa-comment"></i><span>${board.commentCount}</span>
@@ -187,8 +191,12 @@
           <div class="img-container2">
             <c:forEach var="board" items ="${boardList}" begin="3" end="5">
             <a href="/feedDetail/${board.boardNo}" class="aButtonImg">
-              <img class="feed-img" src="${board.imgPath}"
-              />
+              <c:if test ="${not empty board.imgPath}">
+                <img class="feed-img" src="${board.imgPath}" />
+              </c:if>
+              <c:if test="${empty board.imgPath}">
+                <img class="feed-img" src="/resources/images/default/defaultImg.jpg" />
+              </c:if>
               <div class="hover-icon-container">
                 <i class="fa-regular fa-heart"></i><span>${board.likeCount}</span>
                 <i class="fa-regular fa-comment"></i><span>${board.commentCount}</span>
@@ -204,8 +212,12 @@
           <div class="img-container3">
             <c:forEach var="board" items ="${boardList}" begin="6" end="8">
             <a href="/feedDetail/${board.boardNo}" class="aButtonImg">
-              <img class="feed-img" src="${board.imgPath}"
-              />
+              <c:if test ="${not empty board.imgPath}">
+                <img class="feed-img" src="${board.imgPath}" />
+              </c:if>
+              <c:if test="${empty board.imgPath}">
+                <img class="feed-img" src="/resources/images/default/defaultImg.jpg" />
+              </c:if>
 
               <div class="hover-icon-container">
                 <i class="fa-regular fa-heart"></i><span>${board.likeCount}</span>

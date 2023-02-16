@@ -399,7 +399,12 @@ function selectBoardList(entries, observer) {
                 
                                 const feedImg = document.createElement("img");
                                 feedImg.classList.add("feed-img");
-                                feedImg.setAttribute("src", board.imgPath);
+
+                                if(board.imgPath != null){
+                                    feedImg.setAttribute("src", board.imgPath);
+                                } else {
+                                    feedImg.setAttribute("src", "/resources/images/default/defaultImg.jpg");
+                                }
     
                                 const hoverIconContainer = document.createElement("div")
                                 hoverIconContainer.classList.add("hover-icon-container");
