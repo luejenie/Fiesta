@@ -1,35 +1,56 @@
-![header](https://capsule-render.vercel.app/api?type=Waving&color=timeGradient&height=250&section=header&text=Fiesta&fontSize=60&animation=twinkling&fontColor=ffffff&fontAlign=80)
+<!-- ![header](https://capsule-render.vercel.app/api?type=Waving&color=timeGradient&height=250&section=header&text=Fiesta&fontSize=60&animation=twinkling&fontColor=ffffff&fontAlign=80) -->
 
-# :pushpin: [Fiesta](http://146.56.188.235:8080/)
->SNS(Instagram)을 벤치마킹하여 Fiesta만의 고유의 색을 담은 SNS 페이지로 재해석하였다.
->
->[Fiesta Demo 바로가기](http://146.56.188.235:8080/)
+
+
+<!--<p>"일상을 축제로 만드는 소셜 미디어"<br></p>-->
+
+<br>
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/110653573/222792284-7e729513-31e9-47ae-a644-ddfd4860a845.png" width="20%" />
+</div>
+
+<br>
+<br>
+
+# :pushpin: Fiesta
+>**인스타그램을 벤치마킹한 SNS 프로젝트**<br>
+>**[Fiesta 바로가기](http://146.56.188.235:8080/)**
 
 </br>
 </br>
 
-## 1. 제작 기간 & 참여 인원
-- 2022년 10월 18일 ~ 12월 10일
-- 5인 팀 프로젝트
-- 
+## 1. 프로젝트 소개
+- **제작 기간** : 2022년 10월 18일 ~ 12월 10일
+- **참여 인원** : 5인 팀 프로젝트
+- **프로젝트 개요**
+  - 인스타그램을 벤치마킹한 SNS 프로젝트
+  - 타임라인, 채팅, 탐색(해시태그, 팔로우) 등 SNS에 최적화된 기능 제공
+- **담당 기능**
+  - 전체 프로젝트 기획 및 개발 참여
+  - 로그인, 회원가입, 비밀번호 재설정 등 회원 관련 기능
+  - 검색 기능 및 AJAX를 활용한 검색 결과 페이지 조회
+  - 계정, 해시태그 팔우우 기능
 
 
-</br></br>
+<br>
+<br>
 
+- **프로젝트 구조**
+![](https://user-images.githubusercontent.com/110653573/221127291-cec3ff02-76a7-4de3-a5e0-59ac00119050.png)
 
-</br></br>
+<br>
+<br>
 
-  
 ## 2. 사용 기술
-
 <div align="center">
   
 ### **Back-end**
-<img src="https://img.shields.io/badge/Java11-007396?style=for-the-badge&logo=java&logoColor=white"> 
-  <img src="https://img.shields.io/badge/Spring5.3.14-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
-  <img src="https://img.shields.io/badge/Oracle21C-F80000?style=for-the-badge&logo=oracle&logoColor=white">
+<img src="https://img.shields.io/badge/Java 11-007396?style=for-the-badge&logo=java&logoColor=white"> 
+  <img src="https://img.shields.io/badge/Spring 5.3.14-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
+  <img src="https://img.shields.io/badge/Oracle 21C-F80000?style=for-the-badge&logo=oracle&logoColor=white">
   <br>
-  <img src="https://img.shields.io/badge/Apache Tomcat9.0-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
+  <img src="https://img.shields.io/badge/Apache Tomcat 9.0-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
     <img src="https://img.shields.io/badge/Apache Maven-C71A36?style=for-the-badge&logo=ApacheMaven&logoColor=white">
     <img src="https://img.shields.io/badge/Spring Sequrity-6DB33F?style=for-the-badge&logo=SpringSecurity&logoColor=white">
 
@@ -40,19 +61,23 @@
 
 </div>
 
-</br></br>
+<br>
+<br>
 
 ## 3. ERD 설계
 
 <img src="/SNS 프로젝트.png">
 
 
-</br></br>
+<br>
+<br>
 
 ## 4. 핵심 기능
-이 서비스의 핵심 기능은 한 페이지에 사용자가 팔로우하고 있는 회원 및 해시태그가 담긴 게시물을 모두 상세 조회 할 수 있다는 것입니다. 
-사용자가 로그인만 하면 메인 페이지로 이동하고, JSP를 통해 10 개의 게시물이 출력 됩니다.  
-무한 스크롤을 구현하여 스크롤만 내리면 계속해서 게시물을 이어 볼 수 있습니다.
+1) 회원 관련 기능
+- 로그인, 회원가입, 비밀번호 재설정
+
+2) 검색 결과 페이지
+- 팔로잉, 계정 조회, 게시글 조회를 한 번에
 
 </br></br>
 
@@ -225,4 +250,4 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
 </br>
 
 ## 6. 회고 / 느낀점
->프로젝트 개발 회고 글: https://zuminternet.github.io/ZUM-Pilot-integer/
+>프로젝트 개발 회고 글:
