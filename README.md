@@ -83,51 +83,77 @@
 <summary><b>로그인, 회원가입, 비밀번호 재설정 등 회원 관련 기능</b></summary>
 <div markdown="1">
   
-![member기능](https://user-images.githubusercontent.com/110653573/224913433-c3fa8065-3d46-4c70-80b3-54e4059557df.png)
+![](https://user-images.githubusercontent.com/110653573/224913433-c3fa8065-3d46-4c70-80b3-54e4059557df.png)
   
   - bcrypt를 활용하여 비밀번호 암호화
   - ajax를 활용하여 아이디/닉네임 중복검사, 유효성 검사
+  - 이메일 인증
   
-  [▶Controller](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/controller/MemberController.java) <br>
-  [▶Service](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/controller/MemberController.java) <br>
-  [▶DAO](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/controller/MemberController.java) <br>
+  [▶ Controller](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/controller/MemberController.java) <br>
+  [▶ Service](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/model/service/MemberServiceImpl.java) <br>
+  [▶ DAO](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/model/dao/MemberDAO.java) <br>
   
   
   <br>
   
-  - 이메일 인증
-
-  
+  ---
 
 </div>
 </details>
 
-  - 검색 기능 및 AJAX를 활용한 검색 결과 페이지 조회
-    - 페이지네이션을 활용하여 무한 스크롤 구현
-    - 웹, 태블릿, 모바일별 미디어 쿼리 적용
-  - 계정, 해시태그 팔로우 기능
-  
-1) 회원 관련 기능
-- 로그인, 회원가입, 비밀번호 재설정
-
-2) 검색 결과 페이지
-- 팔로잉, 계정 조회, 게시글 조회를 한 번에
-
-</br></br>
-
-</br></br>
+<br>
 
 <details>
-<summary><b>핵심 기능 설명 펼치기</b></summary>
+<summary><b>검색 기능 및 검색 결과 페이지 조회</b></summary>
 <div markdown="1">
 
+ ![](https://user-images.githubusercontent.com/110653573/224917925-53c17246-4c3b-41da-8cd3-ac710cbfb760.png)
+ 
+ <br>
+ 
+  - AJAX를 활용하여 검색 기능, 검색 결과 페이지 구현
+  - 관련 계정, 인기 게시글, 최근 게시글 조회
+  
+  [▶ Controller](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/search/controller/SearchController.java) <br>
+  [▶ Service](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/search/model/service/SearchServiceImpl.java) <br>
+  [▶ DAO](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/search/model/dao/SearchDAO.java) <br>
+  
+  
+  <br>
+  
+  ---
 
+</div>
+</details>
+
+<br>
+
+<details>
+<summary><b>계정, 해시태그 팔로우</b></summary>
+<div markdown="1">
+
+![](https://user-images.githubusercontent.com/110653573/224918401-456eecd9-6223-4fc1-a1c2-28babb227f12.png)
+  
+  - AJAX를 활용하여 실시간 팔로우, 언팔로우 가능
+  
+  [▶ Controller](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/follow/controller/FollowController.java) <br>
+  [▶ Service](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/follow/model/service/FollowServiceImpl.java) <br>
+  [▶ DAO](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/follow/model/dao/FollowDAO.java) <br>
+  
+  
+  <br>
+  
+  ---
 
 </div>
 </details>
 
 </br></br>
 
+
+</br></br>
+
+<!--
 ## 5. 핵심 트러블 슈팅
 ### 5.1. 컨텐츠 필터와 페이징 처리 문제
 - 저는 이 서비스가 페이스북이나 인스타그램 처럼 가볍게, 자주 사용되길 바라는 마음으로 개발했습니다.  
@@ -223,6 +249,8 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
 </div>
 </details>
 
+
+
 </br>
 
 ## 6. 그 외 트러블 슈팅
@@ -233,3 +261,6 @@ public Page<Post> findAllByTagName(String tagName, Pageable pageable) {
 
 ## 6. 회고 / 느낀점
 >프로젝트 개발 회고 글:
+
+
+-->
