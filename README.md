@@ -33,7 +33,6 @@
     - ajax를 활용하여 아이디/닉네임 중복검사, 유효성 검사
     - 이메일 인증
   - 검색 기능 및 AJAX를 활용한 검색 결과 페이지 조회
-    - 페이지네이션을 활용하여 무한 스크롤 구현
     - 웹, 태블릿, 모바일별 미디어 쿼리 적용
   - 계정, 해시태그 팔로우 기능
 
@@ -78,11 +77,31 @@
 <br>
 
 ## 4. 핵심 기능
-  - 전체 프로젝트 기획 및 개발 참여
-  - 로그인, 회원가입, 비밀번호 재설정 등 회원 관련 기능
-    - bcrypt를 활용하여 비밀번호 암호화
-    - ajax를 활용하여 아이디/닉네임 중복검사, 유효성 검사
-    - 이메일 인증
+
+
+<details>
+<summary><b>로그인, 회원가입, 비밀번호 재설정 등 회원 관련 기능</b></summary>
+<div markdown="1">
+  
+![member기능](https://user-images.githubusercontent.com/110653573/224913433-c3fa8065-3d46-4c70-80b3-54e4059557df.png)
+  
+  - bcrypt를 활용하여 비밀번호 암호화
+  - ajax를 활용하여 아이디/닉네임 중복검사, 유효성 검사
+  
+  [▶Controller](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/controller/MemberController.java) <br>
+  [▶Service](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/controller/MemberController.java) <br>
+  [▶DAO](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/member/controller/MemberController.java) <br>
+  
+  
+  <br>
+  
+  - 이메일 인증
+
+  
+
+</div>
+</details>
+
   - 검색 기능 및 AJAX를 활용한 검색 결과 페이지 조회
     - 페이지네이션을 활용하여 무한 스크롤 구현
     - 웹, 태블릿, 모바일별 미디어 쿼리 적용
@@ -102,58 +121,6 @@
 <summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
 
-
-
-### 4.1. 전체 흐름
-  
-<img src="/spring.png">
-
-
-### 4.2. 사용자 요청
-
-- 사용자가 로그인을 하면 메인 페이지로 Redirect 합니다.
-
-
-
-### 4.3. Controller![controller](C:\Users\bboya\OneDrive\바탕 화면\controller.png)
-
-- 요청 처리
-  - Controller에서 화면 단에서 넘어온 요청을 Service 계층에 위임합니다.
-- 결과 응답
-  - Service 계층에서 넘어온 결과(map)을 model에 저장한 후 메인 페이지로 Forward 합니다.
-
-
-
-### 4.4. Service
-  
-<img src="/service.png">
-
-
-- 게시물 목록 조회
-  - 조회할 게시물의 수 조회해 옵니다.
-  - 게시물 수와 현재 페이지 번호를 매개변수로 하여 Pagination 객체를 생성합니다.
-  - 여기서 현재 페이지가 1로 고정된 것은 JSP를 통해서 보여질 페이지만 불러오기 때문입니다.
-  - Pagination 객체와 회원 번호를 매개변수로 하여 게시물 목록을 조회합니다.
-
-
-
-### 4.5. Repository
-
-<img src="/repository.png"> 
-
-- pagination 객체를 이용하여 조회해 올 게시물의 시작점을 계산합니다.
-- mybatis의 기능을 이용하기 위해 rowBounds 객체를 생성하고 
-- mapper를 호출합니다.
-
-
-
-### 4.6. Mapper
-
-<img src="/mapper.png"> 
-
-- 로그인 한 사용자의 메인 페이지에 출력할 게시물을 불러오는 SQL문 입니다.
-- 사용자가 팔로우한 회원 및 팔로우한 해시태그 연관 게시물을 불러옵니다.
-- 조회해 온 게시물은 다시 Repository - Service - Controller를 거쳐 화면에 출력 됩니다.
 
 
 </div>
