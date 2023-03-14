@@ -1,6 +1,5 @@
 package edu.kh.fiesta.member.controller;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,10 +39,7 @@ public class MemberController {
 			model.addAttribute("loginMember", loginMember);
 			
 			System.out.println("로그인 성공!");
-			
-			// 쿠키 생성	
-			// 쿠키 유지 시간 지정
-			// 1년 동안 쿠키 유지
+		
 			
 		}else {
 			path = "/";
