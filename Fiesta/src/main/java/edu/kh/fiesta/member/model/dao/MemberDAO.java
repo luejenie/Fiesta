@@ -28,7 +28,7 @@ public class MemberDAO {
 	 * @return result
 	 */
 	public int signUp(Member inputMember) {
-		// �쉶�썝媛��엯
+
 		int result = sqlSession.insert("memberMapper.signUp", inputMember);
 		
 		System.out.println(inputMember);
