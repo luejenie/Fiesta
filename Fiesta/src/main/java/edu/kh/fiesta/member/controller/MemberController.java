@@ -39,7 +39,6 @@ public class MemberController {
 			model.addAttribute("loginMember", loginMember);
 			
 			System.out.println("로그인 성공!");
-		
 			
 		}else {
 			path = "/";
