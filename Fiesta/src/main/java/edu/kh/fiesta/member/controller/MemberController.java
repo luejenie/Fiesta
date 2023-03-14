@@ -41,10 +41,6 @@ public class MemberController {
 			
 			System.out.println("로그인 성공!");
 			
-			// 쿠키 생성	
-			// 쿠키 유지 시간 지정
-			// 1년 동안 쿠키 유지
-			
 		}else {
 			path = "/";
 			ra.addFlashAttribute("message", "아이디, 비밀번호가 올바르지 않습니다😢");  
