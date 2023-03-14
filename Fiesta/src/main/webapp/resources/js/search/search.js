@@ -1,19 +1,4 @@
 // 검색창이라, 모든 페이지 아래에 들어가니, 아이디,클래스명 등 겹치지 않게 주의!
-// 요소 생성 - 조립
-// ajax 연결
-// append(요소) : 마지막 자식으로 추가
-// prepend(요소) : 첫 번째 자식으로 추가
-// after(요소) : 다음(이후)에 추가
-// before(요소) : 이전에 추가
- 
-// 요소.setAttribute("속성명", "속성값")
-// 요소.removeAttribute("속성명")
-// 검색창 주소
-// location : 주소, 주소창과 관련된 내장 객체
-// location.href : 현재 주소(전체)  
-// location.href = "주소" : 작성된 주소 요청  _주소로 이동함
-// location.pathname = 현재 요청 주소만을 반환(프로토콜, ip, 포트 제외)  ex)/board/1
-// location.search : 쿼리스트링만 반환  ex) ?cp=2
 
 //*-----------------------------------------------------------------
 // * 검색창에 검색 키워드 남겨놓기
@@ -173,7 +158,13 @@ function createRecentBoard(recentBoardList, pagination){
 
             const imgBoardImage = document.createElement('img');
             imgBoardImage.classList.add("b-img");
-            imgBoardImage.setAttribute('src', recentBoard.imgPath);
+
+            if(recentBoard.imgPath == null){
+              imgBoardImage.setAttribute('src', '/resources/images/default/defaultImg.png');
+
+            } else {
+              imgBoardImage.setAttribute('src', recentBoard.imgPath);
+            }
 
     
             const divHoverIcon = document.createElement('div');

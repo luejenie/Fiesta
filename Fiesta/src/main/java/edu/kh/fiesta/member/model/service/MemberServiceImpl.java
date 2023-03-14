@@ -21,12 +21,9 @@ public class MemberServiceImpl implements MemberService{
 	private BCryptPasswordEncoder bcrypt;
 	
 	
-	// 濡쒓렇�씤
+	// 로그인
 	@Override
 	public Member login(Member inputMember) {
-		
-//		System.out.println("�엯�젰�븳 鍮꾨�踰덊샇 : " + inputMember.getMemberPw());
-//		System.out.println("�븫�샇�솕 鍮꾨�踰덊샇 : " + bcrypt.encode(inputMember.getMemberPw()));
 		
 		Member loginMember = dao.login(inputMember.getMemberEmail());
 		
@@ -43,7 +40,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	
-	// �쉶�썝媛��엯
+	// 회원가입
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int signUp(Member inputMember) {
@@ -53,13 +50,13 @@ public class MemberServiceImpl implements MemberService{
 		
 		int result = dao.signUp(inputMember);
 		
-		// �쉶�썝媛��엯�릺硫� �옄湲곗옄�떊 �뙏濡쒖슦
+		// 회원가입 성공 시 자기자신 팔로우
 		if(result > 0) {
 			
-			// �쉶�썝踰덊샇 議고쉶
+			// 회원번호 조회
 			int memberNo = dao.selectMemberNo(inputMember.getMemberEmail());
 			
-			// �옄湲곗옄�떊 �뙏濡쒖슦
+			// 자기자신 팔로우
 			result = dao.followMyself(memberNo);
 		}
 		return result;
@@ -67,7 +64,7 @@ public class MemberServiceImpl implements MemberService{
 
 
 	
-	// �쉶�썝媛��엯_�씠硫붿씪 以묐났 泥댄겕
+	// 회원가입_이메일 중복 체크 서비스
 	@Override
 	public int emailDupCheck(String memberEmail) {
 		return dao.emailDupCheck(memberEmail);
@@ -75,14 +72,14 @@ public class MemberServiceImpl implements MemberService{
 
 
 
-	// �쉶�썝媛��엯_�땳�꽕�엫 以묐났 泥댄겕 �꽌鍮꾩뒪
+	// 회원가입_닉네임 중복 체크 서비스
 	@Override
 	public int nicknameDupCheck(String memberNickname) {
 		return dao.nicknameDupCheck(memberNickname);
 	}
 
 
-	// 怨꾩젙李얘린_鍮꾨�踰덊샇 �옱�꽕�젙
+	// 계정찾기_비밀번호 재설정
 	@Override
 	public int updatePw(String inputEmail, String memberPw) {
 		

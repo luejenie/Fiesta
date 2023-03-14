@@ -179,7 +179,12 @@
                 <div class="boardImage">
                   <c:forEach var="hotItem" items="${hotBoardList}" begin="0" end="2">
                     <button class="buttonBoardImage">
-                      <img class="b-img" src="${hotItem.imgPath}" alt=""> 
+                      <c:if test="${not empty hotItem.imgPath}">
+                        <img class="b-img" src="${hotItem.imgPath}" alt=""> 
+                      </c:if>
+                      <c:if test="${empty hotItem.imgPath}">
+                        <img class="b-img" src="/resources/images/default/defaultImg.png" alt=""> 
+                      </c:if>
                       <div class="hover-icon-container">
                         <i class="fa-regular fa-heart iHover"></i><span class="spanHover">${hotItem.likeCount}</span>
                         <i class="fa-regular fa-comment iHover"></i><span class="spanHover">${hotItem.commentCount}</span>
@@ -194,7 +199,12 @@
                 <div class="boardImage">
                   <c:forEach var="hotItem" items="${hotBoardList}" begin="3" end="5">
                     <button class="buttonBoardImage">
-                      <img class="b-img" src="${hotItem.imgPath}" alt=""> 
+                      <c:if test="${not empty hotItem.imgPath}">
+                        <img class="b-img" src="${hotItem.imgPath}" alt=""> 
+                      </c:if>
+                      <c:if test="${empty hotItem.imgPath}">
+                        <img class="b-img" src="/resources/images/default/defaultImg.png" alt=""> 
+                      </c:if>
                       <div class="hover-icon-container">
                         <i class="fa-regular fa-heart iHover"></i><span class="spanHover">${hotItem.likeCount}</span>
                         <i class="fa-regular fa-comment iHover"></i><span class="spanHover">${hotItem.commentCount}</span>
@@ -209,7 +219,12 @@
                 <div class="boardImage">
                   <c:forEach var="hotItem" items="${hotBoardList}" begin="6" end="8">
                     <button class="buttonBoardImage">
-                      <img class="b-img" src="${hotItem.imgPath}" alt="">
+                      <c:if test="${not empty hotItem.imgPath}">
+                        <img class="b-img" src="${hotItem.imgPath}" alt=""> 
+                      </c:if>
+                      <c:if test="${empty hotItem.imgPath}">
+                        <img class="b-img" src="/resources/images/default/defaultImg.png" alt=""> 
+                      </c:if>
                       <div class="hover-icon-container">
                         <i class="fa-regular fa-heart iHover"></i><span class="spanHover">${hotItem.likeCount}</span>
                         <i class="fa-regular fa-comment iHover"></i><span class="spanHover">${hotItem.commentCount}</span>
@@ -242,7 +257,12 @@
                 <div class="boardImage">
                   <c:forEach var="recentItem" items="${recentBoardList}" begin="0" end="2">
                     <button class="buttonBoardImage">
-                      <img class="b-img" src="${recentItem.imgPath}" alt="" >
+                      <c:if test="${not empty recentItem.imgPath}">
+                        <img class="b-img" src="${recentItem.imgPath}" alt=""> 
+                      </c:if>
+                      <c:if test="${empty recentItem.imgPath}">
+                        <img class="b-img" src="/resources/images/default/defaultImg.png" alt=""> 
+                      </c:if>
                       <div class="hover-icon-container">
                         <i class="fa-regular fa-heart iHover"></i>
                         <span class="spanHover">${recentItem.likeCount}</span>
@@ -261,7 +281,12 @@
                 <div class="boardImage">
                   <c:forEach var="recentItem" items="${recentBoardList}" begin="3" end="5">
                     <button class="buttonBoardImage">
-                      <img class="b-img" src="${recentItem.imgPath}" alt="">
+                      <c:if test="${not empty recentItem.imgPath}">
+                        <img class="b-img" src="${recentItem.imgPath}" alt=""> 
+                      </c:if>
+                      <c:if test="${empty recentItem.imgPath}">
+                        <img class="b-img" src="/resources/images/default/defaultImg.png" alt=""> 
+                      </c:if>
                       <div class="hover-icon-container">
                         <i class="fa-regular fa-heart iHover"></i><span class="spanHover">${recentItem.likeCount}</span>
                         <i class="fa-regular fa-comment iHover"></i><span class="spanHover">${recentItem.commentCount}</span>
@@ -279,7 +304,12 @@
                 <div class="boardImage">
                   <c:forEach var="recentItem" items="${recentBoardList}" begin="6" end="8">
                     <button class="buttonBoardImage">
-                      <img class="b-img" src="${recentItem.imgPath}" alt="">
+                      <c:if test="${not empty recentItem.imgPath}">
+                        <img class="b-img" src="${recentItem.imgPath}" alt=""> 
+                      </c:if>
+                      <c:if test="${empty recentItem.imgPath}">
+                        <img class="b-img" src="/resources/images/default/defaultImg.png" alt=""> 
+                      </c:if>
                       <div class="hover-icon-container">
                         <i class="fa-regular fa-heart iHover"></i><span class="spanHover">${recentItem.likeCount}</span>
                         <i class="fa-regular fa-comment iHover"></i><span class="spanHover">${recentItem.commentCount}</span>
