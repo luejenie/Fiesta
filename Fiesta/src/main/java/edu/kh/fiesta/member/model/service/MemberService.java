@@ -6,27 +6,27 @@ import edu.kh.fiesta.member.model.vo.Member;
 
 public interface MemberService {
 
-	/** 濡쒓렇�씤 �꽌鍮꾩뒪
+	/** 로그인
 	 * @param inputMember
 	 * @return loginMember
 	 */
 	Member login(Member inputMember);
 
-	/** �쉶�썝媛��엯 �꽌鍮꾩뒪
+	/** 회원가입
 	 * @param inputMember
 	 * @return result
 	 */
 	int signUp(Member inputMember);
 	
 	
-	/** �쉶�썝媛��엯_�씠硫붿씪 以묐났 泥댄겕 �꽌鍮꾩뒪
+	/** 회원가입_이메일 중복 체크 서비스
 	 * @param memberEmail
 	 * @return result
 	 */
 	int emailDupCheck(String memberEmail);
 
 	
-	/** �쉶�썝媛��엯_�땳�꽕�엫 以묐났 泥댄겕 �꽌鍮꾩뒪
+	/** 회원가입_닉네임 중복 체크 서비스
 	 * @param memberNickname
 	 * @return result
 	 */
@@ -34,7 +34,7 @@ public interface MemberService {
 	
 	
 
-	/** 怨꾩젙李얘린_鍮꾨�踰덊샇 �옱�꽕�젙
+	/** 계정찾기_비밀번호 재설정
 	 * @param memberEmail
 	 * @return result
 	 */
