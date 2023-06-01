@@ -117,6 +117,7 @@
   [▶ Controller](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/search/controller/SearchController.java) <br>
   [▶ Service](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/search/model/service/SearchServiceImpl.java) <br>
   [▶ DAO](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/java/edu/kh/fiesta/search/model/dao/SearchDAO.java) <br>
+  [▶ mapper](https://github.com/luejenie/Fiesta/blob/main/Fiesta/src/main/resources/mappers/search-mapper.xml) <br>
   
   
   <br>
